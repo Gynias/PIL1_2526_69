@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Search Results | IFRI_MentorLink</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#00201c",
+                        "tertiary": "#825100",
+                        "surface-tint": "#494bd6",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface": "#f8f9ff",
+                        "on-primary-fixed": "#07006c",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary": "#006b5f",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffddb8",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "tertiary-container": "#a36700",
+                        "on-surface-variant": "#464554",
+                        "outline-variant": "#c7c4d7",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-tertiary-container": "#fffbff",
+                        "primary": "#4648d4",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#e1e0ff",
+                        "surface-container-high": "#dce9ff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#e5eeff",
+                        "inverse-primary": "#c0c1ff",
+                        "on-error": "#ffffff",
+                        "on-surface": "#0b1c30",
+                        "secondary-fixed-dim": "#4fdbc8",
+                        "on-background": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-container": "#6df5e1",
+                        "surface-dim": "#cbdbf5",
+                        "secondary-fixed": "#71f8e4",
+                        "inverse-surface": "#213145",
+                        "on-secondary-container": "#006f64",
+                        "primary-container": "#6063ee",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#005048",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-primary-container": "#fffbff",
+                        "background": "#f8f9ff",
+                        "outline": "#767586"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "container-max": "1280px",
+                        "sm": "12px",
+                        "sidebar-width": "260px",
+                        "base": "8px",
+                        "navbar-height": "64px",
+                        "xxl": "48px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest dark:bg-surface-dim border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none fixed top-0 z-50 w-full">
+<nav class="flex justify-between items-center px-lg h-navbar-height w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-xl">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">IFRI_MentorLink</span>
+<div class="hidden md:flex items-center gap-lg">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-label-md text-label-md" href="#">Home</a>
+<a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">Discover</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-label-md text-label-md" href="#">Feed</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-label-md text-label-md" href="#">Messages</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-high p-xs rounded-full transition-all">notifications</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="User avatar" data-alt="A professional headshot of a young adult with a friendly expression, set against a blurred office background with warm, natural sunlight. The aesthetic is clean and modern, consistent with a high-end corporate mentorship platform using soft indigo and white tones. The lighting is bright and even, highlighting a supportive and professional persona." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrma9fMu1q7qKuXsNr76xPebOIR7D_MqbJOsxj7Q9gidpfOTEQrwtAHbCBvpbWeCY507WZvxt1pJHU_DbdKlUDyG-0V9IbN5ZtHEUozDDfoP7q9mEyvP4cl9Ujse1QvLOuvyxlFV3ennPC-xGJ2TUq9LOPI4-Nt4wia0ioEvitOST28uGlm-swz5cS0m46hZJXm1c0BIfRsmg6W6h0B8i0jaXAV8NcQT6Hu2zBbPjmzeBTnXPzw0pwYVoyY4XmFb8BUyppn0cbuAE"/>
+</div>
+</div>
+</nav>
+</header>
+<div class="flex min-h-screen pt-navbar-height">
+<!-- SideNavBar (Hidden on Mobile, Fixed on Desktop) -->
+<aside class="hidden md:flex fixed left-0 top-0 h-full flex-col p-md border-r border-outline-variant dark:border-outline bg-surface-container-low dark:bg-inverse-surface w-sidebar-width pt-[80px]">
+<div class="mb-xl">
+<h2 class="font-headline-sm text-headline-sm font-bold text-primary">Student Dashboard</h2>
+<p class="font-label-md text-label-md text-on-surface-variant">Manage your mentorships</p>
+</div>
+<nav class="flex flex-col gap-xs flex-1">
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
+<span class="material-symbols-outlined">handshake</span>
+<span class="font-label-md text-label-md">My Offers</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="font-label-md text-label-md">My Profile</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<button class="mt-auto bg-primary text-on-primary rounded-xl px-lg py-md font-label-md text-label-md flex items-center justify-center gap-sm hover:opacity-90 active:scale-[0.98] transition-all">
+<span class="material-symbols-outlined">search</span>
+                Find a Mentor
+            </button>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-sidebar-width p-lg max-w-container-max mx-auto w-full">
+<!-- Search Header & Filters -->
+<section class="mb-xl">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-lg">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Search Results</h1>
+<p class="text-on-surface-variant font-body-md">Showing 124 mentors matching your criteria</p>
+</div>
+<div class="flex items-center gap-sm">
+<span class="text-label-md font-label-md text-on-surface-variant">Sort by:</span>
+<select class="bg-surface border border-outline rounded-lg px-md py-xs text-label-md font-label-md focus:ring-2 focus:ring-primary outline-none transition-all">
+<option>Best Match</option>
+<option>Highest Rating</option>
+<option>Experience (Years)</option>
+<option>Compatibility Score</option>
+</select>
+</div>
+</div>
+<!-- Active Filter Tags -->
+<div class="flex flex-wrap items-center gap-sm py-sm">
+<div class="flex items-center gap-xs bg-primary-container text-on-primary-container px-sm py-xs rounded-full text-label-sm font-label-sm shadow-sm">
+                        Computer Science <button class="material-symbols-outlined text-[16px]">close</button>
+</div>
+<div class="flex items-center gap-xs bg-primary-container text-on-primary-container px-sm py-xs rounded-full text-label-sm font-label-sm shadow-sm">
+                        Machine Learning <button class="material-symbols-outlined text-[16px]">close</button>
+</div>
+<div class="flex items-center gap-xs bg-primary-container text-on-primary-container px-sm py-xs rounded-full text-label-sm font-label-sm shadow-sm">
+                        Availability: Morning <button class="material-symbols-outlined text-[16px]">close</button>
+</div>
+<button class="text-primary font-label-sm text-label-sm hover:underline ml-xs">Clear all filters</button>
+</div>
+</section>
+<!-- Results Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-lg">
+<!-- Mentor Card 1 (High Compatibility) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm hover:shadow-md transition-all group flex flex-col h-full">
+<div class="flex justify-between items-start mb-md">
+<div class="flex gap-md">
+<div class="w-16 h-16 rounded-xl overflow-hidden shadow-sm">
+<img alt="Mentor Profile" data-alt="A focused professional male mentor in a minimalist workspace. He is wearing a smart-casual shirt, looking directly into the camera with a confident and helpful demeanor. The background features clean architectural lines and soft, neutral lighting, emphasizing a modern and academic atmosphere consistent with the IFRI_MentorLink brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4dpGMwNgtkj5-sA-MtB00jVARLE2iz7hmSpNmTVIkICbxJSdogItQBCWCLynyZCRNf5t7GNGrNgl3QuplJ4yBdied6VhRPeXwjLN_kUAIy5HgQBC1zWGM552bmgJAmbODHRcsB6iExteX7WqP9cOFajRQ42pyAP9fkalE2osF7NdACklyqhmrNOtvOBCXPreJXvhdSQw-cBq2eYLu1mKtKYzfvmiMWVvmR66_ud8Hvuy-ChwBYTfr5xezx51zCf_W6Yu_qZ7EJfs"/>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Dr. James Wilson</h3>
+<p class="text-label-md font-label-md text-on-surface-variant">Senior Research Lead at TechCorp</p>
+</div>
+</div>
+<div class="bg-green-500/10 text-green-700 px-sm py-xs rounded-lg flex flex-col items-center">
+<span class="text-label-sm font-label-sm font-bold">98%</span>
+<span class="text-[10px] uppercase font-bold">Match</span>
+</div>
+</div>
+<div class="flex flex-wrap gap-xs mb-md">
+<span class="bg-surface-container text-on-surface-variant px-sm py-xs rounded-full text-label-sm font-label-sm">AI Ethics</span>
+<span class="bg-surface-container text-on-surface-variant px-sm py-xs rounded-full text-label-sm font-label-sm">Python</span>
+<span class="bg-surface-container text-on-surface-variant px-sm py-xs rounded-full text-label-sm font-label-sm">PhD Mentoring</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-lg line-clamp-2">
+                        Specializing in algorithmic fairness and deep learning applications. I help students navigate research paper submissions and career transitions.
+                    </p>
+<div class="mt-auto pt-md border-t border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-xs text-tertiary">
+<span class="material-symbols-outlined text-[18px]">star</span>
+<span class="font-label-md text-label-md">4.9 (42 reviews)</span>
+</div>
+<button class="bg-primary text-on-primary px-lg py-xs rounded-lg font-label-md text-label-md hover:bg-primary-container transition-all">View Profile</button>
+</div>
+</div>
+<!-- Mentor Card 2 (Medium Compatibility) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm hover:shadow-md transition-all group flex flex-col h-full">
+<div class="flex justify-between items-start mb-md">
+<div class="flex gap-md">
+<div class="w-16 h-16 rounded-xl overflow-hidden shadow-sm">
+<img alt="Mentor Profile" data-alt="A portrait of a smiling woman in a professional attire, posing in a modern glass-walled office space. The image conveys accessibility and expertise, with soft morning light filling the room. The color palette is dominated by corporate blues and whites, echoing the supportive and academic essence of a mentorship platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq4yqNU_c3srGodf61GTWm43WyBzrLyk7qtOrlLxgYNJqRCjK9y75f0L333V5SuLp8fMnBBsWGwNaD9e2nsGVuQAxSXsrRka-Pwhyrj0PJ9cQwcTeKGLBKNgP5TYom5UouJRRzBpAHTLSrPWq4gFltI8mKBHcWMOfwFu3C11zKAN4eLU4qqFH_p14IWItgvkyH6T2xjgAan3ZMg7HLA0MTCwfAKGSDkKPHlk6ws-JWX2NpDYxeb2NyFyt77o1a99wuTP7IIuRN0RY"/>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Sarah Jenkins</h3>
+<p class="text-label-md font-label-md text-on-surface-variant">Full-Stack Engineer at GlobalDev</p>
+</div>
+</div>
+<div class="bg-amber-500/10 text-amber-700 px-sm py-xs rounded-lg flex flex-col items-center">
+<span class="text-label-sm font-label-sm font-bold">75%</span>
+<span class="text-[10px] uppercase font-bold">Match</span>
+</div>
+</div>
+<div class="flex flex-wrap gap-xs mb-md">
+<span class="bg-surface-container text-on-surface-variant px-sm py-xs rounded-full text-label-sm font-label-sm">React</span>
+<span class="bg-surface-container text-on-surface-variant px-sm py-xs rounded-full text-label-sm font-label-sm">Node.js</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-lg line-clamp-2">
+                        Passionate about clean code and helping junior developers master the JavaScript ecosystem. Open to code reviews and architectural discussions.
+                    </p>
+<div class="mt-auto pt-md border-t border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-xs text-tertiary">
+<span class="material-symbols-outlined text-[18px]">star</span>
+<span class="font-label-md text-label-md">4.7 (128 reviews)</span>
+</div>
+<button class="bg-primary text-on-primary px-lg py-xs rounded-lg font-label-md text-label-md hover:bg-primary-container transition-all">View Profile</button>
+</div>
+</div>
+<!-- Mentor Card 3 (High Compatibility) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm hover:shadow-md transition-all group flex flex-col h-full">
+<div class="flex justify-between items-start mb-md">
+<div class="flex gap-md">
+<div class="w-16 h-16 rounded-xl overflow-hidden shadow-sm">
+<img alt="Mentor Profile" data-alt="An elegant portrait of a male mentor with a thoughtful expression, set in a library or study environment. The lighting is soft and focused, creating a sense of wisdom and academic rigor. The image uses a palette of deep navy and ivory, maintaining a professional yet approachable look consistent with the mentorship brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRF0OijPkeL9VtNIBxMPpT2EPNwODWkFuTifYwLji7DVLYwpTwVBPuiPIhbPof00l9PQP5v-wTIQh1U1uSc5sr2n41EsMAY-gspykguU9J9Y8rktpxq1OhVR4uojWi2epMsxDWvtoQqCNbRFO7qP8eXrt-tG-CERlkF7ETOXNUscJeAfh-IWBWfTKKaBS6zKBYV_PRqf7K5i6w-cpLm0kFzlsHqG1BaVNfQri9G15NzZez8Ed4xIeDtUivJZsB6OlN5vcrr4C9xTg"/>
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Prof. Michael Chen</h3>
+<p class="text-label-md font-label-md text-on-surface-variant">Head of Data Science, State Uni</p>
+</div>
+</div>
+<div class="bg-green-500/10 text-green-700 px-sm py-xs rounded-lg flex flex-col items-center">
+<span class="text-label-sm font-label-sm font-bold">92%</span>
+<span class="text-[10px] uppercase font-bold">Match</span>
+</div>
+</div>
+<div class="flex flex-wrap gap-xs mb-md">
+<span class="bg-surface-container text-on-surface-variant px-sm py-xs rounded-full text-label-sm font-label-sm">Statistics</span>
+<span class="bg-surface-container text-on-surface-variant px-sm py-xs rounded-full text-label-sm font-label-sm">MLOps</span>
+<span class="bg-surface-container text-on-surface-variant px-sm py-xs rounded-full text-label-sm font-label-sm">R</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-lg line-clamp-2">
+                        I focus on bridging the gap between theoretical statistics and industry applications. Excellent for students looking for rigorous foundations.
+                    </p>
+<div class="mt-auto pt-md border-t border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-xs text-tertiary">
+<span class="material-symbols-outlined text-[18px]">star</span>
+<span class="font-label-md text-label-md">5.0 (15 reviews)</span>
+</div>
+<button class="bg-primary text-on-primary px-lg py-xs rounded-lg font-label-md text-label-md hover:bg-primary-container transition-all">View Profile</button>
+</div>
+</div>
+<!-- Bento Style Insight Card -->
+<div class="lg:col-span-2 xl:col-span-3 bg-primary-container text-on-primary-container rounded-xl p-xl flex flex-col md:flex-row items-center justify-between gap-xl shadow-lg relative overflow-hidden">
+<div class="relative z-10 flex-1">
+<h2 class="font-headline-lg text-headline-lg mb-sm">Not finding exactly what you need?</h2>
+<p class="font-body-lg text-body-lg opacity-90 max-w-2xl mb-lg">
+                            Our matching algorithm improves with every interaction. Try broadening your search or creating a custom request for the mentor community.
+                        </p>
+<div class="flex flex-wrap gap-md">
+<button class="bg-white text-primary px-xl py-md rounded-xl font-bold font-label-md text-label-md shadow-sm hover:shadow-md transition-all">Post a Mentorship Need</button>
+<button class="border border-white/40 hover:bg-white/10 px-xl py-md rounded-xl font-bold font-label-md text-label-md transition-all">Explore Communities</button>
+</div>
+</div>
+<div class="hidden md:block relative z-10 w-64 h-64">
+<div class="absolute inset-0 bg-white/10 rounded-full blur-3xl"></div>
+<span class="material-symbols-outlined text-[180px] opacity-20">psychology_alt</span>
+</div>
+<!-- Decorative background patterns -->
+<div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-on-primary-container/10 rounded-full blur-3xl"></div>
+</div>
+<!-- More Mentor Cards (Skeleton-like placeholders for visual density) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm opacity-60">
+<div class="animate-pulse">
+<div class="flex gap-md mb-md">
+<div class="w-16 h-16 bg-surface-variant rounded-xl"></div>
+<div class="flex-1 space-y-3">
+<div class="h-4 bg-surface-variant rounded w-3/4"></div>
+<div class="h-3 bg-surface-variant rounded w-1/2"></div>
+</div>
+</div>
+<div class="h-24 bg-surface-variant rounded-lg mb-md"></div>
+<div class="h-10 bg-surface-variant rounded-lg"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm opacity-60">
+<div class="animate-pulse">
+<div class="flex gap-md mb-md">
+<div class="w-16 h-16 bg-surface-variant rounded-xl"></div>
+<div class="flex-1 space-y-3">
+<div class="h-4 bg-surface-variant rounded w-3/4"></div>
+<div class="h-3 bg-surface-variant rounded w-1/2"></div>
+</div>
+</div>
+<div class="h-24 bg-surface-variant rounded-lg mb-md"></div>
+<div class="h-10 bg-surface-variant rounded-lg"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm opacity-60">
+<div class="animate-pulse">
+<div class="flex gap-md mb-md">
+<div class="w-16 h-16 bg-surface-variant rounded-xl"></div>
+<div class="flex-1 space-y-3">
+<div class="h-4 bg-surface-variant rounded w-3/4"></div>
+<div class="h-3 bg-surface-variant rounded w-1/2"></div>
+</div>
+</div>
+<div class="h-24 bg-surface-variant rounded-lg mb-md"></div>
+<div class="h-10 bg-surface-variant rounded-lg"></div>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-xxl flex justify-center items-center gap-sm">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline text-on-surface-variant hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline text-on-surface-variant hover:bg-surface-container transition-all">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline text-on-surface-variant hover:bg-surface-container transition-all">3</button>
+<span class="text-on-surface-variant">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline text-on-surface-variant hover:bg-surface-container transition-all">12</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline text-on-surface-variant hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+</main>
+</div>
+<!-- Floating Action Button - Mobile Only -->
+<button class="md:hidden fixed bottom-xl right-lg bg-primary text-on-primary w-14 h-14 rounded-full shadow-lg flex items-center justify-center z-40 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-[28px]">filter_list</span>
+</button>
+<script>
+        // Micro-interaction for filter chips
+        document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
+            if (icon.textContent === 'close') {
+                icon.parentElement.addEventListener('click', function() {
+                    this.classList.add('scale-90', 'opacity-0');
+                    setTimeout(() => this.remove(), 200);
+                });
+            }
+        });
+
+        // Simple smooth scroll behavior for "View Profile"
+        document.querySelectorAll('button').forEach(btn => {
+            if (btn.textContent === 'View Profile') {
+                btn.addEventListener('mouseenter', () => {
+                    btn.classList.add('shadow-lg');
+                });
+                btn.addEventListener('mouseleave', () => {
+                    btn.classList.remove('shadow-lg');
+                });
+            }
+        });
+    </script>
+</body></html>
