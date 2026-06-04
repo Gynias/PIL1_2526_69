@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Public Profile | IFRI_MentorLink</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#00201c",
+                        "tertiary": "#825100",
+                        "surface-tint": "#494bd6",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface": "#f8f9ff",
+                        "on-primary-fixed": "#07006c",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary": "#006b5f",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffddb8",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "tertiary-container": "#a36700",
+                        "on-surface-variant": "#464554",
+                        "outline-variant": "#c7c4d7",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-tertiary-container": "#fffbff",
+                        "primary": "#4648d4",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#e1e0ff",
+                        "surface-container-high": "#dce9ff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#e5eeff",
+                        "inverse-primary": "#c0c1ff",
+                        "on-error": "#ffffff",
+                        "on-surface": "#0b1c30",
+                        "secondary-fixed-dim": "#4fdbc8",
+                        "on-background": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-container": "#6df5e1",
+                        "surface-dim": "#cbdbf5",
+                        "secondary-fixed": "#71f8e4",
+                        "inverse-surface": "#213145",
+                        "on-secondary-container": "#006f64",
+                        "primary-container": "#6063ee",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#005048",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-primary-container": "#fffbff",
+                        "background": "#f8f9ff",
+                        "outline": "#767586"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "container-max": "1280px",
+                        "sm": "12px",
+                        "sidebar-width": "260px",
+                        "base": "8px",
+                        "navbar-height": "64px",
+                        "xxl": "48px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "display": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen">
+<!-- TopNavBar -->
+<nav class="bg-surface-container-lowest dark:bg-surface-dim docked full-width top-0 z-50 border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none sticky">
+<div class="flex justify-between items-center px-lg h-navbar-height w-full max-w-container-max mx-auto">
+<div class="flex items-center gap-xl">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">IFRI_MentorLink</span>
+<div class="hidden md:flex gap-lg">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-label-md text-label-md" href="#">Home</a>
+<a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">Discover</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-label-md text-label-md" href="#">Feed</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-label-md text-label-md" href="#">Messages</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="p-base text-on-surface-variant hover:bg-surface-container-high rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="h-10 w-10 rounded-full overflow-hidden border border-outline-variant">
+<img alt="User avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBroDn_-L-bJpYmyzZxi4BlkW4jMiGsQTw4Z_TQIcwhvJOV6_BTqDpe8vruEaZhNkimE1S9TvRmBFdBtgnug2Gi6USF4kCARamoMynxW29hBlpdg5-GDzDccJY9Rkj4XymYl8j1HHUC85DaRB6lXBWFE5p5ApbASIV-VT9Aai-NhF3Ipno0e_MtZxR1cZavor3-V6BkNl1X3r2sE9Vb_Tp16bZgaq-vLxZxwAmQtzbLzONUHBY_vu8H7VuYRCPDIxrexZwLsnxZpt0"/>
+</div>
+</div>
+</div>
+</nav>
+<main class="max-w-container-max mx-auto px-lg py-xl flex flex-col md:flex-row gap-xl">
+<!-- Left Sidebar: Profile Summary & Actions -->
+<aside class="w-full md:w-[320px] shrink-0 space-y-lg">
+<!-- Mentor Hero Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm">
+<div class="h-32 bg-primary-container relative">
+<div class="absolute -bottom-12 left-md">
+<div class="w-24 h-24 rounded-xl border-4 border-surface-container-lowest overflow-hidden bg-surface shadow-md">
+<img class="w-full h-full object-cover" data-alt="A professional portrait of a confident female mentor in a bright, modern corporate office. She is smiling warmly at the camera, wearing a smart indigo blazer. The background is softly blurred, showing a high-tech university campus through a large window. The lighting is high-key and optimistic, following a clean light-mode aesthetic with vibrant primary indigo accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB6kX4gJ8A2Hl6cNeILLq62Me-Or_fdbzLIXNyW8Wxwm6bzH42biFCzutnUMjgyk0e6jvsnscH3nBW31VnpjLKZ9olUx6CbeUJozzJPaR2szL7EBQlgkzCottL5sEwZz28JHbhsB2OtzNcTjtGpvAzoaxAUxuC5D5Os8NhbRWFsD-RvsvIGHKqKrYedX3_NzBQhSg8IA9QlRTDE2BriFdxbaPVRuMIrbJydRYUMzwH7llJtZ1Uk857cD9GhlhzGh7aNeFiuNEM4HZc"/>
+</div>
+</div>
+</div>
+<div class="pt-16 px-md pb-md">
+<h1 class="font-headline-sm text-headline-sm text-on-surface">Dr. Elena Rodriguez</h1>
+<p class="text-on-surface-variant font-label-md text-label-md">Senior Researcher @ IFRI AI Lab</p>
+<!-- Compatibility Score -->
+<div class="mt-md p-md bg-[#6366F1]/[0.05] rounded-lg border border-[#6366F1]/10 flex items-center justify-between">
+<div>
+<span class="block font-label-sm text-label-sm text-primary uppercase">Compatibility</span>
+<span class="font-headline-sm text-headline-sm text-primary">94%</span>
+</div>
+<div class="h-12 w-12 rounded-full border-4 border-primary/20 border-t-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="verified">verified</span>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="mt-lg space-y-sm">
+<button class="w-full py-md px-lg bg-primary hover:bg-primary-container text-on-primary font-bold rounded-lg transition-all shadow-sm active:scale-[0.98]">
+                            Send Message
+                        </button>
+<button class="w-full py-md px-lg border border-primary text-primary hover:bg-primary/5 font-bold rounded-lg transition-all active:scale-[0.98]">
+                            Propose Match
+                        </button>
+</div>
+</div>
+</div>
+<!-- Stats/Skills Card -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm">
+<h3 class="font-label-md text-label-md text-on-surface-variant mb-md uppercase tracking-wider">Expertise</h3>
+<div class="flex flex-wrap gap-xs">
+<span class="px-sm py-xs bg-surface-container text-on-surface-variant text-label-sm font-label-sm rounded-full">Machine Learning</span>
+<span class="px-sm py-xs bg-surface-container text-on-surface-variant text-label-sm font-label-sm rounded-full">Academic Research</span>
+<span class="px-sm py-xs bg-surface-container text-on-surface-variant text-label-sm font-label-sm rounded-full">Ethical AI</span>
+<span class="px-sm py-xs bg-surface-container text-on-surface-variant text-label-sm font-label-sm rounded-full">Python</span>
+<span class="px-sm py-xs bg-surface-container text-on-surface-variant text-label-sm font-label-sm rounded-full">PhD Guidance</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<div class="flex-1 space-y-lg">
+<!-- Bento Grid Highlights -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- About Section (Spans 2) -->
+<div class="md:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-md">About Me</h2>
+<p class="text-on-surface-variant font-body-md leading-relaxed">
+                        I specialize in bridging the gap between theoretical AI research and real-world ethical applications. With over 12 years in academia and industry, I help graduate students navigate complex research methodologies while building a professional network that lasts beyond graduation.
+                    </p>
+<div class="mt-lg flex items-center gap-xl">
+<div>
+<span class="block text-primary font-headline-sm text-headline-sm">15+</span>
+<span class="text-on-surface-variant text-label-sm font-label-sm">Mentees Guided</span>
+</div>
+<div class="h-8 w-px bg-outline-variant"></div>
+<div>
+<span class="block text-primary font-headline-sm text-headline-sm">48</span>
+<span class="text-on-surface-variant text-label-sm font-label-sm">Publications</span>
+</div>
+<div class="h-8 w-px bg-outline-variant"></div>
+<div>
+<span class="block text-primary font-headline-sm text-headline-sm">4.9/5</span>
+<span class="text-on-surface-variant text-label-sm font-label-sm">Avg. Rating</span>
+</div>
+</div>
+</div>
+<!-- Quick Info -->
+<div class="bg-primary text-on-primary rounded-xl p-lg shadow-md flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-[32px]" data-icon="schedule">schedule</span>
+<h3 class="font-headline-sm text-headline-sm mt-md">Availability</h3>
+<p class="text-on-primary/80 font-body-sm mt-xs">Usually responds in 2 hours. Open for 2 new mentees this semester.</p>
+</div>
+<a class="mt-lg text-on-primary underline font-label-md text-label-md hover:text-on-primary/70" href="#">View Calendar</a>
+</div>
+<!-- Recent Mentorship Highlight -->
+<div class="bg-surface-container border border-outline-variant rounded-xl p-lg shadow-sm">
+<div class="flex items-center gap-sm mb-md">
+<span class="material-symbols-outlined text-secondary" data-icon="school">school</span>
+<h3 class="font-label-md text-label-md uppercase tracking-wider">Current Focus</h3>
+</div>
+<p class="font-headline-sm text-headline-sm text-on-surface mb-sm">Natural Language Processing</p>
+<p class="text-on-surface-variant font-body-sm">Supporting 3 PhD candidates on their thesis regarding Transformer architectures.</p>
+</div>
+<!-- Experience Card -->
+<div class="md:col-span-2 glass-card border border-outline-variant rounded-xl p-lg shadow-sm overflow-hidden relative">
+<div class="absolute top-0 right-0 p-lg opacity-10">
+<span class="material-symbols-outlined text-[80px]" data-icon="work">work</span>
+</div>
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-md">Experience</h2>
+<div class="space-y-md">
+<div class="flex gap-md">
+<div class="h-10 w-10 rounded-lg bg-surface flex items-center justify-center border border-outline-variant shrink-0">
+<span class="material-symbols-outlined text-primary" data-icon="corporate_fare">corporate_fare</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">IFRI AI Lab</h4>
+<p class="text-body-sm text-on-surface-variant">Senior Research Scientist • 2018 - Present</p>
+</div>
+</div>
+<div class="flex gap-md">
+<div class="h-10 w-10 rounded-lg bg-surface flex items-center justify-center border border-outline-variant shrink-0">
+<span class="material-symbols-outlined text-primary" data-icon="account_balance">account_balance</span>
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface">Stanford University</h4>
+<p class="text-body-sm text-on-surface-variant">Assistant Professor • 2014 - 2018</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Mentor Philosophy Section -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-lg">Mentorship Philosophy</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+<div class="p-md bg-background border border-outline-variant rounded-lg">
+<div class="flex items-center gap-md mb-sm">
+<div class="w-8 h-8 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container text-sm" data-icon="lightbulb">lightbulb</span>
+</div>
+<h4 class="font-label-md text-label-md">Goal-Oriented</h4>
+</div>
+<p class="text-body-sm text-on-surface-variant">I believe in setting clear, measurable milestones every month to ensure progress is visible and rewarding.</p>
+</div>
+<div class="p-md bg-background border border-outline-variant rounded-lg">
+<div class="flex items-center gap-md mb-sm">
+<div class="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-fixed text-sm" data-icon="forum">forum</span>
+</div>
+<h4 class="font-label-md text-label-md">Open Dialogue</h4>
+</div>
+<p class="text-body-sm text-on-surface-variant">Academic life is tough. I provide a safe space for discussing both technical challenges and career anxieties.</p>
+</div>
+</div>
+</div>
+<!-- Testimonials Slider (Mockup) -->
+<div class="bg-inverse-surface text-inverse-on-surface rounded-xl p-lg shadow-xl relative overflow-hidden">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-primary-fixed-dim" data-icon="format_quote">format_quote</span>
+<p class="font-body-lg text-body-lg italic mt-sm">
+                        "Dr. Rodriguez transformed how I approach my research. Her ability to simplify complex ethics while maintaining scientific rigor is unparalleled. I wouldn't have landed my post-doc without her."
+                    </p>
+<div class="mt-lg flex items-center gap-md">
+<div class="w-12 h-12 rounded-full overflow-hidden border border-primary-fixed-dim">
+<img class="w-full h-full object-cover" data-alt="A candid profile photo of a young male university student with a thoughtful expression. He is wearing a simple grey hoodie and glasses. The background is a modern, light-filled university library with bookshelves in soft focus. The aesthetic is warm, intellectual, and professional, utilizing a balanced light-mode palette with subtle indigo shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQxM3SGbm-lORuTamW9sh6TFWQDrua1La-OYYpI0CkiGumEmIkCs7t7X3Q6O6PEpvmqiSRmEOEzWshthuGfjSvZfFoLhJWJT4qXYRaXwHDlSg-Lfob4JssXud_46pbHRG3Qd0RP8i1TyAPcwxfnQwYLjpKdiRWSpZoqZUrBSWuAOJJVGTYns0T5eeEiVjWWUl2DDAQ1nlno5hPCh2XSdjU0zFU4o9vPeEX5BUiZY12zD2AV9IRtFSMK7Ccc5BumfBxpOaO6iaHvfA"/>
+</div>
+<div>
+<p class="font-label-md text-label-md">Marcus Chen</p>
+<p class="text-label-sm text-primary-fixed-dim">PhD Candidate, Computer Science</p>
+</div>
+</div>
+</div>
+<div class="absolute bottom-0 right-0 w-64 h-64 bg-primary opacity-10 rounded-full -mr-32 -mb-32"></div>
+</div>
+</div>
+</main>
+<!-- Footer Meta -->
+<footer class="max-w-container-max mx-auto px-lg py-xl border-t border-outline-variant mt-xxl text-center">
+<p class="text-on-surface-variant font-label-sm text-label-sm">© 2024 IFRI_MentorLink — Cultivating the next generation of academic excellence.</p>
+</footer>
+<script>
+        // Simple micro-interaction for buttons
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('mousedown', () => btn.classList.add('opacity-80'));
+            btn.addEventListener('mouseup', () => btn.classList.remove('opacity-80'));
+        });
+    </script>
+</body></html>
