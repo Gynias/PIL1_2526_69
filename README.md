@@ -12,6 +12,12 @@ IFRI_MentorLink est une plateforme institutionnelle visant à faciliter le mento
   - `developpement` : Branche d'intégration continue.
   - `fonctionnalite/*` : Branches de développement isolées.
 
+### ⚠️ RÈGLES D'ARCHITECTURE STRICTES ⚠️
+1. **Une seule application** : Tout le code (vues, modèles, urls) **DOIT** être placé dans le dossier `application_principale`.
+2. **Interdiction de créer de nouvelles applications** : Il est formellement interdit de faire un `python manage.py startapp`. 
+3. **Configuration globale interdite** : Ne modifiez jamais le fichier `projet_mentorlink/settings.py` (notamment les identifiants de la base de données). Si vous avez un souci de configuration, demandez au Chef de Projet.
+4. **Respect des rôles** : Ne codez jamais les fonctionnalités assignées à un autre membre.
+
 ## 3. Configuration de l'Environnement de Développement
 
 ### Prérequis

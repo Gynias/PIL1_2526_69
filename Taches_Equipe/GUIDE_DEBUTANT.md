@@ -3,6 +3,13 @@
 Pas de panique ! Ce projet est structuré pour que tout soit le plus simple possible. Suivez ces étapes une par une, sans vous presser.
 
 ---
+## ⛔ INTERDICTIONS ABSOLUES ⛔
+Avant de commencer, lisez attentivement ces 3 règles qui garantissent que le travail de groupe fonctionnera pour tout le monde :
+1. **NE CRÉEZ AUCUNE NOUVELLE APPLICATION** (pas de `python manage.py startapp`). TOUT votre code Python doit aller dans le dossier `application_principale` que le Chef de Projet a créé pour vous.
+2. **NE MODIFIEZ JAMAIS `settings.py`**. Ne touchez jamais aux configurations de la base de données ou du projet.
+3. **NE FAITES QUE VOTRE PARTIE**. Chaque étudiant doit être noté. Ne codez surtout pas les fonctionnalités attribuées aux autres membres.
+
+---
 
 ## Étape 1 : Récupérer le code sur votre ordinateur
 1. Ouvrez votre terminal (ou Git Bash).
