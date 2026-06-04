@@ -14,3 +14,10 @@ Ton rôle est de permettre aux étudiants de gérer leur profil (Bio, Filière) 
 2. **Côté Frontend (HTML)** : Intégrer tes maquettes dans le dossier `application_principale/templates/`. Lier les formulaires à tes vues.
 3. **Côté Backend (Python)** : Dans `views.py`, écrire les fonctions pour afficher le profil d'un `Utilisateur`, le modifier, et enregistrer ses `CompetenceUtilisateur`.
 4. **Soumission** : Faire un `git add`, `git commit` et `git push` pour envoyer ton travail.
+
+---
+## ⛔ INTERDICTIONS ABSOLUES ⛔
+1. **NE CRÉEZ AUCUNE NOUVELLE APPLICATION**. Tout votre code Python (vues, urls, modèles) doit aller EXCLUSIVEMENT dans le dossier `application_principale`.
+2. **NE MODIFIEZ JAMAIS `settings.py`**.
+3. **NE CODEZ QUE VOTRE MODULE**. Ne touchez pas aux pages ou fonctionnalités assignées aux autres membres. En cas de chevauchement, coordonnez-vous avec l'équipe !
+---

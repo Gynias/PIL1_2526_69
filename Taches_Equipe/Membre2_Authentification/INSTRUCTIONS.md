@@ -14,3 +14,10 @@ Ton rôle est de créer tout le système d'inscription et de connexion de l'appl
 2. **Côté Frontend (HTML)** : Intégrer tes maquettes dans le dossier `application_principale/templates/`.
 3. **Côté Backend (Python)** : Dans `views.py`, écrire la logique pour créer un utilisateur dans la base de données et le connecter en utilisant le système natif de Django (`django.contrib.auth`).
 4. **Soumission** : Faire un `git add`, `git commit` et `git push` pour envoyer ton travail.
+
+---
+## ⛔ INTERDICTIONS ABSOLUES ⛔
+1. **NE CRÉEZ AUCUNE NOUVELLE APPLICATION**. Tout votre code Python (vues, urls, modèles) doit aller EXCLUSIVEMENT dans le dossier `application_principale`.
+2. **NE MODIFIEZ JAMAIS `settings.py`**.
+3. **NE CODEZ QUE VOTRE MODULE**. Ne touchez pas aux pages ou fonctionnalités assignées aux autres membres. En cas de chevauchement, coordonnez-vous avec l'équipe !
+---

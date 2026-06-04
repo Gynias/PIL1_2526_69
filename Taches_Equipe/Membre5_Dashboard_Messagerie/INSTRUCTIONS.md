@@ -15,3 +15,10 @@ Ton rôle est crucial : tu gères la page d'accueil de l'utilisateur (Dashboard)
 2. **Côté Frontend (HTML)** : Intégrer tes maquettes dans le dossier `application_principale/templates/`.
 3. **Côté Backend (Python)** : Dans `views.py`, écrire la vue d'accueil qui appellera la fonction `generer_correspondances` (l'algo du chef de projet). Créer aussi la logique pour envoyer et lire un `Message`.
 4. **Soumission** : Faire un `git add`, `git commit` et `git push` pour envoyer ton travail.
+
+---
+## ⛔ INTERDICTIONS ABSOLUES ⛔
+1. **NE CRÉEZ AUCUNE NOUVELLE APPLICATION**. Tout votre code Python (vues, urls, modèles) doit aller EXCLUSIVEMENT dans le dossier `application_principale`.
+2. **NE MODIFIEZ JAMAIS `settings.py`**.
+3. **NE CODEZ QUE VOTRE MODULE**. Ne touchez pas aux pages ou fonctionnalités assignées aux autres membres. En cas de chevauchement, coordonnez-vous avec l'équipe !
+---
