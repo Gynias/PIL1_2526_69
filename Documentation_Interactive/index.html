@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IFRI_MentorLink - Le Guide Interactif</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="background-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <nav class="glass-nav">
+        <div class="logo">Mentor<span>Link</span></div>
+        <ul class="nav-links">
+            <li><a href="#mission"><i class="fas fa-bullseye"></i> Mission</a></li>
+            <li><a href="#tech"><i class="fas fa-microchip"></i> Technologies</a></li>
+            <li><a href="#architecture"><i class="fas fa-sitemap"></i> Projet</a></li>
+            <li><a href="#faq"><i class="fas fa-question-circle"></i> F.A.Q</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content reveal">
+            <span class="badge">Projet Intégrateur L1</span>
+            <h1>IFRI_MentorLink</h1>
+            <p>Bienvenue sur le portail interactif du Groupe 69. <br>Comprenez le code, maîtrisez les outils, et bâtissons ensemble la meilleure plateforme de mentorat.</p>
+            <a href="#mission" class="btn-glow">Découvrir le projet</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="mission" class="glass-section reveal">
+            <h2><i class="fas fa-scroll"></i> Le Cahier des Charges</h2>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Notre Objectif</h3>
+                    <p>Développer une plateforme web permettant de mettre en relation les étudiants de l'IFRI pour du mentorat (académique et professionnel).</p>
+                </div>
+                <div class="card">
+                    <h3>Contraintes</h3>
+                    <p>Nous avons <strong>10 jours</strong> pour réaliser une application fonctionnelle en équipe de 5 à 6 étudiants, en utilisant des technologies modernes.</p>
+                </div>
+                <div class="card">
+                    <h3>Fonctionnalités Clés</h3>
+                    <ul class="styled-list">
+                        <li><i class="fas fa-check-circle"></i> Gestion de profils (points forts / lacunes).</li>
+                        <li><i class="fas fa-check-circle"></i> Dépôt d'offres et de demandes.</li>
+                        <li><i class="fas fa-check-circle"></i> Algorithme de Matching (compatibilité).</li>
+                        <li><i class="fas fa-check-circle"></i> Messagerie interne.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="tech" class="glass-section reveal">
+            <h2><i class="fas fa-layer-group"></i> Nos Technologies Expliquées</h2>
+            
+            <div class="tabs">
+                <button class="tab-btn active" onclick="openTab(event, 'git')">Git & GitHub</button>
+                <button class="tab-btn" onclick="openTab(event, 'django')">Django (Backend)</button>
+                <button class="tab-btn" onclick="openTab(event, 'sql')">MySQL (Base de données)</button>
+            </div>
+
+            <div id="git" class="tab-content active">
+                <h3>Git : La machine à remonter le temps</h3>
+                <p>Git enregistre les modifications de notre code. Imaginez que c'est un jeu vidéo avec des points de sauvegarde.</p>
+                <div class="workflow-diagram">
+                    <div class="step"><i class="fas fa-laptop-code"></i><br><strong>Commit</strong><br>Une sauvegarde de votre code local.</div>
+                    <i class="fas fa-arrow-right"></i>
+                    <div class="step"><i class="fas fa-code-branch"></i><br><strong>Branche</strong><br>Un espace isolé (votre brouillon personnel).</div>
+                    <i class="fas fa-arrow-right"></i>
+                    <div class="step"><i class="fas fa-cloud-upload-alt"></i><br><strong>Push / Merge</strong><br>Envoi sur GitHub et fusion avec le projet final.</div>
+                </div>
+                <p class="warning"><i class="fas fa-exclamation-triangle"></i> <strong>Règle d'or</strong> : On ne travaille jamais sur `principale`. On crée toujours une branche `feature/...` !</p>
+            </div>
+
+            <div id="django" class="tab-content">
+                <h3>Django : Le moteur de la voiture</h3>
+                <p>Django est un Framework Python. Il gère la sécurité, les mots de passe, et lie la base de données au site web.</p>
+                <div class="grid-2">
+                    <div class="card mini">
+                        <h4>M - Modèle (`models.py`)</h4>
+                        <p>La structure des données (Tables SQL).</p>
+                    </div>
+                    <div class="card mini">
+                        <h4>V - Vue (`views.py`)</h4>
+                        <p>La logique : qui demande quoi et comment on traite l'info.</p>
+                    </div>
+                    <div class="card mini">
+                        <h4>T - Template (`templates/`)</h4>
+                        <p>L'affichage final : le HTML/CSS que voit l'utilisateur.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="sql" class="tab-content">
+                <h3>MySQL : La mémoire du projet</h3>
+                <p>Nous stockons les informations dans des "Tableaux" reliés entre eux. Voici notre architecture simplifiée :</p>
+                <div class="db-schema">
+                    <div class="db-table"><strong>Utilisateur</strong><br>- ID<br>- Email<br>- Mot de passe</div>
+                    <div class="db-line"></div>
+                    <div class="db-table"><strong>Profil</strong><br>- Bio<br>- Filière<br>- Photo</div>
+                    <div class="db-line"></div>
+                    <div class="db-table"><strong>Compétence</strong><br>- Point fort<br>- Lacune</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="architecture" class="glass-section reveal">
+            <h2><i class="fas fa-map-marked-alt"></i> Visite Guidée du Projet</h2>
+            <p>Le projet est 100% en français (dossiers et variables) sauf les fichiers techniques de Django (pour ne pas casser le framework).</p>
+            <div class="file-tree">
+                <ul>
+                    <li>📁 <strong>PIL1_2526_69</strong> <em>(Le dossier racine)</em>
+                        <ul>
+                            <li>📁 <strong>projet_mentorlink</strong> <em>(Configuration globale)</em>
+                                <ul><li>📄 `settings.py` <em>(Où l'on configure MySQL)</em></li></ul>
+                            </li>
+                            <li>📁 <strong>application_principale</strong> <em>(Là où on code)</em>
+                                <ul>
+                                    <li>📄 `models.py` <em>(Où sont créées nos tables SQL)</em></li>
+                                    <li>📄 `views.py` <em>(Où l'on gère l'inscription, connexion, etc.)</em></li>
+                                    <li>📄 `utils.py` <em>(Où se trouve notre super algorithme de matching)</em></li>
+                                    <li>📁 <strong>templates</strong> <em>(Où les frontend mettent leur HTML)</em></li>
+                                </ul>
+                            </li>
+                            <li>📁 <strong>Taches_Equipe</strong> <em>(Les missions de chaque membre)</em></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="faq" class="glass-section reveal">
+            <h2><i class="fas fa-question-circle"></i> Foire Aux Questions (F.A.Q)</h2>
+            <div class="accordion">
+                <div class="faq-item">
+                    <button class="faq-question">Comment télécharger le projet sur mon PC ? <i class="fas fa-chevron-down"></i></button>
+                    <div class="faq-answer"><p>Ouvrez votre terminal et tapez : <code>git clone https://github.com/Gynias/PIL1_2526_69.git</code></p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Où puis-je trouver les maquettes HTML/CSS ? <i class="fas fa-chevron-down"></i></button>
+                    <div class="faq-answer"><p>Allez dans le dossier <code>Taches_Equipe</code>, ouvrez votre dossier personnel (Membre 4 ou 5) et vous trouverez un dossier <code>maquettes</code> prêt à l'emploi.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">Comment tester mon code pour voir si mon site marche ? <i class="fas fa-chevron-down"></i></button>
+                    <div class="faq-answer"><p>Dans le terminal, tapez <code>python manage.py runserver</code>. Allez ensuite sur votre navigateur à l'adresse <code>http://localhost:8000</code>.</p></div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question">J'ai tout cassé, que faire ? <i class="fas fa-chevron-down"></i></button>
+                    <div class="faq-answer"><p>Pas de panique ! C'est l'avantage de Git. Si vous n'avez pas encore fait de "commit", vous pouvez annuler avec <code>git restore .</code>. Sinon, contactez le Chef de Projet !</p></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Développé avec <i class="fas fa-heart" style="color: #ff3b30;"></i> pour le Projet Intégrateur L1 (Groupe 69)</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
