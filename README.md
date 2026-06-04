@@ -37,7 +37,7 @@ IFRI_MentorLink est une plateforme institutionnelle visant à faciliter le mento
 
 3. **Installation des dépendances**
    ```bash
-   pip install django pymysql
+   pip install -r requirements.txt
    ```
 
 4. **Configuration de la Base de Données**
@@ -53,10 +53,12 @@ IFRI_MentorLink est une plateforme institutionnelle visant à faciliter le mento
    ```
    L'application sera disponible à l'adresse : `http://127.0.0.1:8000/`
 
-## 4. Organisation de l'Équipe
-- **Chef de Projet** : Architecture globale, conception de la base de données et algorithme de correspondance (matching).
-- **Développeurs Backend** : Gestion des utilisateurs, offres/demandes, et API internes.
-- **Développeurs Frontend** : Intégration des maquettes HTML/CSS fournies et liaisons avec le backend Django.
+## 4. Organisation de l'Équipe (Full-Stack)
+- **Chef de Projet** : Architecture globale, base de données, algorithme de matching, et DevOps.
+- **Membre 2 (Module Authentification)** : Inscription, Connexion et Onboarding (HTML + Python).
+- **Membre 3 (Module Profil & Compétences)** : Gestion du profil étudiant et des points forts/lacunes (HTML + Python).
+- **Membre 4 (Module Annonces & Recherche)** : Publication d'offres/demandes de mentorat et moteur de recherche (HTML + Python).
+- **Membre 5 (Module Dashboard & Messagerie)** : Tableau de bord, affichage de l'algorithme et messagerie interne (HTML + Python).
 
 ---
 *Ce projet est réalisé dans le cadre de l'Unité d'Enseignement "Projet Intégrateur L1" de l'IFRI.*
