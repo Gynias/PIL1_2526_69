@@ -1,70 +1,78 @@
-# Projet Intégrateur 2025-2026 : IFRI_MentorLink
-**Groupe 69**
+# IFRI_MentorLink
 
-## 1. Présentation du Projet
-IFRI_MentorLink est une plateforme institutionnelle visant à faciliter le mentorat académique et professionnel au sein de l'Institut de Formation et de Recherche en Informatique (IFRI). Cette application web connecte les étudiants souhaitant partager leurs compétences (mentors) avec ceux ayant besoin d'accompagnement (mentorés), via un système de mise en relation intelligent basé sur la compatibilité des profils.
+Application web de mentorat académique et professionnel pour les étudiants de l'IFRI.
 
-## 2. Architecture Technique
-- **Backend** : Framework Django (Python)
+Projet intégrateur 2025-2026 - Groupe 69  
+Université d'Abomey-Calavi - Institut de Formation et de Recherche en Informatique
+
+## Objectif
+
+IFRI_MentorLink met en relation les étudiants qui souhaitent offrir ou recevoir du mentorat. L'application permet de créer un profil, publier des offres ou demandes de mentorat, lancer un algorithme de matching et échanger via une plateforme intuitive.
+
+## Fonctionnalités Principales
+
+- **Authentification & Sécurité** : Inscription, connexion, et protection des données.
+- **Profil Utilisateur** : Gestion des compétences, lacunes, filière et niveau d'études.
+- **Annonces & Recherche** : Publication et exploration des offres et demandes de mentorat.
+- **Matching Intelligent** : Algorithme de correspondance basé sur les compétences et les disponibilités.
+- **Dashboard & Communication** : Tableau de bord personnel et messagerie intégrée.
+
+## Technologies Utilisées
+
+- **Backend** : Python, Django
+- **Frontend** : HTML5, CSS3, JavaScript
 - **Base de données** : MySQL
-- **Architecture de Branches (Git Flow)** :
-  - `principale` : Code de production stable (évalué).
-  - `developpement` : Branche d'intégration continue.
-  - `fonctionnalite/*` : Branches de développement isolées.
 
-### ⚠️ RÈGLES D'ARCHITECTURE STRICTES ⚠️
-1. **Une seule application** : Tout le code (vues, modèles, urls) **DOIT** être placé dans le dossier `application_principale`.
-2. **Interdiction de créer de nouvelles applications** : Il est formellement interdit de faire un `python manage.py startapp`. 
-3. **Configuration globale interdite** : Ne modifiez jamais le fichier `projet_mentorlink/settings.py` (notamment les identifiants de la base de données). Si vous avez un souci de configuration, demandez au Chef de Projet.
-4. **Respect des rôles** : Ne codez jamais les fonctionnalités assignées à un autre membre.
+## Architecture du Projet
 
-## 3. Configuration de l'Environnement de Développement
+Le projet suit une architecture monolithique centralisée pour faciliter le travail collaboratif des étudiants :
 
-### Prérequis
-- Python 3.10 ou supérieur
-- Un serveur MySQL (ex: XAMPP, WAMP, ou service natif)
-- Git
+```text
+PIL1_2526_69/
+├── application_principale/ # Coeur de l'application (Vues, Modèles, URLs)
+│   ├── templates/          # Interfaces HTML de tous les membres
+│   └── static/             # Fichiers CSS, JS et images
+├── projet_mentorlink/      # Configuration globale Django
+├── Taches_Equipe/          # Directives et guides internes de développement
+└── requirements.txt        # Dépendances du projet
+```
 
-### Initialisation
-1. **Cloner le dépôt**
-   ```bash
-   git clone https://github.com/Gynias/PIL1_2526_69.git
-   cd PIL1_2526_69
-   ```
+## Installation & Démarrage
 
-2. **Création et activation de l'environnement virtuel**
-   ```bash
-   python -m venv venv
-   # Sous Windows :
-   .\venv\Scripts\activate
-   # Sous Linux/Mac :
-   source venv/bin/activate
-   ```
+### 1. Clonage et Environnement
+```bash
+git clone https://github.com/Gynias/PIL1_2526_69.git
+cd PIL1_2526_69
+python -m venv venv
+```
+*(Activation Windows : `.\venv\Scripts\activate` | Mac/Linux : `source venv/bin/activate`)*
 
-3. **Installation des dépendances**
-   ```bash
-   pip install -r requirements.txt
-   ```
+### 2. Dépendances
+```bash
+pip install -r requirements.txt
+```
 
-4. **Configuration de la Base de Données**
-   - Assurez-vous que le service MySQL est démarré.
-   - Créez une base de données nommée exactement `mentorlink_db`.
-   - L'application utilise les identifiants par défaut (`root` sans mot de passe sur `127.0.0.1:3306`). Modifiez `projet_mentorlink/settings.py` si votre configuration locale diffère.
+### 3. Base de données
+Assurez-vous que votre serveur MySQL (XAMPP/WAMP) est actif et exécutez :
+```sql
+CREATE DATABASE mentorlink_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+L'application se connecte par défaut avec l'utilisateur `root` (sans mot de passe) sur `127.0.0.1`.
 
-5. **Migrations et Lancement du Serveur**
-   ```bash
-   python manage.py makemigrations
-   python manage.py migrate
-   python manage.py runserver
-   ```
-   L'application sera disponible à l'adresse : `http://127.0.0.1:8000/`
+### 4. Lancement
+```bash
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+```
+Accès : `http://127.0.0.1:8000/`
 
-## 4. Organisation de l'Équipe (Full-Stack)
-- **Chef de Projet** : Architecture globale, base de données, algorithme de matching, et DevOps.
-- **Membre 2 (Module Authentification)** : Inscription, Connexion et Onboarding (HTML + Python).
-- **Membre 3 (Module Profil & Compétences)** : Gestion du profil étudiant et des points forts/lacunes (HTML + Python).
-- **Membre 4 (Module Annonces & Recherche)** : Publication d'offres/demandes de mentorat et moteur de recherche (HTML + Python).
-- **Membre 5 (Module Dashboard & Messagerie)** : Tableau de bord, affichage de l'algorithme et messagerie interne (HTML + Python).
+## Organisation de l'Équipe (Full-Stack)
+- **Chef de Projet** : Architecture globale, base de données, algorithme de matching, DevOps.
+- **Membre 2** : Module Authentification (Onboarding, Connexion).
+- **Membre 3** : Module Profil & Compétences.
+- **Membre 4** : Module Annonces & Recherche.
+- **Membre 5** : Module Dashboard & Messagerie.
 
 ---
-*Ce projet est réalisé dans le cadre de l'Unité d'Enseignement "Projet Intégrateur L1" de l'IFRI.*
+*Dépôt officiel du groupe : https://github.com/Gynias/PIL1_2526_69*
