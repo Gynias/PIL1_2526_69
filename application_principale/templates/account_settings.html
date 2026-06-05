@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html class="light" lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Paramètres du Compte | IFRI_MentorLink</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#4648d4",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#6063ee",
+                        "on-primary-container": "#fffbff",
+                        "surface": "#f8f9ff",
+                        "on-surface": "#0b1c30",
+                        "surface-container": "#e5eeff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface-variant": "#464554",
+                        "outline-variant": "#c7c4d7",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                    },
+                    "spacing": {
+                        "xs": "4px", "sm": "12px", "md": "16px", "lg": "24px", "xl": "32px", "xxl": "48px",
+                        "navbar-height": "64px", "sidebar-width": "260px"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- Navigation Latérale Desktop -->
+<aside class="fixed left-0 top-0 h-full flex flex-col p-md border-r border-outline-variant bg-surface-container-low w-sidebar-width z-40 hidden md:flex">
+<div class="mb-xl px-sm">
+<span class="font-bold text-primary" style="font-size: 20px;">IFRI_MentorLink</span>
+</div>
+<nav class="flex-1 flex flex-col gap-xs">
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container rounded-lg px-md py-sm transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container rounded-lg px-md py-sm transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+<span>Mes Offres</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container rounded-lg px-md py-sm transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span>Mon Profil</span>
+</a>
+<a class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-lg px-md py-sm shadow-sm" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Paramètres</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-md px-sm">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white">
+  <span class="material-symbols-outlined">person</span>
+</div>
+<div>
+<p class="text-on-surface font-bold">{{ user.first_name|default:user.username }} {{ user.last_name }}</p>
+<p class="text-xs text-on-surface-variant">Étudiant IFRI</p>
+</div>
+</div>
+</div>
+</aside>
+
+<!-- Contenu Principal -->
+<main class="md:ml-[260px] min-h-screen">
+<!-- Top App Bar -->
+<header class="h-navbar-height flex justify-between items-center px-lg w-full bg-surface-container-lowest border-b border-outline-variant sticky top-0 z-30 shadow-sm">
+<h1 class="text-xl text-on-surface font-bold">Paramètres du Compte</h1>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">notifications</button>
+</div>
+</header>
+
+<!-- Contenu du Formulaire -->
+<div class="max-w-4xl mx-auto py-xl px-lg">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-xl">
+<!-- Menu Paramètres -->
+<div class="md:col-span-4 flex flex-col gap-sm">
+<button class="flex items-center gap-sm px-md py-sm rounded-lg bg-surface-container text-primary font-bold transition-all text-left">
+<span class="material-symbols-outlined">person</span>
+<span>Informations Profil</span>
+</button>
+<a href="{% url 'security_settings' %}" class="flex items-center gap-sm px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all text-left">
+<span class="material-symbols-outlined">lock</span>
+<span>Mot de passe & Sécurité</span>
+</a>
+</div>
+
+<!-- Formulaire Principal -->
+<div class="md:col-span-8">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-xl shadow-sm">
+<div class="mb-xl border-b border-outline-variant pb-md">
+<h2 class="text-xl text-on-surface font-bold">Détails Personnels</h2>
+<p class="text-on-surface-variant text-sm mt-xs">Mettez à jour vos informations personnelles pour aider les mentors à vous contacter.</p>
+</div>
+
+<form class="space-y-lg" id="profileForm" method="POST">
+{% csrf_token %}
+<!-- Photo de Profil -->
+<div class="flex items-center gap-xl mb-xl">
+<div class="relative group">
+<div class="w-24 h-24 rounded-full border-4 border-surface-container shadow-md bg-primary flex items-center justify-center text-white text-3xl">
+  {{ user.first_name|default:user.username|make_list|first|upper }}
+</div>
+<button class="absolute bottom-0 right-0 bg-primary text-white p-2 rounded-full shadow-lg hover:bg-primary-container transition-colors border-2 border-surface-container-lowest" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+</div>
+<div>
+<h3 class="font-bold text-on-surface">Photo de Profil</h3>
+<p class="text-xs text-on-surface-variant mt-1">PNG ou JPG, max 10MB.</p>
+</div>
+</div>
+
+<!-- Champs Nom/Prénom -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+<div class="flex flex-col gap-xs">
+<label class="text-sm text-on-surface-variant font-bold" for="firstName">Prénom</label>
+<input class="w-full px-md py-sm rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none bg-surface" id="firstName" name="first_name" type="text" value="{{ user.first_name }}"/>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="text-sm text-on-surface-variant font-bold" for="lastName">Nom</label>
+<input class="w-full px-md py-sm rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none bg-surface" id="lastName" name="last_name" type="text" value="{{ user.last_name }}"/>
+</div>
+</div>
+
+<!-- Champ Email -->
+<div class="flex flex-col gap-xs">
+<label class="text-sm text-on-surface-variant font-bold" for="email">Adresse Email</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">mail</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none bg-surface" id="email" name="email" type="email" value="{{ user.email }}"/>
+</div>
+</div>
+
+<!-- Boutons -->
+<div class="pt-xl flex items-center justify-end gap-md border-t border-outline-variant">
+<button class="px-6 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all" type="button">Annuler</button>
+<button class="px-6 py-2 rounded-lg bg-primary text-white hover:shadow-lg transition-all" type="submit">Enregistrer</button>
+</div>
+</form>
+
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
