@@ -73,6 +73,7 @@ Accès : `http://127.0.0.1:8000/`
 - **Membre 3** : Module Profil & Compétences.
 - **Membre 4** : Module Annonces & Recherche.
 - **Membre 5** : Module Dashboard & Messagerie.
+- **Membre 6** : Module Paramètres du compte (Sécurité, Mot de passe).
 
 ---
 *Dépôt officiel du groupe : https://github.com/Gynias/PIL1_2526_69*
