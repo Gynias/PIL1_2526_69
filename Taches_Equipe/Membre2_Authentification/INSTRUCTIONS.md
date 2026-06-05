@@ -6,8 +6,6 @@ Ton rôle est de créer tout le système d'inscription et de connexion de l'appl
 ### 🎨 Tes Maquettes (Dossier `maquettes/`)
 - `login_desktop` (Page de connexion)
 - `sign_up_desktop` (Page d'inscription)
-- `onboarding_desktop` (Page de bienvenue)
-- `404_page` (Page d'erreur)
 
 ### 🛠️ Tes Missions :
 1. **Créer ta branche** : `git checkout -b feature/authentification`
