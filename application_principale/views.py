@@ -7,7 +7,7 @@ from django.contrib.auth import update_session_auth_hash, authenticate, login, l
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.db.models import Q, Max
-from .models import DemandeOuOffre, Matching, Utilisateur, Competence, CompetenceUtilisateur, Disponibilite, Conversation, Message, Profil
+from .models import DemandeOuOffre, Matching, Utilisateur, Competence, CompetenceUtilisateur, Disponibilite, Conversation, Message
 
 # ==========================================
 # MODULE : PARAMÈTRES DU COMPTE (MEMBRE 6)
@@ -389,12 +389,10 @@ def inscription_view(request):
                 username=email,
                 email=email,
                 password=password,
-                first_name=first_name,
-                last_name=last_name,
+                prenom=first_name,
+                nom=last_name,
                 telephone=phone
             )
-            # Création du profil associé
-            Profil.objects.create(utilisateur=user)
             
             # Connexion automatique
             login(request, user)
