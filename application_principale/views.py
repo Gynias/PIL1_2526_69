@@ -336,13 +336,13 @@ def connexion_view(request):
                 user_obj = Utilisateur.objects.get(email=identifier)
             else:
                 user_obj = Utilisateur.objects.get(telephone=identifier)
-            username = user_obj.username
+            user_email = user_obj.email
         except Utilisateur.DoesNotExist:
-            username = None
+            user_email = None
             
         user = None
-        if username:
-            user = authenticate(request, username=username, password=password)
+        if user_email:
+            user = authenticate(request, email=user_email, password=password)
             
         if user is not None:
             login(request, user)
@@ -386,9 +386,8 @@ def inscription_view(request):
         try:
             # Création de l'utilisateur
             user = Utilisateur.objects.create_user(
-                username=email,
                 email=email,
-                password=password,
+                mot_de_passe=password,
                 prenom=first_name,
                 nom=last_name,
                 telephone=phone
