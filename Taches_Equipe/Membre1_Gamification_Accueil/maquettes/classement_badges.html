@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Classement des Mentors</title>
+    <style>
+        body { margin: 0; padding: 20px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f7f6; color: #333; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 40px; }
+        .leaderboard { background: white; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow: hidden; }
+        .mentor-row { display: flex; align-items: center; padding: 20px; border-bottom: 1px solid #eee; transition: 0.2s; }
+        .mentor-row:hover { background: #f9fdfc; transform: scale(1.01); }
+        .rank { font-size: 1.5em; font-weight: bold; width: 50px; text-align: center; color: #888; }
+        .rank-1 { color: #FFD700; font-size: 2em; }
+        .rank-2 { color: #C0C0C0; font-size: 1.8em; }
+        .rank-3 { color: #CD7F32; font-size: 1.6em; }
+        .avatar { width: 50px; height: 50px; background: #ddd; border-radius: 50%; margin-right: 20px; }
+        .info { flex-grow: 1; }
+        .name { font-size: 1.2em; font-weight: bold; margin: 0; }
+        .badges { margin-top: 5px; font-size: 0.9em; color: #666; }
+        .points { font-size: 1.5em; font-weight: bold; color: #2a5298; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏆 Top Mentors du Mois</h1>
+            <p>Ceux qui ont le plus aidé leurs camarades</p>
+        </div>
+        
+        <div class="leaderboard">
+            <div class="mentor-row">
+                <div class="rank rank-1">1</div>
+                <div class="avatar"></div>
+                <div class="info">
+                    <p class="name">Kouami (L3)</p>
+                    <p class="badges">🏅 Grand Sage • 💻 Codeur Pro</p>
+                </div>
+                <div class="points">1450 pts</div>
+            </div>
+            
+            <div class="mentor-row">
+                <div class="rank rank-2">2</div>
+                <div class="avatar"></div>
+                <div class="info">
+                    <p class="name">Afi (L2)</p>
+                    <p class="badges">🥈 Aide Rapide</p>
+                </div>
+                <div class="points">980 pts</div>
+            </div>
+            
+            <div class="mentor-row">
+                <div class="rank rank-3">3</div>
+                <div class="avatar"></div>
+                <div class="info">
+                    <p class="name">Kodjo (L1)</p>
+                    <p class="badges">🥉 Novice Motivé</p>
+                </div>
+                <div class="points">420 pts</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

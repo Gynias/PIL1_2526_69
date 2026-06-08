@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Sign Up | IFRI_MentorLink</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#00201c",
+                        "tertiary": "#825100",
+                        "surface-tint": "#494bd6",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface": "#f8f9ff",
+                        "on-primary-fixed": "#07006c",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary": "#006b5f",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffddb8",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "tertiary-container": "#a36700",
+                        "on-surface-variant": "#464554",
+                        "outline-variant": "#c7c4d7",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-tertiary-container": "#fffbff",
+                        "primary": "#4648d4",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#e1e0ff",
+                        "surface-container-high": "#dce9ff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#e5eeff",
+                        "inverse-primary": "#c0c1ff",
+                        "on-error": "#ffffff",
+                        "on-surface": "#0b1c30",
+                        "secondary-fixed-dim": "#4fdbc8",
+                        "on-background": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-container": "#6df5e1",
+                        "surface-dim": "#cbdbf5",
+                        "secondary-fixed": "#71f8e4",
+                        "inverse-surface": "#213145",
+                        "on-secondary-container": "#006f64",
+                        "primary-container": "#6063ee",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#005048",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-primary-container": "#fffbff",
+                        "background": "#f8f9ff",
+                        "outline": "#767586"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "container-max": "1280px",
+                        "sm": "12px",
+                        "sidebar-width": "260px",
+                        "base": "8px",
+                        "navbar-height": "64px",
+                        "xxl": "48px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "display": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9ff;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .role-card input:checked + div {
+            border-color: #4648d4;
+            background-color: #f0f1ff;
+            box-shadow: 0 0 0 1px #4648d4;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-surface p-md">
+<!-- Main Registration Shell -->
+<main class="w-full max-w-[1100px] grid grid-cols-1 lg:grid-cols-2 bg-surface-container-lowest rounded-xl shadow-xl overflow-hidden min-h-[700px]">
+<!-- Left Section: Visual & Brand Branding -->
+<section class="hidden lg:flex flex-col justify-between p-xxl bg-primary relative overflow-hidden">
+<!-- Decorative Background Elements -->
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary-container rounded-full mix-blend-multiply filter blur-3xl opacity-30 -mr-32 -mt-32"></div>
+<div class="absolute bottom-0 left-0 w-96 h-96 bg-secondary-container rounded-full mix-blend-multiply filter blur-3xl opacity-20 -ml-48 -mb-48"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-sm mb-xl">
+<span class="material-symbols-outlined text-on-primary text-[40px]">school</span>
+<h1 class="font-headline-md text-headline-md text-on-primary tracking-tight">IFRI_MentorLink</h1>
+</div>
+<h2 class="font-display text-display text-on-primary mb-md leading-tight">Empower your academic journey.</h2>
+<p class="font-body-lg text-body-lg text-primary-fixed opacity-90 max-w-md">Join a community of thousands of students and mentors dedicated to knowledge sharing and professional excellence.</p>
+</div>
+<div class="relative z-10 space-y-lg">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container">verified_user</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-primary">Verified Mentors</p>
+<p class="font-body-sm text-body-sm text-primary-fixed opacity-80">Rigorous screening for quality guidance.</p>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container">groups</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-on-primary">Collaborative Learning</p>
+<p class="font-body-sm text-body-sm text-primary-fixed opacity-80">Real-world projects and peer support.</p>
+</div>
+</div>
+</div>
+<div class="relative z-10 pt-xl">
+<img alt="Students collaborating" class="w-full h-48 object-cover rounded-lg shadow-lg" data-alt="A diverse group of university students collaborating around a modern wooden table in a bright, sun-lit campus library. They are looking at a laptop and notebooks with expressions of focused engagement and supportive teamwork. The lighting is warm and natural, casting soft shadows, creating an atmosphere of professional growth and academic excellence. The environment is clean and minimalist, reflecting a modern corporate educational aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0i2C0IcjgNJ15nrq1lg_wfEC3_OGt4XflHmSSX9x_EcxRQQzGjHMVw7QDF4K1XPrZG5PR0kJjoZ4uQvncOqnqcO6j6sPCreVUxTUQPh_Ld7e_3cy9rVacrZZHiKRxPntc_8Bkw9pkMmrKLMm18rT7faSExpctv3QbtMjE0KQSjZ7vX1ubjoAuwsPeYPMX2Z3zGEs_lsMX9Z0GuDG3nIa00AfxopkFnbyM4GvcnOM3mzQ-4euOBqlhkfH1ho6SqlQN0YSWyHlxaz4"/>
+</div>
+</section>
+<!-- Right Section: Sign Up Form -->
+<section class="p-xl md:p-xxl flex flex-col justify-center overflow-y-auto">
+<div class="max-w-md mx-auto w-full">
+<header class="mb-xl">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Create Account</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Step into the future of mentorship today.</p>
+</header>
+<form action="#" class="space-y-lg" method="POST" onsubmit="return false;">
+<!-- Role Selector (Bento Style Cards) -->
+<div class="space-y-sm">
+<label class="font-label-md text-label-md text-on-surface">Select your role</label>
+<div class="grid grid-cols-3 gap-sm">
+<label class="role-card cursor-pointer">
+<input checked="" class="hidden" name="role" type="radio" value="Mentor"/>
+<div class="flex flex-col items-center justify-center p-sm border border-outline-variant rounded-xl transition-all hover:bg-surface-container-low text-center h-full">
+<span class="material-symbols-outlined text-primary mb-xs">psychology</span>
+<span class="font-label-sm text-label-sm">Mentor</span>
+</div>
+</label>
+<label class="role-card cursor-pointer">
+<input class="hidden" name="role" type="radio" value="Mentee"/>
+<div class="flex flex-col items-center justify-center p-sm border border-outline-variant rounded-xl transition-all hover:bg-surface-container-low text-center h-full">
+<span class="material-symbols-outlined text-primary mb-xs">school</span>
+<span class="font-label-sm text-label-sm">Mentee</span>
+</div>
+</label>
+<label class="role-card cursor-pointer">
+<input class="hidden" name="role" type="radio" value="Both"/>
+<div class="flex flex-col items-center justify-center p-sm border border-outline-variant rounded-xl transition-all hover:bg-surface-container-low text-center h-full">
+<span class="material-symbols-outlined text-primary mb-xs">diversity_3</span>
+<span class="font-label-sm text-label-sm">Both</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Name Fields -->
+<div class="grid grid-cols-2 gap-md">
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface" for="name">First Name</label>
+<input class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-sm text-body-sm" id="name" name="name" placeholder="John" required="" type="text"/>
+</div>
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface" for="surname">Last Name</label>
+<input class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-sm text-body-sm" id="surname" name="surname" placeholder="Doe" required="" type="text"/>
+</div>
+</div>
+<!-- Contact Fields -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface" for="email">Email Address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">mail</span>
+<input class="w-full pl-xl pr-md py-sm rounded-lg border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-sm text-body-sm" id="email" name="email" placeholder="john.doe@university.edu" required="" type="email"/>
+</div>
+</div>
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface" for="phone">Phone Number</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">call</span>
+<input class="w-full pl-xl pr-md py-sm rounded-lg border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-sm text-body-sm" id="phone" name="phone" placeholder="+1 (555) 000-0000" type="tel"/>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface" for="password">Password</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">lock</span>
+<input class="w-full pl-xl pr-md py-sm rounded-lg border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-sm text-body-sm" id="password" name="password" placeholder="••••••••" required="" type="password"/>
+<button class="absolute right-md top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Must be at least 8 characters.</p>
+</div>
+<!-- Terms -->
+<div class="flex items-start gap-sm">
+<input class="mt-1 w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary transition-all" id="terms" required="" type="checkbox"/>
+<label class="font-body-sm text-body-sm text-on-surface-variant" for="terms">
+                            I agree to the <a class="text-primary font-semibold hover:underline" href="#">Terms of Service</a> and <a class="text-primary font-semibold hover:underline" href="#">Privacy Policy</a>.
+                        </label>
+</div>
+<!-- CTA Button -->
+<button class="w-full bg-primary text-on-primary font-label-md text-label-md py-md rounded-lg shadow-md hover:bg-primary-container active:scale-[0.98] transition-all flex items-center justify-center gap-sm group" type="submit">
+                        Create Account
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</form>
+<footer class="mt-xl text-center">
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                        Already have an account? 
+                        <a class="text-primary font-semibold hover:underline" href="#">Log in</a>
+</p>
+</footer>
+</div>
+</section>
+</main>
+<script>
+        // Simple password visibility toggle
+        document.querySelector('button[type="button"]').addEventListener('click', function() {
+            const input = document.getElementById('password');
+            const icon = this.querySelector('span');
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.textContent = 'visibility_off';
+            } else {
+                input.type = 'password';
+                icon.textContent = 'visibility';
+            }
+        });
+
+        // Atmospheric Micro-interaction: Subtle parallax on the image
+        document.addEventListener('mousemove', (e) => {
+            const img = document.querySelector('img');
+            if (img) {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+                img.style.transform = `translate(${xAxis}px, ${yAxis}px)`;
+            }
+        });
+    </script>
+</body></html>

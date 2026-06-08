@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Security Settings - IFRI_MentorLink</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+                  "on-secondary-fixed": "#00201c",
+                  "tertiary": "#825100",
+                  "surface-tint": "#494bd6",
+                  "error-container": "#ffdad6",
+                  "tertiary-fixed-dim": "#ffb95f",
+                  "surface": "#f8f9ff",
+                  "on-primary-fixed": "#07006c",
+                  "surface-container-highest": "#d3e4fe",
+                  "secondary": "#006b5f",
+                  "on-primary-fixed-variant": "#2f2ebe",
+                  "on-error-container": "#93000a",
+                  "tertiary-fixed": "#ffddb8",
+                  "inverse-on-surface": "#eaf1ff",
+                  "primary-fixed-dim": "#c0c1ff",
+                  "tertiary-container": "#a36700",
+                  "on-surface-variant": "#464554",
+                  "outline-variant": "#c7c4d7",
+                  "on-tertiary-fixed": "#2a1700",
+                  "on-tertiary-container": "#fffbff",
+                  "primary": "#4648d4",
+                  "on-primary": "#ffffff",
+                  "primary-fixed": "#e1e0ff",
+                  "surface-container-high": "#dce9ff",
+                  "surface-container-low": "#eff4ff",
+                  "surface-container-lowest": "#ffffff",
+                  "surface-container": "#e5eeff",
+                  "inverse-primary": "#c0c1ff",
+                  "on-error": "#ffffff",
+                  "on-surface": "#0b1c30",
+                  "secondary-fixed-dim": "#4fdbc8",
+                  "on-background": "#0b1c30",
+                  "surface-variant": "#d3e4fe",
+                  "surface-bright": "#f8f9ff",
+                  "secondary-container": "#6df5e1",
+                  "surface-dim": "#cbdbf5",
+                  "secondary-fixed": "#71f8e4",
+                  "inverse-surface": "#213145",
+                  "on-secondary-container": "#006f64",
+                  "primary-container": "#6063ee",
+                  "on-tertiary": "#ffffff",
+                  "on-secondary": "#ffffff",
+                  "error": "#ba1a1a",
+                  "on-secondary-fixed-variant": "#005048",
+                  "on-tertiary-fixed-variant": "#653e00",
+                  "on-primary-container": "#fffbff",
+                  "background": "#f8f9ff",
+                  "outline": "#767586"
+          },
+          "borderRadius": {
+                  "DEFAULT": "0.25rem",
+                  "lg": "0.5rem",
+                  "xl": "0.75rem",
+                  "full": "9999px"
+          },
+          "spacing": {
+                  "md": "16px",
+                  "container-max": "1280px",
+                  "sm": "12px",
+                  "sidebar-width": "260px",
+                  "base": "8px",
+                  "navbar-height": "64px",
+                  "xxl": "48px",
+                  "lg": "24px",
+                  "xl": "32px",
+                  "xs": "4px"
+          },
+          "fontFamily": {
+                  "headline-md": ["Inter"],
+                  "label-sm": ["Inter"],
+                  "body-md": ["Inter"],
+                  "body-sm": ["Inter"],
+                  "label-md": ["Inter"],
+                  "body-lg": ["Inter"],
+                  "headline-lg": ["Inter"],
+                  "headline-sm": ["Inter"],
+                  "display": ["Inter"]
+          },
+          "fontSize": {
+                  "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                  "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                  "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                  "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                  "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                  "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                  "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                  "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                  "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+    .security-gradient {
+      background: linear-gradient(135deg, #4648d4 0%, #6063ee 100%);
+    }
+    input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(70, 72, 212, 0.2);
+    }
+  </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface">
+<!-- SideNavBar Anchor -->
+<aside class="fixed left-0 top-0 h-full flex flex-col p-md border-r border-outline-variant bg-surface-container-low w-[260px] z-50">
+<div class="mb-xl px-sm">
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">IFRI_MentorLink</h1>
+</div>
+<div class="flex flex-col gap-xs flex-grow">
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+<span class="font-label-md text-label-md">My Offers</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="font-label-md text-label-md">My Profile</span>
+</a>
+<a class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-lg px-md py-sm scale-[0.98] duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+<div class="mt-auto border-t border-outline-variant pt-md px-sm">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</div>
+<div>
+<p class="font-label-md text-label-md font-bold text-on-surface">Alex Rivera</p>
+<p class="text-[12px] text-on-surface-variant">Computer Science</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- TopNavBar Anchor -->
+<nav class="fixed top-0 right-0 left-[260px] bg-surface-container-lowest h-navbar-height flex justify-between items-center px-lg border-b border-outline-variant z-40 shadow-sm">
+<div class="flex items-center gap-xl">
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface">Settings</h2>
+<div class="flex gap-lg">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">General</a>
+<a class="font-label-md text-label-md text-primary font-bold border-b-2 border-primary pb-1" href="#">Security</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Notifications</a>
+</div>
+</div>
+<div class="flex items-center gap-md">
+<button class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high rounded-full">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<img alt="User avatar" class="w-8 h-8 rounded-full object-cover" data-alt="A professional studio portrait of a young man with a friendly expression, soft cinematic lighting, warm skin tones, and a clean minimalist background that fits a high-end corporate mentoring platform interface. The focus is sharp on the eyes, conveying trust and approachability in a modern professional setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqS7j0eRWDogeZCSZ-qTSa8CfRkzZ3tRbSjkp8NJHktNDjdco72zFI6Qy3vILTKsn7w6WBJGOH5QMhQNuHT6v91Yb9dH9Zz8p7NJVv87HRfMQ6qt4SV0ShAcyLeRzHJhppx7yy0xKWBKXbnI8TMbAl9khqwnjeNFU5eas4nLx1vSqX3VCtlCkVY951qSdDmwq4gHb8upsRqAlc4TfuXeDlip96A6EHd7e8K2erIodJnSRWH_687zeYQe83Phoert8gBR-u_B7YFXQ"/>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="ml-[260px] mt-navbar-height p-xl min-h-[calc(100vh-64px)] bg-surface">
+<div class="max-w-[1000px] mx-auto">
+<!-- Bento Header Section -->
+<div class="grid grid-cols-12 gap-lg mb-xl">
+<div class="col-span-8 glass-card p-xl rounded-xl relative overflow-hidden flex flex-col justify-center min-h-[220px]">
+<div class="relative z-10">
+<h3 class="font-headline-lg text-headline-lg mb-sm">Security Center</h3>
+<p class="text-on-surface-variant max-w-[480px] font-body-md">Protect your account and academic data. Manage your authentication methods and monitor active sessions to keep your IFRI_MentorLink workspace secure.</p>
+</div>
+<div class="absolute right-0 top-0 h-full w-1/3 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[180px] leading-none" data-icon="shield_lock">shield_lock</span>
+</div>
+</div>
+<div class="col-span-4 bg-primary text-on-primary p-xl rounded-xl flex flex-col justify-between">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-[32px]" data-icon="verified_user">verified_user</span>
+<span class="font-label-md text-label-md uppercase tracking-wider">Status: Secure</span>
+</div>
+<div>
+<p class="font-headline-sm text-headline-sm">100%</p>
+<p class="font-body-sm opacity-80">Security Health Score</p>
+</div>
+<div class="h-1.5 w-full bg-on-primary/20 rounded-full overflow-hidden">
+<div class="h-full bg-on-primary w-full"></div>
+</div>
+</div>
+</div>
+<!-- Main Action Section: Password Change -->
+<div class="grid grid-cols-12 gap-lg">
+<div class="col-span-7">
+<section class="bg-surface-container-lowest border border-outline-variant p-xl rounded-xl shadow-sm">
+<div class="flex items-center gap-sm mb-xl">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" data-icon="lock_reset">lock_reset</span>
+</div>
+<div>
+<h4 class="font-headline-sm text-headline-sm">Change Password</h4>
+<p class="text-body-sm text-on-surface-variant">Update your account password regularly for better safety.</p>
+</div>
+</div>
+<form class="space-y-lg">
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface">Current Password</label>
+<div class="relative">
+<span class="absolute left-md top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="key">key</span>
+<input class="w-full pl-xxl pr-md py-sm bg-surface border border-outline-variant rounded-lg font-body-md focus:border-primary transition-all" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-md">
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface">New Password</label>
+<div class="relative">
+<span class="absolute left-md top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="password">password</span>
+<input class="w-full pl-xxl pr-md py-sm bg-surface border border-outline-variant rounded-lg font-body-md focus:border-primary transition-all" placeholder="Min. 12 chars" type="password"/>
+</div>
+</div>
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface">Confirm Password</label>
+<div class="relative">
+<span class="absolute left-md top-1/2 -translate-y-1/2 material-symbols-outlined text-outline" data-icon="check_circle">check_circle</span>
+<input class="w-full pl-xxl pr-md py-sm bg-surface border border-outline-variant rounded-lg font-body-md focus:border-primary transition-all" placeholder="Re-type new password" type="password"/>
+</div>
+</div>
+</div>
+<div class="bg-surface-container p-md rounded-lg flex gap-md items-start border border-outline-variant/30">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="info">info</span>
+<p class="text-body-sm text-on-surface-variant leading-relaxed">Passwords must be at least 12 characters long and include a mix of uppercase, lowercase, numbers, and symbols.</p>
+</div>
+<div class="pt-md flex justify-end gap-md">
+<button class="px-xl py-sm font-label-md text-label-md text-on-surface hover:bg-surface-container transition-colors rounded-lg" type="button">Cancel</button>
+<button class="px-xl py-sm font-label-md text-label-md bg-primary text-on-primary rounded-lg shadow-lg hover:bg-primary-container transition-all" type="submit">Update Password</button>
+</div>
+</form>
+</section>
+</div>
+<div class="col-span-5 space-y-lg">
+<!-- Two Factor Card -->
+<div class="bg-surface-container-lowest border border-outline-variant p-xl rounded-xl shadow-sm">
+<div class="flex justify-between items-start mb-md">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="phonelink_lock">phonelink_lock</span>
+</div>
+<h5 class="font-label-md text-label-md font-bold">Two-Factor Auth</h5>
+</div>
+<span class="px-sm py-1 bg-secondary/10 text-secondary text-[12px] font-bold rounded-full">RECOMMENDED</span>
+</div>
+<p class="text-body-sm text-on-surface-variant mb-lg">Add an extra layer of security to your account with 2FA.</p>
+<button class="w-full py-sm border border-secondary text-secondary font-label-md text-label-md rounded-lg hover:bg-secondary/5 transition-all">Set up Authenticator</button>
+</div>
+<!-- Active Sessions Card -->
+<div class="bg-surface-container-lowest border border-outline-variant p-xl rounded-xl shadow-sm">
+<h5 class="font-label-md text-label-md font-bold mb-md flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="devices">devices</span>
+              Active Sessions
+            </h5>
+<div class="space-y-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline" data-icon="desktop_windows">desktop_windows</span>
+<div>
+<p class="text-body-sm font-bold">MacBook Pro · London, UK</p>
+<p class="text-[12px] text-on-surface-variant">Active now</p>
+</div>
+</div>
+<span class="text-secondary text-[12px] font-bold">THIS DEVICE</span>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-sm opacity-60">
+<span class="material-symbols-outlined text-outline" data-icon="smartphone">smartphone</span>
+<div>
+<p class="text-body-sm font-bold">iPhone 14 · London, UK</p>
+<p class="text-[12px] text-on-surface-variant">2 hours ago</p>
+</div>
+</div>
+<button class="text-error font-label-md text-[12px] hover:underline">Revoke</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Security Log Section (Asymmetric) -->
+<div class="mt-xl glass-card rounded-xl p-xl">
+<div class="flex justify-between items-end mb-lg">
+<div>
+<h4 class="font-headline-sm text-headline-sm">Security Log</h4>
+<p class="text-body-sm text-on-surface-variant">Review recent security-related activities on your account.</p>
+</div>
+<button class="text-primary font-label-md text-label-md flex items-center gap-xs hover:underline">
+            View Full Audit Trail <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="overflow-hidden border border-outline-variant rounded-lg bg-surface">
+<table class="w-full text-left">
+<thead class="bg-surface-container border-b border-outline-variant">
+<tr>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant">Event</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant">Location</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant">Date &amp; Time</th>
+<th class="px-lg py-md font-label-md text-label-md text-on-surface-variant">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="login">login</span>
+<span class="text-body-sm font-medium">Successful Login</span>
+</div>
+</td>
+<td class="px-lg py-md text-body-sm text-on-surface-variant">London, UK · Chrome</td>
+<td class="px-lg py-md text-body-sm text-on-surface-variant">Oct 24, 2023 10:45 AM</td>
+<td class="px-lg py-md text-primary text-body-sm font-medium">Details</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-tertiary" data-icon="password">password</span>
+<span class="text-body-sm font-medium">Password Changed</span>
+</div>
+</td>
+<td class="px-lg py-md text-body-sm text-on-surface-variant">London, UK · System</td>
+<td class="px-lg py-md text-body-sm text-on-surface-variant">Sep 12, 2023 03:22 PM</td>
+<td class="px-lg py-md text-primary text-body-sm font-medium">Details</td>
+</tr>
+<tr class="hover:bg-surface-container-low transition-colors">
+<td class="px-lg py-md">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
+<span class="text-body-sm font-medium">Failed Login Attempt</span>
+</div>
+</td>
+<td class="px-lg py-md text-body-sm text-on-surface-variant">Manchester, UK · Safari</td>
+<td class="px-lg py-md text-body-sm text-on-surface-variant">Aug 30, 2023 11:12 PM</td>
+<td class="px-lg py-md text-primary text-body-sm font-medium">Details</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+<script>
+    // Micro-interaction for form feedback
+    document.querySelector('form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      const originalText = btn.innerText;
+      
+      btn.disabled = true;
+      btn.innerHTML = `<span class="material-symbols-outlined animate-spin mr-2" style="font-size:18px">sync</span> Updating...`;
+      
+      setTimeout(() => {
+        btn.innerHTML = `<span class="material-symbols-outlined mr-2" style="font-size:18px">check</span> Saved!`;
+        btn.classList.replace('bg-primary', 'bg-secondary');
+        
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.innerText = originalText;
+          btn.classList.replace('bg-secondary', 'bg-primary');
+          e.target.reset();
+        }, 2000);
+      }, 1500);
+    });
+
+    // Suble hover parallax for the "Shield" icon background
+    document.addEventListener('mousemove', (e) => {
+      const shield = document.querySelector('.material-symbols-outlined[data-icon="shield_lock"]');
+      const x = (window.innerWidth - e.pageX * 2) / 100;
+      const y = (window.innerHeight - e.pageY * 2) / 100;
+      shield.style.transform = `translate(${x}px, ${y}px)`;
+    });
+  </script>
+</body></html>

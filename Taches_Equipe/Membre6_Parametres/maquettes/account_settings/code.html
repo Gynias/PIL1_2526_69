@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Account Settings | IFRI_MentorLink</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#00201c",
+                        "tertiary": "#825100",
+                        "surface-tint": "#494bd6",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface": "#f8f9ff",
+                        "on-primary-fixed": "#07006c",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary": "#006b5f",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffddb8",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "tertiary-container": "#a36700",
+                        "on-surface-variant": "#464554",
+                        "outline-variant": "#c7c4d7",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-tertiary-container": "#fffbff",
+                        "primary": "#4648d4",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#e1e0ff",
+                        "surface-container-high": "#dce9ff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#e5eeff",
+                        "inverse-primary": "#c0c1ff",
+                        "on-error": "#ffffff",
+                        "on-surface": "#0b1c30",
+                        "secondary-fixed-dim": "#4fdbc8",
+                        "on-background": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-container": "#6df5e1",
+                        "surface-dim": "#cbdbf5",
+                        "secondary-fixed": "#71f8e4",
+                        "inverse-surface": "#213145",
+                        "on-secondary-container": "#006f64",
+                        "primary-container": "#6063ee",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#005048",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-primary-container": "#fffbff",
+                        "background": "#f8f9ff",
+                        "outline": "#767586"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "container-max": "1280px",
+                        "sm": "12px",
+                        "sidebar-width": "260px",
+                        "base": "8px",
+                        "navbar-height": "64px",
+                        "xxl": "48px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "xs": "4px"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface">
+<!-- Desktop Side Navigation Shell -->
+<aside class="fixed left-0 top-0 h-full flex flex-col p-md border-r border-outline-variant bg-surface-container-low w-sidebar-width z-40 hidden md:flex">
+<div class="mb-xl px-sm">
+<span class="font-headline-sm text-headline-sm font-bold text-primary">IFRI_MentorLink</span>
+</div>
+<nav class="flex-1 flex flex-col gap-xs">
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+<span class="font-label-md text-label-md">My Offers</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="font-label-md text-label-md">My Profile</span>
+</a>
+<a class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-lg px-md py-sm scale-[0.98] duration-200 shadow-sm" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto border-t border-outline-variant pt-md px-sm">
+<div class="flex items-center gap-sm">
+<img alt="User avatar" class="w-10 h-10 rounded-full object-cover" data-alt="A professional headshot of a young university student with a warm, friendly smile. The background is a blurred academic library setting with soft, warm lighting. The overall mood is approachable, ambitious, and professional, reflecting the IFRI_MentorLink brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi5LHgm6yjHc-OUmZQa-8iVpOSDF4Yd9YA_zZwX4qRE2yPYcR8fjxsKfXKWh-uC0vvMZgHBhxU2ynMwWEorwbvSx1HqOmbIkb9g-avmS6pAKLa40slIPONFSVSbVy6TPiEiG7sjhZpfXwTzbGJ5vQubF81hu8cvY9Wp0mIaOPWGIKFOxljm2gLuagAvvaUH9DOECrmHHOi7IgbC61LK_gGHy_7_BpL01JTSwfEtrA2AsJQgicXytuDWFPp8byTnmUmcWHpVsQcAYM"/>
+<div>
+<p class="font-label-md text-label-md text-on-surface font-bold">Alex Rivera</p>
+<p class="text-xs text-on-surface-variant">Computer Science</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="md:ml-[260px] min-h-screen">
+<!-- Top App Bar (Simplified for Content Focus) -->
+<header class="h-navbar-height flex justify-between items-center px-lg w-full bg-surface-container-lowest border-b border-outline-variant sticky top-0 z-30 shadow-sm">
+<h1 class="font-headline-sm text-headline-sm text-on-surface font-bold">Account Settings</h1>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors" data-icon="notifications">notifications</button>
+</div>
+</header>
+<!-- Form Content -->
+<div class="max-w-4xl mx-auto py-xl px-lg">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-xl">
+<!-- Navigation Sub-sidebar -->
+<div class="md:col-span-4 flex flex-col gap-sm">
+<button class="flex items-center gap-sm px-md py-sm rounded-lg bg-surface-container text-primary font-bold transition-all text-left">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label-md text-label-md">Profile Information</span>
+</button>
+<button class="flex items-center gap-sm px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all text-left">
+<span class="material-symbols-outlined" data-icon="lock">lock</span>
+<span class="font-label-md text-label-md">Password &amp; Security</span>
+</button>
+<button class="flex items-center gap-sm px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all text-left">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="font-label-md text-label-md">Notification Prefs</span>
+</button>
+<button class="flex items-center gap-sm px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all text-left">
+<span class="material-symbols-outlined" data-icon="verified_user">verified_user</span>
+<span class="font-label-md text-label-md">Privacy</span>
+</button>
+</div>
+<!-- Main Settings Form -->
+<div class="md:col-span-8">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-xl shadow-sm">
+<div class="mb-xl border-b border-outline-variant pb-md">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Personal Details</h2>
+<p class="text-on-surface-variant font-body-sm text-body-sm mt-xs">Update your personal information to help mentors connect with you.</p>
+</div>
+<form class="space-y-lg" id="profileForm">
+<!-- Avatar Edit Section -->
+<div class="flex items-center gap-xl mb-xl">
+<div class="relative group">
+<img alt="Large User Avatar" class="w-24 h-24 rounded-full object-cover border-4 border-surface-container shadow-md" data-alt="A detailed close-up of a professional profile picture. The lighting is soft and directional, typical of a high-end studio portrait. The character has a neutral yet confident expression, styled for a corporate mentorship platform. The color palette consists of soft blues and clean whites." id="avatarPreview" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_rODnXCgGs7xGD9_cPOYsQl_PYs_h7Mci2o-c9DNGgMK-0ietWVs95hOLHjyi_OadEaTJuQl9PhzTDcx0lJAuhne8kTuo3Z6_rN9y0MEZBYWv_wywA3yp7ZJE2atcie5jsyR4rOdoKwhwsW5kFSzdfmw5Nxtw3dtKcB6J5ZMPA_W5obSzmn-ClixtIsRLZJnN83msdA_o8iQVBX3ZuPzKImygQ2zxJ2FkxgoBpPFKxg00EbVqS3b5aNGnTDX5VJGiES3ZX1Nrl1Y"/>
+<button class="absolute bottom-0 right-0 bg-primary text-white p-2 rounded-full shadow-lg hover:bg-primary-container transition-colors border-2 border-surface-container-lowest" type="button">
+<span class="material-symbols-outlined text-[18px]" data-icon="edit">edit</span>
+</button>
+</div>
+<div>
+<h3 class="font-label-md text-label-md text-on-surface font-bold">Profile Photo</h3>
+<p class="text-xs text-on-surface-variant mt-1">PNG or JPG, max 10MB.</p>
+<div class="flex gap-sm mt-md">
+<button class="px-md py-1.5 border border-outline text-on-surface-variant font-label-md text-label-md rounded-lg hover:bg-surface-container-low transition-all" type="button">Replace</button>
+<button class="px-md py-1.5 text-error font-label-md text-label-md hover:bg-error-container/20 rounded-lg transition-all" type="button">Remove</button>
+</div>
+</div>
+</div>
+<!-- Name Fields -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant" for="firstName">First Name</label>
+<input class="w-full px-md py-sm rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none font-body-md text-body-md text-on-surface bg-surface-bright" id="firstName" type="text" value="Alex"/>
+</div>
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant" for="lastName">Last Name</label>
+<input class="w-full px-md py-sm rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none font-body-md text-body-md text-on-surface bg-surface-bright" id="lastName" type="text" value="Rivera"/>
+</div>
+</div>
+<!-- Email Field -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant" for="email">Email Address</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="mail">mail</span>
+<input class="w-full pl-xl pr-md py-sm rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none font-body-md text-body-md text-on-surface bg-surface-bright" id="email" type="email" value="alex.rivera@university.edu"/>
+</div>
+<p class="text-xs text-on-surface-variant">Your primary academic email for communication.</p>
+</div>
+<!-- Phone Field -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant" for="phone">Phone Number</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="call">call</span>
+<input class="w-full pl-xl pr-md py-sm rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none font-body-md text-body-md text-on-surface bg-surface-bright" id="phone" type="tel" value="+1 (555) 123-4567"/>
+</div>
+</div>
+<!-- Bio/Department -->
+<div class="flex flex-col gap-xs">
+<label class="font-label-md text-label-md text-on-surface-variant" for="department">Department / Major</label>
+<select class="w-full px-md py-sm rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none font-body-md text-body-md text-on-surface bg-surface-bright appearance-none" id="department">
+<option selected="" value="cs">Computer Science &amp; Engineering</option>
+<option value="ee">Electrical Engineering</option>
+<option value="math">Mathematics</option>
+<option value="phys">Physics</option>
+</select>
+</div>
+<!-- CTA Buttons -->
+<div class="pt-xl flex items-center justify-end gap-md border-t border-outline-variant">
+<button class="px-xl py-sm rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-all" type="button">Cancel</button>
+<button class="px-xl py-sm rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:shadow-lg active:scale-95 transition-all" type="submit">Save Changes</button>
+</div>
+</form>
+</div>
+<!-- Dangerous Zone -->
+<div class="mt-xl bg-error-container/10 border border-error/20 rounded-xl p-xl">
+<div class="flex items-start gap-md">
+<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
+<div class="flex-1">
+<h3 class="font-label-md text-label-md text-on-error-container font-bold">Deactivate Account</h3>
+<p class="text-xs text-on-error-container/80 mt-xs leading-relaxed">Once you deactivate your account, your profile and mentor matches will be hidden. This action is reversible within 30 days.</p>
+<button class="mt-md px-md py-2 text-error border border-error/30 rounded-lg hover:bg-error hover:text-white transition-all font-label-md text-label-md" type="button">Request Deactivation</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Success Toast (Hidden) -->
+<div class="fixed bottom-xl right-xl bg-inverse-surface text-inverse-on-surface px-xl py-md rounded-xl shadow-2xl flex items-center gap-md translate-y-24 opacity-0 transition-all duration-300 z-50" id="saveToast">
+<span class="material-symbols-outlined text-secondary-fixed" data-icon="check_circle">check_circle</span>
+<span class="font-label-md text-label-md">Profile updated successfully!</span>
+</div>
+<script>
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show toast feedback
+            const toast = document.getElementById('saveToast');
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+            
+            // Interaction logic
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = 'Saving...';
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-70');
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('opacity-70');
+            }, 3000);
+        });
+
+        // Simple input focus effects
+        const inputs = document.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('scale-[1.01]');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('scale-[1.01]');
+            });
+        });
+    </script>
+</body></html>

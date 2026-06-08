@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Edit Profile - IFRI_MentorLink</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#00201c",
+                        "tertiary": "#825100",
+                        "surface-tint": "#494bd6",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface": "#f8f9ff",
+                        "on-primary-fixed": "#07006c",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary": "#006b5f",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffddb8",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "tertiary-container": "#a36700",
+                        "on-surface-variant": "#464554",
+                        "outline-variant": "#c7c4d7",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-tertiary-container": "#fffbff",
+                        "primary": "#4648d4",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#e1e0ff",
+                        "surface-container-high": "#dce9ff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#e5eeff",
+                        "inverse-primary": "#c0c1ff",
+                        "on-error": "#ffffff",
+                        "on-surface": "#0b1c30",
+                        "secondary-fixed-dim": "#4fdbc8",
+                        "on-background": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-container": "#6df5e1",
+                        "surface-dim": "#cbdbf5",
+                        "secondary-fixed": "#71f8e4",
+                        "inverse-surface": "#213145",
+                        "on-secondary-container": "#006f64",
+                        "primary-container": "#6063ee",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#005048",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-primary-container": "#fffbff",
+                        "background": "#f8f9ff",
+                        "outline": "#767586"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "container-max": "1280px",
+                        "sm": "12px",
+                        "sidebar-width": "260px",
+                        "base": "8px",
+                        "navbar-height": "64px",
+                        "xxl": "48px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "display": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface min-h-screen">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full flex flex-col p-md border-r border-outline-variant bg-surface-container-low w-sidebar-width z-50">
+<div class="mb-xl px-md">
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary">IFRI_MentorLink</h1>
+<p class="font-label-md text-label-md text-on-surface-variant mt-xs">Manage your mentorships</p>
+</div>
+<nav class="flex-1 space-y-base">
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+<span class="font-label-md text-label-md">My Offers</span>
+</a>
+<a class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-lg px-md py-sm scale-[0.98]" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+<span class="font-label-md text-label-md">My Profile</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="mt-auto p-md bg-surface-container rounded-xl">
+<button class="w-full bg-primary text-on-primary py-sm px-md rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity">
+                Find a Mentor
+            </button>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-[260px] min-h-screen p-xl">
+<div class="max-w-4xl mx-auto">
+<!-- Header -->
+<header class="mb-xl flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Edit Profile</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs">Update your personal information and academic preferences.</p>
+</div>
+<div class="flex gap-md">
+<button class="px-lg py-sm border border-outline text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container transition-colors">Cancel</button>
+<button class="px-lg py-sm bg-primary-container text-on-primary-container rounded-lg font-label-md text-label-md hover:opacity-90 shadow-md">Save Changes</button>
+</div>
+</header>
+<!-- Profile Form Bento Grid -->
+<div class="grid grid-cols-12 gap-lg">
+<!-- Left Column: Photo & Basic Info -->
+<div class="col-span-12 md:col-span-4 space-y-lg">
+<!-- Photo Upload Card -->
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm flex flex-col items-center">
+<div class="relative group cursor-pointer">
+<img alt="Profile Photo" class="w-32 h-32 rounded-full object-cover border-4 border-surface-container-high" data-alt="A professional headshot of a friendly university student smiling in a brightly lit modern office background. The lighting is soft and natural, emphasizing a supportive and approachable professional demeanor. The image uses a clean, high-key aesthetic with a shallow depth of field to focus on the person's welcoming expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8CqzHJNjjUKhHiCj74SAWxWr7-liCC7p5wzHaRPD77IXkNepS6MZSdKOvfT9v_sLW9W858MW8NXCnQVflzF_XmhFKWQfnfNZ8XmQYx-787wr3rzmN_JC3U90_GT_SenT3Fberh9ZeqevuRK2ZM7Z0xd8yiOICsr3l8H5Jj7jTFcJuHYf8ZS71h6WMWVRAWgmztsnLapEy5HTzTCovUvVqIFFTd0H_kZOT7Ecmi3_qHPXJwtB8rPSR7okpD-SrIchWegCqFpYY2Zk"/>
+<div class="absolute inset-0 bg-on-surface/40 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-on-primary" data-icon="photo_camera">photo_camera</span>
+</div>
+</div>
+<button class="mt-md text-primary font-label-md text-label-md hover:underline">Change Photo</button>
+<p class="text-on-surface-variant text-body-sm text-center mt-sm">JPG or PNG. Max size 2MB.</p>
+</div>
+<!-- Academic Context Card -->
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm space-y-md">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-xs">Filière</label>
+<select class="w-full bg-surface-container-low border-none rounded-lg p-sm font-body-md focus:ring-2 focus:ring-primary/20">
+<option>Génie Logiciel</option>
+<option>Systèmes &amp; Réseaux</option>
+<option>Intelligence Artificielle</option>
+<option>Sécurité Informatique</option>
+</select>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-xs">Level</label>
+<select class="w-full bg-surface-container-low border-none rounded-lg p-sm font-body-md focus:ring-2 focus:ring-primary/20">
+<option>Licence 1</option>
+<option>Licence 2</option>
+<option>Licence 3</option>
+<option>Master 1</option>
+<option>Master 2</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Right Column: Details & Expertise -->
+<div class="col-span-12 md:col-span-8 space-y-lg">
+<!-- Identity & Bio -->
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm space-y-lg">
+<div class="grid grid-cols-1 gap-md">
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-xs">Full Name</label>
+<input class="w-full border border-outline-variant rounded-lg p-sm font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" type="text" value="Jean Dupont"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-xs">Bio</label>
+<textarea class="w-full border border-outline-variant rounded-lg p-sm font-body-md focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all resize-none" placeholder="Tell us about your academic journey and goals..." rows="4">Étudiant passionné par le développement web et l'architecture logicielle. Je cherche à partager mes connaissances en React et Node.js tout en apprenant sur le DevOps.</textarea>
+</div>
+</div>
+</div>
+<!-- Subjects & Expertise -->
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm">
+<label class="block font-label-md text-label-md text-on-surface-variant mb-md">Subjects (Mentoring Interest)</label>
+<div class="flex flex-wrap gap-sm mb-md">
+<span class="flex items-center gap-xs px-md py-xs bg-primary-fixed text-on-primary-fixed rounded-full font-label-md text-label-md">
+                                Algorithmics
+                                <button class="material-symbols-outlined text-[18px]" data-icon="close">close</button>
+</span>
+<span class="flex items-center gap-xs px-md py-xs bg-primary-fixed text-on-primary-fixed rounded-full font-label-md text-label-md">
+                                Web Development
+                                <button class="material-symbols-outlined text-[18px]" data-icon="close">close</button>
+</span>
+<span class="flex items-center gap-xs px-md py-xs bg-primary-fixed text-on-primary-fixed rounded-full font-label-md text-label-md">
+                                Database Design
+                                <button class="material-symbols-outlined text-[18px]" data-icon="close">close</button>
+</span>
+<button class="flex items-center gap-xs px-md py-xs border border-dashed border-primary text-primary rounded-full font-label-md text-label-md hover:bg-primary/5">
+<span class="material-symbols-outlined text-[18px]" data-icon="add">add</span>
+                                Add Subject
+                            </button>
+</div>
+</div>
+<!-- Availability Section -->
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm">
+<div class="flex justify-between items-center mb-md">
+<label class="font-label-md text-label-md text-on-surface-variant">General Availability</label>
+<span class="text-body-sm text-tertiary flex items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]" data-icon="info">info</span>
+                                Set your weekly routine
+                            </span>
+</div>
+<div class="grid grid-cols-7 gap-xs">
+<button class="flex flex-col items-center p-sm rounded-lg bg-surface-container-high border border-primary text-primary">
+<span class="font-label-sm text-label-sm uppercase">Mon</span>
+<span class="material-symbols-outlined mt-xs" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</button>
+<button class="flex flex-col items-center p-sm rounded-lg hover:bg-surface-container-low border border-outline-variant text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase">Tue</span>
+<span class="material-symbols-outlined mt-xs" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+</button>
+<button class="flex flex-col items-center p-sm rounded-lg bg-surface-container-high border border-primary text-primary">
+<span class="font-label-sm text-label-sm uppercase">Wed</span>
+<span class="material-symbols-outlined mt-xs" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</button>
+<button class="flex flex-col items-center p-sm rounded-lg hover:bg-surface-container-low border border-outline-variant text-on-surface-variant">
+<span class="font-label-sm text-label-sm uppercase">Thu</span>
+<span class="material-symbols-outlined mt-xs" data-icon="radio_button_unchecked">radio_button_unchecked</span>
+</button>
+<button class="flex flex-col items-center p-sm rounded-lg bg-surface-container-high border border-primary text-primary">
+<span class="font-label-sm text-label-sm uppercase">Fri</span>
+<span class="material-symbols-outlined mt-xs" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</button>
+<button class="flex flex-col items-center p-sm rounded-lg hover:bg-surface-container-low border border-outline-variant text-on-surface-variant opacity-50">
+<span class="font-label-sm text-label-sm uppercase">Sat</span>
+<span class="material-symbols-outlined mt-xs" data-icon="lock">lock</span>
+</button>
+<button class="flex flex-col items-center p-sm rounded-lg hover:bg-surface-container-low border border-outline-variant text-on-surface-variant opacity-50">
+<span class="font-label-sm text-label-sm uppercase">Sun</span>
+<span class="material-symbols-outlined mt-xs" data-icon="lock">lock</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Section -->
+<footer class="mt-xl pt-lg border-t border-outline-variant flex justify-end gap-md">
+<button class="px-xl py-md border border-outline text-on-surface rounded-lg font-label-md text-label-md hover:bg-surface-container transition-colors">Discard changes</button>
+<button class="px-xl py-md bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:opacity-90 shadow-lg transform active:scale-[0.98] transition-all">Save All Changes</button>
+</footer>
+</div>
+</main>
+<script>
+        // Micro-interaction for availability buttons
+        document.querySelectorAll('.grid-cols-7 button').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (this.querySelector('[data-icon="lock"]')) return;
+                
+                const icon = this.querySelector('.material-symbols-outlined');
+                const isSelected = this.classList.contains('border-primary');
+                
+                if (isSelected) {
+                    this.classList.remove('bg-surface-container-high', 'border-primary', 'text-primary');
+                    this.classList.add('hover:bg-surface-container-low', 'border-outline-variant', 'text-on-surface-variant');
+                    icon.innerHTML = 'radio_button_unchecked';
+                    icon.style.fontVariationSettings = "'FILL' 0";
+                } else {
+                    this.classList.add('bg-surface-container-high', 'border-primary', 'text-primary');
+                    this.classList.remove('hover:bg-surface-container-low', 'border-outline-variant', 'text-on-surface-variant');
+                    icon.innerHTML = 'check_circle';
+                    icon.style.fontVariationSettings = "'FILL' 1";
+                }
+            });
+        });
+
+        // Simple toast animation simulator for "Save"
+        document.querySelector('button.bg-primary').addEventListener('click', () => {
+            const btn = document.querySelector('button.bg-primary');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin" data-icon="sync">sync</span> Saving...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerHTML = '<span class="material-symbols-outlined" data-icon="check">check</span> Saved!';
+                btn.classList.replace('bg-primary', 'bg-green-600');
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.replace('bg-green-600', 'bg-primary');
+                    btn.disabled = false;
+                }, 2000);
+            }, 1500);
+        });
+    </script>
+</body></html>

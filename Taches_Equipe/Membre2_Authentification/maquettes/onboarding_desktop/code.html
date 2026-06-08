@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Onboarding | IFRI_MentorLink</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#00201c",
+                        "tertiary": "#825100",
+                        "surface-tint": "#494bd6",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface": "#f8f9ff",
+                        "on-primary-fixed": "#07006c",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary": "#006b5f",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffddb8",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "tertiary-container": "#a36700",
+                        "on-surface-variant": "#464554",
+                        "outline-variant": "#c7c4d7",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-tertiary-container": "#fffbff",
+                        "primary": "#4648d4",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#e1e0ff",
+                        "surface-container-high": "#dce9ff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#e5eeff",
+                        "inverse-primary": "#c0c1ff",
+                        "on-error": "#ffffff",
+                        "on-surface": "#0b1c30",
+                        "secondary-fixed-dim": "#4fdbc8",
+                        "on-background": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-container": "#6df5e1",
+                        "surface-dim": "#cbdbf5",
+                        "secondary-fixed": "#71f8e4",
+                        "inverse-surface": "#213145",
+                        "on-secondary-container": "#006f64",
+                        "primary-container": "#6063ee",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#005048",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-primary-container": "#fffbff",
+                        "background": "#f8f9ff",
+                        "outline": "#767586"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "container-max": "1280px",
+                        "sm": "12px",
+                        "sidebar-width": "260px",
+                        "base": "8px",
+                        "navbar-height": "64px",
+                        "xxl": "48px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "display": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .step-transition {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .shimmer {
+            background: linear-gradient(90deg, #f1f5f9 0%, #e2e8f0 50%, #f1f5f9 100%);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite;
+        }
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-md text-on-surface antialiased overflow-hidden">
+<div class="flex h-screen w-full">
+<!-- Sidebar Navigation (Suppressed based on Transactional/Onboarding rule, but keeping structural anchor for branding) -->
+<!-- Since this is a focused journey, we minimize the shell to prioritize content. -->
+<div class="hidden md:flex flex-col w-[380px] bg-primary h-full p-xl justify-between relative overflow-hidden">
+<div class="absolute inset-0 opacity-10 pointer-events-none">
+<img class="w-full h-full object-cover" data-alt="A sophisticated architectural view of a modern university library with high ceilings and rows of books, bathed in a soft blue ambient light that reflects the IFRI_MentorLink brand colors. The setting is clean, scholarly, and serene, emphasizing a professional academic environment for focused growth and mentorship. Subtle geometric patterns are visible in the background texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5M4dgJ-wsQfUbYgoieU1XE6ih-pk41OepgpLrZYBB_9UCTgmZKu2buNf3cRTtKvyueYSa8rHdkvfGMEyzIjAwfLXMrPDv78wZTEbO-lwQENCIMeDy0OBHJqhJVblnVEpfIaDh9gHrPR3pCf5gfIIhncxysgQI4Jlo1a9BZExOQbeFEW0OoZpVzCnQum3RKuh6xkKt6fQCLO22XSW0LSre6QFA_1u9UPozbQmbhTIpO0naUC6tCe9D1zv1u0OvPspAXAem2XnZ-H0"/>
+</div>
+<div class="relative z-10">
+<div class="mb-xxl">
+<span class="font-headline-md text-headline-md font-bold text-on-primary">IFRI_MentorLink</span>
+</div>
+<div class="space-y-xl">
+<div class="flex items-center gap-md text-on-primary" id="step-indicator-1">
+<div class="w-10 h-10 rounded-full border-2 border-on-primary flex items-center justify-center font-bold bg-on-primary text-primary">1</div>
+<div>
+<p class="font-label-md text-label-md opacity-70">STEP 1</p>
+<p class="font-headline-sm text-headline-sm">Mastery Areas</p>
+</div>
+</div>
+<div class="flex items-center gap-md text-on-primary opacity-40" id="step-indicator-2">
+<div class="w-10 h-10 rounded-full border-2 border-on-primary flex items-center justify-center font-bold">2</div>
+<div>
+<p class="font-label-md text-label-md opacity-70">STEP 2</p>
+<p class="font-headline-sm text-headline-sm">Growth Needs</p>
+</div>
+</div>
+<div class="flex items-center gap-md text-on-primary opacity-40" id="step-indicator-3">
+<div class="w-10 h-10 rounded-full border-2 border-on-primary flex items-center justify-center font-bold">3</div>
+<div>
+<p class="font-label-md text-label-md opacity-70">STEP 3</p>
+<p class="font-headline-sm text-headline-sm">Availability</p>
+</div>
+</div>
+<div class="flex items-center gap-md text-on-primary opacity-40" id="step-indicator-4">
+<div class="w-10 h-10 rounded-full border-2 border-on-primary flex items-center justify-center font-bold">4</div>
+<div>
+<p class="font-label-md text-label-md opacity-70">STEP 4</p>
+<p class="font-headline-sm text-headline-sm">Format Preference</p>
+</div>
+</div>
+</div>
+</div>
+<div class="relative z-10 bg-white/10 p-lg rounded-xl backdrop-blur-sm border border-white/20">
+<p class="font-body-sm text-body-sm text-on-primary/80 italic">
+                    "Your journey to academic excellence starts with precise matching. Let's build your mentorship profile together."
+                </p>
+</div>
+</div>
+<!-- Main Content Canvas -->
+<main class="flex-1 flex flex-col h-full bg-surface">
+<!-- Top Bar -->
+<header class="h-navbar-height px-xl flex items-center justify-between border-b border-outline-variant bg-surface-container-lowest">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary">school</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Onboarding Flow</span>
+</div>
+<button class="text-on-surface-variant hover:text-primary flex items-center gap-xs font-label-md">
+                    Save &amp; Exit <span class="material-symbols-outlined">logout</span>
+</button>
+</header>
+<div class="flex-1 relative overflow-y-auto px-xl py-xxl">
+<div class="max-w-3xl mx-auto w-full">
+<!-- Step 1: Strong Subjects -->
+<section class="step-transition" id="step-1-content">
+<div class="mb-xl">
+<h1 class="font-display text-display text-on-surface mb-xs">What are your strong subjects?</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Select subjects you excel in to help others or establish your expertise base.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md mb-xl">
+<button class="group flex items-center justify-between p-lg rounded-xl glass-card hover:border-primary transition-all duration-300" onclick="toggleSelect(this)">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">functions</span>
+</div>
+<span class="font-headline-sm text-headline-sm">Advanced Mathematics</span>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center check-mark"></div>
+</button>
+<button class="group flex items-center justify-between p-lg rounded-xl glass-card hover:border-primary transition-all duration-300" onclick="toggleSelect(this)">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">biotech</span>
+</div>
+<span class="font-headline-sm text-headline-sm">Molecular Biology</span>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center check-mark"></div>
+</button>
+<button class="group flex items-center justify-between p-lg rounded-xl glass-card hover:border-primary transition-all duration-300" onclick="toggleSelect(this)">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">account_balance</span>
+</div>
+<span class="font-headline-sm text-headline-sm">Macroeconomics</span>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center check-mark"></div>
+</button>
+<button class="group flex items-center justify-between p-lg rounded-xl glass-card hover:border-primary transition-all duration-300" onclick="toggleSelect(this)">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">terminal</span>
+</div>
+<span class="font-headline-sm text-headline-sm">Software Engineering</span>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center check-mark"></div>
+</button>
+</div>
+<div class="relative">
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-sm focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all" placeholder="Search for other subjects..." type="text"/>
+</div>
+</section>
+<!-- Step 2: Weak Subjects (Hidden initially) -->
+<section class="hidden step-transition" id="step-2-content">
+<div class="mb-xl">
+<h1 class="font-display text-display text-on-surface mb-xs">Where do you need support?</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Select subjects you want to improve. We'll find mentors specializing in these areas.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md mb-xl">
+<button class="group flex items-center justify-between p-lg rounded-xl glass-card hover:border-error transition-all duration-300" onclick="toggleSelect(this, 'error')">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-error/10 flex items-center justify-center text-error group-hover:bg-error group-hover:text-on-error transition-colors">
+<span class="material-symbols-outlined">public</span>
+</div>
+<span class="font-headline-sm text-headline-sm">International Law</span>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center check-mark"></div>
+</button>
+<button class="group flex items-center justify-between p-lg rounded-xl glass-card hover:border-error transition-all duration-300" onclick="toggleSelect(this, 'error')">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-error/10 flex items-center justify-center text-error group-hover:bg-error group-hover:text-on-error transition-colors">
+<span class="material-symbols-outlined">history_edu</span>
+</div>
+<span class="font-headline-sm text-headline-sm">Modern History</span>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center check-mark"></div>
+</button>
+<button class="group flex items-center justify-between p-lg rounded-xl glass-card hover:border-error transition-all duration-300" onclick="toggleSelect(this, 'error')">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-error/10 flex items-center justify-center text-error group-hover:bg-error group-hover:text-on-error transition-colors">
+<span class="material-symbols-outlined">brush</span>
+</div>
+<span class="font-headline-sm text-headline-sm">Art Theory</span>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center check-mark"></div>
+</button>
+<button class="group flex items-center justify-between p-lg rounded-xl glass-card hover:border-error transition-all duration-300" onclick="toggleSelect(this, 'error')">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 rounded-lg bg-error/10 flex items-center justify-center text-error group-hover:bg-error group-hover:text-on-error transition-colors">
+<span class="material-symbols-outlined">psychology</span>
+</div>
+<span class="font-headline-sm text-headline-sm">Cognitive Science</span>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant flex items-center justify-center check-mark"></div>
+</button>
+</div>
+</section>
+<!-- Step 3: Availability (Hidden initially) -->
+<section class="hidden step-transition" id="step-3-content">
+<div class="mb-xl">
+<h1 class="font-display text-display text-on-surface mb-xs">Set your weekly slots</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">When are you typically free for mentorship sessions? You can refine this later.</p>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg overflow-x-auto">
+<div class="min-w-[600px]">
+<div class="grid grid-cols-8 gap-xs mb-sm">
+<div class="col-span-1"></div>
+<div class="text-center font-label-md py-xs text-on-surface-variant">MON</div>
+<div class="text-center font-label-md py-xs text-on-surface-variant">TUE</div>
+<div class="text-center font-label-md py-xs text-on-surface-variant">WED</div>
+<div class="text-center font-label-md py-xs text-on-surface-variant">THU</div>
+<div class="text-center font-label-md py-xs text-on-surface-variant">FRI</div>
+<div class="text-center font-label-md py-xs text-on-surface-variant">SAT</div>
+<div class="text-center font-label-md py-xs text-on-surface-variant">SUN</div>
+</div>
+<div class="space-y-xs">
+<!-- Slots Example -->
+<div class="grid grid-cols-8 gap-xs items-center">
+<div class="text-right pr-sm font-label-sm text-on-surface-variant">Morning</div>
+<button class="h-10 rounded-lg bg-surface-container-high hover:bg-primary-container transition-colors" onclick="toggleSlot(this)"></button>
+<button class="h-10 rounded-lg bg-surface-container-high hover:bg-primary-container transition-colors" onclick="toggleSlot(this)"></button>
+<button class="h-10 rounded-lg bg-surface-container-high hover:bg-primary-container transition-colors" onclick="toggleSlot(this)"></button>
+<button class="h-10 rounded-lg bg-surface-container-high hover:bg-primary-container transition-colors" onclick="toggleSlot(this)"></button>
+<button class="h-10 rounded-lg bg-surface-container-high hover:bg-primary-container transition-colors" onclick="toggleSlot(this)"></button>
+<button class="h-10 rounded-lg bg-surface-container-high hover:bg-primary-container transition-colors" onclick="toggleSlot(this)"></button>
+<button class="h-10 rounded-lg bg-surface-container-high hover:bg-primary-container transition-colors" onclick="toggleSlot(this)"></button>
+</div>
+<div class="grid grid-cols-8 gap-xs items-center">
+<div class="text-right pr-sm font-label-sm text-on-surface-variant">Afternoon</div>
+<button class="h-10 rounded-lg bg-surface-container-high hover:bg-primary-container transition-colors" onclick="toggleSlot(this)"></button>
+<button class="h-10 rounded-lg bg-surface-container-high hover:bg-primary-container transition-colors" onclick="toggleSlot(this)"></button>
+<button class="h-10 rounded-lg bg-surface-container-high hover:bg-primary-container transition-colors" onclick="toggleSlot(this)"></button>
+<button class="h-10 rounded-lg bg-surface-container-high hover:bg-primary-container transition-colors" onclick="toggleSlot(this)"></button>
+<button class="h-10 rounded-lg bg-surface-container-high hover:bg-primary-container transition-colors" onclick="toggleSlot(this)"></button>
+<button class="h-10 rounded-lg bg-surface-container-high hover:bg-primary-container transition-colors" onclick="toggleSlot(this)"></button>
+<button class="h-10 rounded-lg bg-surface-container-high hover:bg-primary-container transition-colors" onclick="toggleSlot(this)"></button>
+</div>
+<div class="grid grid-cols-8 gap-xs items-center">
+<div class="text-right pr-sm font-label-sm text-on-surface-variant">Evening</div>
+<button class="h-10 rounded-lg bg-surface-container-high hover:bg-primary-container transition-colors" onclick="toggleSlot(this)"></button>
+<button class="h-10 rounded-lg bg-surface-container-high hover:bg-primary-container transition-colors" onclick="toggleSlot(this)"></button>
+<button class="h-10 rounded-lg bg-surface-container-high hover:bg-primary-container transition-colors" onclick="toggleSlot(this)"></button>
+<button class="h-10 rounded-lg bg-surface-container-high hover:bg-primary-container transition-colors" onclick="toggleSlot(this)"></button>
+<button class="h-10 rounded-lg bg-surface-container-high hover:bg-primary-container transition-colors" onclick="toggleSlot(this)"></button>
+<button class="h-10 rounded-lg bg-surface-container-high hover:bg-primary-container transition-colors" onclick="toggleSlot(this)"></button>
+<button class="h-10 rounded-lg bg-surface-container-high hover:bg-primary-container transition-colors" onclick="toggleSlot(this)"></button>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-md flex items-center gap-sm text-on-surface-variant font-label-sm">
+<div class="w-4 h-4 rounded bg-primary-container"></div> Selected Slot
+                            <div class="w-4 h-4 rounded bg-surface-container-high"></div> Available
+                        </div>
+</section>
+<!-- Step 4: Format (Hidden initially) -->
+<section class="hidden step-transition" id="step-4-content">
+<div class="mb-xl">
+<h1 class="font-display text-display text-on-surface mb-xs">Choose your format</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">How do you prefer to meet? We'll match you with users who have similar preferences.</p>
+</div>
+<div class="space-y-md">
+<label class="block relative group cursor-pointer">
+<input checked="" class="peer sr-only" name="format" type="radio"/>
+<div class="p-xl rounded-xl glass-card border-2 border-transparent peer-checked:border-primary peer-checked:bg-primary/5 transition-all">
+<div class="flex items-center gap-lg">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[32px]">videocam</span>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-sm text-headline-sm mb-xs">Online Only</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Meetings via video calls. High flexibility and broad mentor reach.</p>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center">
+<div class="w-2.5 h-2.5 rounded-full bg-white opacity-0 peer-checked:opacity-100"></div>
+</div>
+</div>
+</div>
+</label>
+<label class="block relative group cursor-pointer">
+<input class="peer sr-only" name="format" type="radio"/>
+<div class="p-xl rounded-xl glass-card border-2 border-transparent peer-checked:border-primary peer-checked:bg-primary/5 transition-all">
+<div class="flex items-center gap-lg">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[32px]">location_on</span>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-sm text-headline-sm mb-xs">In-person Only</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Face-to-face meetings on campus or public spaces.</p>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center">
+<div class="w-2.5 h-2.5 rounded-full bg-white opacity-0 peer-checked:opacity-100"></div>
+</div>
+</div>
+</div>
+</label>
+<label class="block relative group cursor-pointer">
+<input class="peer sr-only" name="format" type="radio"/>
+<div class="p-xl rounded-xl glass-card border-2 border-transparent peer-checked:border-primary peer-checked:bg-primary/5 transition-all">
+<div class="flex items-center gap-lg">
+<div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[32px]">dynamic_feed</span>
+</div>
+<div class="flex-1">
+<h3 class="font-headline-sm text-headline-sm mb-xs">Hybrid / Flexible</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Open to both online and physical meetings depending on the session.</p>
+</div>
+<div class="w-6 h-6 rounded-full border-2 border-outline-variant peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center">
+<div class="w-2.5 h-2.5 rounded-full bg-white opacity-0 peer-checked:opacity-100"></div>
+</div>
+</div>
+</div>
+</label>
+</div>
+</section>
+<!-- Footer Controls -->
+<div class="mt-xxl flex items-center justify-between border-t border-outline-variant pt-xl">
+<button class="opacity-0 pointer-events-none flex items-center gap-sm px-lg py-sm rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container-high transition-all" id="prev-btn" onclick="prevStep()">
+<span class="material-symbols-outlined">arrow_back</span> Back
+                        </button>
+<div class="flex items-center gap-md">
+<div class="hidden md:flex gap-xs">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<div class="w-2 h-2 rounded-full bg-outline-variant" id="dot-2"></div>
+<div class="w-2 h-2 rounded-full bg-outline-variant" id="dot-3"></div>
+<div class="w-2 h-2 rounded-full bg-outline-variant" id="dot-4"></div>
+</div>
+<button class="bg-primary text-on-primary px-xl py-md rounded-lg font-headline-sm shadow-md hover:bg-primary-container transition-all flex items-center gap-md" id="next-btn" onclick="nextStep()">
+                                Continue <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script>
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function updateUI() {
+            // Content visibility
+            for (let i = 1; i <= totalSteps; i++) {
+                const section = document.getElementById(`step-${i}-content`);
+                if (i === currentStep) {
+                    section.classList.remove('hidden');
+                    section.classList.add('animate-fade-in');
+                } else {
+                    section.classList.add('hidden');
+                }
+
+                // Sidebar indicators
+                const indicator = document.getElementById(`step-indicator-${i}`);
+                if (indicator) {
+                    if (i === currentStep) {
+                        indicator.classList.remove('opacity-40');
+                        indicator.querySelector('.w-10').classList.add('bg-on-primary', 'text-primary');
+                    } else if (i < currentStep) {
+                        indicator.classList.remove('opacity-40');
+                        indicator.querySelector('.w-10').classList.remove('bg-on-primary', 'text-primary');
+                        indicator.querySelector('.w-10').innerHTML = '<span class="material-symbols-outlined">check</span>';
+                    } else {
+                        indicator.classList.add('opacity-40');
+                        indicator.querySelector('.w-10').classList.remove('bg-on-primary', 'text-primary');
+                        indicator.querySelector('.w-10').innerText = i;
+                    }
+                }
+
+                // Footer dots
+                const dot = document.getElementById(`dot-${i}`);
+                if (dot) {
+                    dot.className = i <= currentStep ? 'w-2 h-2 rounded-full bg-primary' : 'w-2 h-2 rounded-full bg-outline-variant';
+                }
+            }
+
+            // Button controls
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+
+            if (currentStep === 1) {
+                prevBtn.classList.add('opacity-0', 'pointer-events-none');
+            } else {
+                prevBtn.classList.remove('opacity-0', 'pointer-events-none');
+            }
+
+            if (currentStep === totalSteps) {
+                nextBtn.innerHTML = 'Complete Profile <span class="material-symbols-outlined">done_all</span>';
+                nextBtn.classList.replace('bg-primary', 'bg-secondary');
+            } else {
+                nextBtn.innerHTML = 'Continue <span class="material-symbols-outlined">arrow_forward</span>';
+                nextBtn.classList.replace('bg-secondary', 'bg-primary');
+            }
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                updateUI();
+            } else {
+                alert("Onboarding Complete! Redirecting to your dashboard...");
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                updateUI();
+            }
+        }
+
+        function toggleSelect(el, type = 'primary') {
+            const isSelected = el.classList.contains('border-primary') || el.classList.contains('border-error');
+            const check = el.querySelector('.check-mark');
+            const iconContainer = el.querySelector('div:first-child > div');
+
+            if (!isSelected) {
+                if (type === 'primary') {
+                    el.classList.add('border-primary', 'bg-primary/5');
+                    check.classList.add('bg-primary', 'border-primary');
+                    check.innerHTML = '<span class="material-symbols-outlined text-[16px] text-white">check</span>';
+                    iconContainer.classList.add('bg-primary', 'text-on-primary');
+                } else {
+                    el.classList.add('border-error', 'bg-error/5');
+                    check.classList.add('bg-error', 'border-error');
+                    check.innerHTML = '<span class="material-symbols-outlined text-[16px] text-white">check</span>';
+                    iconContainer.classList.add('bg-error', 'text-on-error');
+                }
+            } else {
+                el.classList.remove('border-primary', 'bg-primary/5', 'border-error', 'bg-error/5');
+                check.classList.remove('bg-primary', 'border-primary', 'bg-error', 'border-error');
+                check.innerHTML = '';
+                iconContainer.classList.remove('bg-primary', 'text-on-primary', 'bg-error', 'text-on-error');
+            }
+        }
+
+        function toggleSlot(el) {
+            el.classList.toggle('bg-surface-container-high');
+            el.classList.toggle('bg-primary-container');
+        }
+
+        // Initialize state
+        updateUI();
+    </script>
+</body></html>
