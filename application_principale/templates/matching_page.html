@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#00201c",
+                        "tertiary": "#825100",
+                        "surface-tint": "#494bd6",
+                        "error-container": "#ffdad6",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "surface": "#f8f9ff",
+                        "on-primary-fixed": "#07006c",
+                        "surface-container-highest": "#d3e4fe",
+                        "secondary": "#006b5f",
+                        "on-primary-fixed-variant": "#2f2ebe",
+                        "on-error-container": "#93000a",
+                        "tertiary-fixed": "#ffddb8",
+                        "inverse-on-surface": "#eaf1ff",
+                        "primary-fixed-dim": "#c0c1ff",
+                        "tertiary-container": "#a36700",
+                        "on-surface-variant": "#464554",
+                        "outline-variant": "#c7c4d7",
+                        "on-tertiary-fixed": "#2a1700",
+                        "on-tertiary-container": "#fffbff",
+                        "primary": "#4648d4",
+                        "on-primary": "#ffffff",
+                        "primary-fixed": "#e1e0ff",
+                        "surface-container-high": "#dce9ff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container": "#e5eeff",
+                        "inverse-primary": "#c0c1ff",
+                        "on-error": "#ffffff",
+                        "on-surface": "#0b1c30",
+                        "secondary-fixed-dim": "#4fdbc8",
+                        "on-background": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "surface-bright": "#f8f9ff",
+                        "secondary-container": "#6df5e1",
+                        "surface-dim": "#cbdbf5",
+                        "secondary-fixed": "#71f8e4",
+                        "inverse-surface": "#213145",
+                        "on-secondary-container": "#006f64",
+                        "primary-container": "#6063ee",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-secondary-fixed-variant": "#005048",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-primary-container": "#fffbff",
+                        "background": "#f8f9ff",
+                        "outline": "#767586"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "container-max": "1280px",
+                        "sm": "12px",
+                        "sidebar-width": "260px",
+                        "base": "8px",
+                        "navbar-height": "64px",
+                        "xxl": "48px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "xs": "4px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "headline-sm": ["Inter"],
+                        "display": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest dark:bg-surface-dim shadow-sm dark:shadow-none border-b border-outline-variant dark:border-outline fixed top-0 z-50 w-full">
+<div class="flex justify-between items-center px-lg h-navbar-height w-full max-w-container-max mx-auto">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">IFRI_MentorLink</div>
+<nav class="hidden md:flex gap-xl items-center">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-label-md text-label-md" href="#">Home</a>
+<a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">Discover</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-label-md text-label-md" href="#">Feed</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-label-md text-label-md" href="#">Messages</a>
+</nav>
+<div class="flex items-center gap-md">
+<button class="p-xs hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full bg-surface-container overflow-hidden border border-outline-variant">
+<img alt="User avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArjABhPzH5b_kD3sx9h3i1H_qDh6U8wknhmcja6wvvU5g3CTDsX0_BGZ1ipRZuOt7Sm7T1D3PJ9qa2QKT1iMvmuwCP_D-MCE0RUa4zZ66DM2LOzHoXW06Y7fNt1BSHCpoxUcXfzNdklWJojpfHu8qN7y7Vk_pEWGY5EyLR0SH4XUYlr7GeYAo6QeghsX18h4yQ2E7VwjiFhsG8Nd8stXNlYrUHRtJtVxlKtBMDrI0lRT0ck9Hq3maiBwZWzAm3utBRe-cohJaubIA"/>
+</div>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full flex flex-col p-md border-r border-outline-variant dark:border-outline bg-surface-container-low dark:bg-inverse-surface shadow-md dark:shadow-none w-sidebar-width pt-[80px] hidden lg:flex">
+<div class="mb-xl px-md">
+<h2 class="font-headline-sm text-headline-sm font-bold text-primary">Student Dashboard</h2>
+<p class="font-label-md text-label-md text-on-surface-variant">Manage your mentorships</p>
+</div>
+<nav class="flex flex-col gap-xs flex-grow">
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="flex items-center gap-md bg-primary-container dark:bg-primary text-on-primary-container dark:text-on-primary rounded-lg px-md py-sm transition-all scale-[0.98] font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+<span>My Offers</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span>My Profile</span>
+</a>
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<button class="mt-auto w-full bg-primary text-on-primary py-md rounded-xl font-label-md text-label-md flex items-center justify-center gap-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+            Find a Mentor
+        </button>
+</aside>
+<!-- Main Content Canvas -->
+<main class="lg:ml-sidebar-width pt-[80px] px-lg md:px-xl pb-xxl">
+<div class="max-w-container-max mx-auto">
+<!-- Hero Header -->
+<section class="mb-xl">
+<h1 class="font-display text-display text-on-surface mb-xs">Perfect Matches</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Based on your academic goals, research interests, and preferred learning style, our algorithm has identified these high-compatibility mentors.</p>
+</section>
+<!-- Bento Grid Layout for Suggestions -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+<!-- Mentor Card 1 (High Compatibility) -->
+<div class="glass-card rounded-xl p-md flex flex-col hover:shadow-lg transition-all group border-primary/20">
+<div class="flex justify-between items-start mb-md">
+<div class="relative">
+<img class="w-16 h-16 rounded-lg object-cover ring-2 ring-primary/10" data-alt="A professional headshot of a female university professor in a bright, modern office. She is smiling warmly, wearing smart corporate attire. The background is softly blurred with bookshelves and a large window, creating a supportive and academic atmosphere. High-key lighting, soft shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUMRf6yE6GGx3TL75sscgZm5x8sFlXADyMJtENq9s4u6kGDrdQdDokMKJSQorLa8aPZDQpXyoOgsoVuFwgsKNNNn_p63o1N92kdgfbechDraaJMAedy9CRSaKnYkW8Pogxq8U7yhF34CSsXbnkweIWXAZ33olsrVX7WiFNxujggFuQ3OUPP19s0taEjnH7Hw-dtSdUkCZPWSTHsbnM1EsWuL-txD8MiAQa524W4qxlrS7a-60FP7GvDP9zQMr3Yjxdb1kLRE2Ri68"/>
+<span class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full"></span>
+</div>
+<div class="bg-green-100 text-green-700 px-sm py-xs rounded-full flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="bolt" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="font-label-sm text-label-sm">98% Match</span>
+</div>
+</div>
+<div class="mb-md">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Dr. Sarah Jenkins</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Senior Researcher in Quantum Computing</p>
+</div>
+<div class="flex flex-wrap gap-xs mb-md">
+<span class="bg-primary/10 text-primary px-sm py-[4px] rounded-full font-label-sm text-label-sm">Quantum Mechanics</span>
+<span class="bg-primary/10 text-primary px-sm py-[4px] rounded-full font-label-sm text-label-sm">Python</span>
+<span class="bg-primary/10 text-primary px-sm py-[4px] rounded-full font-label-sm text-label-sm">Linear Algebra</span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-sm mb-lg">
+<div class="flex items-center gap-sm text-on-surface-variant mb-xs">
+<span class="material-symbols-outlined text-[18px]" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-sm text-label-sm">Common: Tue, Thu (After 4 PM)</span>
+</div>
+</div>
+<div class="mt-auto flex gap-sm">
+<button class="flex-1 bg-primary text-on-primary py-sm rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity">Accept</button>
+<button class="flex-1 border border-outline-variant text-on-surface-variant py-sm rounded-lg font-label-md text-label-md hover:bg-surface-container transition-colors">Decline</button>
+</div>
+</div>
+<!-- Mentor Card 2 (Medium Compatibility) -->
+<div class="glass-card rounded-xl p-md flex flex-col hover:shadow-lg transition-all group">
+<div class="flex justify-between items-start mb-md">
+<div class="relative">
+<img class="w-16 h-16 rounded-lg object-cover" data-alt="A professional portrait of a male mentor in his 40s, looking confident and approachable. He is in a clean, minimalist studio setting with neutral gray tones. Soft studio lighting highlights his features. He wears a navy blue blazer. The mood is corporate, professional, and trustworthy." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADcSAWXwmzjE4iYjiP1n56lWnkxenkLCwSajwCmzHTdLk8DpLDFddRtB6Kw0H947O-eFj_rU-5M9_HHYNOQCoW0oAOlkvUz5Pm3bK2wa04kInVgtzNTBQZtQwI3bxHNBDoNexF-NJ9FRKLPQln0qEh69L1W3HkNBERuu9BjyqrzRJWH1Jw3WHsm_gzsZ77QgYd2xJxVU4HiC7JNlVKd1UAojAl2oDejzv5DDjL3fod8HBmiaBZY7rb7d12iJkZ-YJwB8uC-9Ov2X4"/>
+</div>
+<div class="bg-amber-100 text-amber-700 px-sm py-xs rounded-full flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="trending_up">trending_up</span>
+<span class="font-label-sm text-label-sm">74% Match</span>
+</div>
+</div>
+<div class="mb-md">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Prof. Michael Chen</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Data Architecture Specialist</p>
+</div>
+<div class="flex flex-wrap gap-xs mb-md">
+<span class="bg-primary/10 text-primary px-sm py-[4px] rounded-full font-label-sm text-label-sm">Big Data</span>
+<span class="bg-primary/10 text-primary px-sm py-[4px] rounded-full font-label-sm text-label-sm">SQL Architecture</span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-sm mb-lg">
+<div class="flex items-center gap-sm text-on-surface-variant mb-xs">
+<span class="material-symbols-outlined text-[18px]" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-sm text-label-sm">Common: Mon, Wed (Mornings)</span>
+</div>
+</div>
+<div class="mt-auto flex gap-sm">
+<button class="flex-1 bg-primary text-on-primary py-sm rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity">Accept</button>
+<button class="flex-1 border border-outline-variant text-on-surface-variant py-sm rounded-lg font-label-md text-label-md hover:bg-surface-container transition-colors">Decline</button>
+</div>
+</div>
+<!-- Mentor Card 3 (Featured Profile - Glass Effect) -->
+<div class="relative overflow-hidden rounded-xl p-md flex flex-col group border border-primary bg-primary text-on-primary shadow-xl">
+<!-- Background Accent -->
+<div class="absolute -top-12 -right-12 w-32 h-32 bg-white/10 rounded-full blur-3xl"></div>
+<div class="flex justify-between items-start mb-md relative z-10">
+<div class="relative">
+<img class="w-16 h-16 rounded-lg object-cover ring-2 ring-white/30" data-alt="A close-up portrait of a woman of color, a university mentor, laughing genuinely. The lighting is warm and natural, suggesting an outdoor campus setting with soft green foliage in the background. She radiates kindness and expertise. Bright, airy composition with vibrant but professional color tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDI5b00ydqCk8LoHhDUxtQIjortyoy6u2-NeU0Lwd-1NUrcHPn5pLJ7L-meEavjRI3CuEsl5m9BJiLR5YA2hSOS9LgLZGUhwG5laAoeIjGAjCOdEGwSHxxn6L446eiCkb8_mCIUGc15RBgqf8bMlOgqi7vOz9Vc-fzHWrIzbrOtFvGNPVrheonCgsumDUzbi5ymQpsAC0yHIEsQAv9yB7HVrBMx5Q62m_jT1cnuFUW_LLDztGF5pazE1g_3ukIDWRoEurND-EQ7jA"/>
+</div>
+<div class="bg-white/20 backdrop-blur-md text-white px-sm py-xs rounded-full flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-sm text-label-sm">89% Match</span>
+</div>
+</div>
+<div class="mb-md relative z-10">
+<h3 class="font-headline-sm text-headline-sm text-white">Dr. Elena Rodriguez</h3>
+<p class="font-body-sm text-body-sm text-white/80">Ethical AI &amp; Social Impact Expert</p>
+</div>
+<div class="flex flex-wrap gap-xs mb-md relative z-10">
+<span class="bg-white/20 text-white px-sm py-[4px] rounded-full font-label-sm text-label-sm border border-white/30">AI Ethics</span>
+<span class="bg-white/20 text-white px-sm py-[4px] rounded-full font-label-sm text-label-sm border border-white/30">Philosophy</span>
+</div>
+<div class="bg-white/10 backdrop-blur-sm rounded-lg p-sm mb-lg relative z-10">
+<div class="flex items-center gap-sm text-white mb-xs">
+<span class="material-symbols-outlined text-[18px]" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-sm text-label-sm">Common: Fridays (Full Day)</span>
+</div>
+</div>
+<div class="mt-auto flex gap-sm relative z-10">
+<button class="flex-1 bg-white text-primary py-sm rounded-lg font-label-md text-label-md hover:bg-opacity-90 transition-opacity">Accept</button>
+<button class="flex-1 border border-white/30 text-white py-sm rounded-lg font-label-md text-label-md hover:bg-white/10 transition-colors">Decline</button>
+</div>
+</div>
+<!-- Mentor Card 4 -->
+<div class="glass-card rounded-xl p-md flex flex-col hover:shadow-lg transition-all group">
+<div class="flex justify-between items-start mb-md">
+<div class="relative">
+<img class="w-16 h-16 rounded-lg object-cover" data-alt="A middle-aged man with glasses, looking scholarly and attentive. He is sitting in a library with rows of books visible in the soft-focus background. The lighting is warm and intellectual. He is wearing a grey turtleneck. The mood is calm, studious, and deeply knowledgeable." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvjFz7zKTscMRsqzPVo6KPZLWpQMWWMVdIGn6OzEyI_d9pnPUzADQg8Z_aBVaY0aGrsnghdHwlfbhZTuYgch_uZG-7j7gk3nNkzQVb08CrTADM55glpSpYYE4yDBxeiLq7N_0dQPgVLZ2kzfcCf8DX0r1yeB7Lxoe4swA1ZbEg6mOOMMxPHnRL05cg52K30NFiUFbttigJIOdAbcuOdHkMlTTHD3HMCoj_D_5W_8cKl19tXrNE-JLuK80pl4XdRLT42Y9LYGZGWlQ"/>
+</div>
+<div class="bg-green-100 text-green-700 px-sm py-xs rounded-full flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]" data-icon="bolt" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="font-label-sm text-label-sm">82% Match</span>
+</div>
+</div>
+<div class="mb-md">
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Dr. James Wilson</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Macroeconomics &amp; Global Markets</p>
+</div>
+<div class="flex flex-wrap gap-xs mb-md">
+<span class="bg-primary/10 text-primary px-sm py-[4px] rounded-full font-label-sm text-label-sm">Economics</span>
+<span class="bg-primary/10 text-primary px-sm py-[4px] rounded-full font-label-sm text-label-sm">Statistics</span>
+</div>
+<div class="bg-surface-container-low rounded-lg p-sm mb-lg">
+<div class="flex items-center gap-sm text-on-surface-variant mb-xs">
+<span class="material-symbols-outlined text-[18px]" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-sm text-label-sm">Common: Weekends (Mornings)</span>
+</div>
+</div>
+<div class="mt-auto flex gap-sm">
+<button class="flex-1 bg-primary text-on-primary py-sm rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity">Accept</button>
+<button class="flex-1 border border-outline-variant text-on-surface-variant py-sm rounded-lg font-label-md text-label-md hover:bg-surface-container transition-colors">Decline</button>
+</div>
+</div>
+<!-- Call to Action Card -->
+<div class="bg-surface-container border-2 border-dashed border-outline-variant rounded-xl p-md flex flex-col items-center justify-center text-center group cursor-pointer hover:border-primary transition-colors">
+<div class="w-16 h-16 bg-white rounded-full flex items-center justify-center mb-md shadow-sm group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-[32px]" data-icon="add">add</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Update Preferences</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Refine your matching criteria for even better suggestions.</p>
+</div>
+</div>
+<!-- Stats/Insights Section (Bottom Bento) -->
+<div class="mt-xl grid grid-cols-1 lg:grid-cols-4 gap-lg">
+<div class="lg:col-span-3 glass-card rounded-xl p-lg">
+<div class="flex items-center justify-between mb-lg">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Compatibility breakdown</h2>
+<button class="text-primary font-label-md text-label-md flex items-center gap-xs">
+                            View algorithm details <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="bg-surface-container-highest/30 rounded-lg p-md border border-outline-variant">
+<div class="text-primary mb-sm">
+<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-surface">Learning Style</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">92% alignment in "Practical Application" vs "Theoretic Study".</p>
+</div>
+<div class="bg-surface-container-highest/30 rounded-lg p-md border border-outline-variant">
+<div class="text-primary mb-sm">
+<span class="material-symbols-outlined" data-icon="schedule">schedule</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-surface">Availability</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Average of 6.5 shared hours found per week across top matches.</p>
+</div>
+<div class="bg-surface-container-highest/30 rounded-lg p-md border border-outline-variant">
+<div class="text-primary mb-sm">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+</div>
+<h4 class="font-label-md text-label-md text-on-surface">Subject Overlap</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Core alignment found in 4/5 of your primary research areas.</p>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-xl p-lg flex flex-col items-center justify-center text-center bg-primary/5">
+<div class="w-20 h-20 relative mb-md">
+<svg class="w-full h-full transform -rotate-90">
+<circle class="text-outline-variant" cx="40" cy="40" fill="transparent" r="36" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-primary" cx="40" cy="40" fill="transparent" r="36" stroke="currentColor" stroke-dasharray="226" stroke-dashoffset="30" stroke-width="8"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center font-headline-sm text-headline-sm text-primary">
+                            85%
+                        </div>
+</div>
+<h3 class="font-label-md text-label-md text-on-surface">Avg. Matching Score</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Highly optimized for your profile.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Interactive FAB (Contextual) -->
+<div class="fixed bottom-xl right-xl z-50 lg:hidden">
+<button class="w-14 h-14 bg-primary text-on-primary rounded-full shadow-lg flex items-center justify-center hover:scale-110 active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+</div>
+<script>
+        // Simple micro-interaction for button feedback
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.style.transform = 'scale(0.98)';
+            });
+            button.addEventListener('mouseup', () => {
+                button.style.transform = 'scale(1)';
+            });
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = 'scale(1)';
+            });
+        });
+
+        // Hover effect for cards to simulate elevation increase
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.boxShadow = '0px 12px 24px rgba(0, 0, 0, 0.08)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.boxShadow = '';
+            });
+        });
+    </script>
+</body></html>
