@@ -67,8 +67,8 @@ class Utilisateur(AbstractBaseUser, PermissionsMixin):
     niveau = models.CharField(max_length=10, choices=NIVEAUX, blank=True)
     role = models.CharField(max_length=10, choices=ROLES, default='les_deux')
     est_actif = models.BooleanField(default=True)
-    date_inscription = models.DateTimeField(auto_now_add=True)
-    date_modification = models.DateTimeField(auto_now=True)
+    date_inscription = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    date_modification = models.DateTimeField(auto_now=True, null=True, blank=True)
     token_reinitialisation = models.CharField(max_length=255, blank=True, null=True)
     token_expire_le = models.DateTimeField(blank=True, null=True)
 
@@ -123,7 +123,7 @@ class Disponibilite(models.Model):
     ]
 
     utilisateur = models.ForeignKey(Utilisateur, on_delete=models.CASCADE, related_name='disponibilites')
-    jour = models.CharField(max_length=10, choices=JOURS)
+    jour = models.CharField(max_length=10, choices=JOURS, default='Monday')
     heure_debut = models.TimeField()
     heure_fin = models.TimeField()
 
@@ -160,8 +160,8 @@ class DemandeOuOffre(models.Model):
     heure_fin = models.TimeField(blank=True, null=True)
     description = models.TextField(blank=True)
     statut = models.CharField(max_length=10, choices=STATUTS, default='ouvert')
-    date_creation = models.DateTimeField(auto_now_add=True)
-    date_modification = models.DateTimeField(auto_now=True)
+    date_creation = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    date_modification = models.DateTimeField(auto_now=True, null=True, blank=True)
 
     class Meta:
         db_table = 'mentoring_requests'
@@ -186,7 +186,7 @@ class Matching(models.Model):
     score_horaires = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     score_filiere = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     statut = models.CharField(max_length=15, choices=STATUTS, default='en_attente')
-    date_creation = models.DateTimeField(auto_now_add=True)
+    date_creation = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     class Meta:
         db_table = 'match_suggestions'
@@ -219,7 +219,7 @@ class Conversation(models.Model):
     utilisateur1 = models.ForeignKey(Utilisateur, on_delete=models.CASCADE, related_name='conversations_en1')
     utilisateur2 = models.ForeignKey(Utilisateur, on_delete=models.CASCADE, related_name='conversations_en2')
     matching = models.ForeignKey(Matching, on_delete=models.SET_NULL, null=True, blank=True)
-    date_creation = models.DateTimeField(auto_now_add=True)
+    date_creation = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     class Meta:
         db_table = 'conversations'
@@ -242,11 +242,11 @@ class Conversation(models.Model):
 
 
 class Message(models.Model):
-    conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE, related_name='messages')
+    conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE, related_name='messages', null=True, blank=True)
     expediteur = models.ForeignKey(Utilisateur, on_delete=models.CASCADE)
     contenu = models.TextField()
     lu = models.BooleanField(default=False)
-    date_envoi = models.DateTimeField(auto_now_add=True)
+    date_envoi = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     class Meta:
         db_table = 'messages'
