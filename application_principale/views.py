@@ -6,19 +6,19 @@ from .models import Utilisateur, CompetenceUtilisateur
 
 @login_required
 def mon_profil(request):
-    utilisateur = get_object_or_404(Utilisateur, user=request.user)
+    utilisateur = request.user  # ✅ Plus de champ "user" inexistant
     competences = CompetenceUtilisateur.objects.filter(utilisateur=utilisateur)
 
     context = {
         'utilisateur': utilisateur,
         'competences': competences,
     }
-    return render(request, 'mon_profil/mon_profil.html', context)
+    return render(request, 'my_profil/mon_profil.html', context)  # ✅ Bon dossier
 
 
 @login_required
 def modifier_profil(request):
-    utilisateur = get_object_or_404(Utilisateur, user=request.user)
+    utilisateur = request.user  # ✅
 
     if request.method == 'POST':
         nom = request.POST.get('nom')
@@ -36,16 +36,16 @@ def modifier_profil(request):
         messages.success(request, "Profil mis à jour avec succès !")
         return redirect('mon_profil')
 
-    return render(request, 'mon_profil/modifier_profil.html', {'utilisateur': utilisateur})
+    return render(request, 'my_profil/edit_profil.html', {'utilisateur': utilisateur})  # ✅ Bon dossier
 
 
 @login_required
 def profil_public(request, user_id):
-    utilisateur = get_object_or_404(Utilisateur, pk=user_id)
+    utilisateur = get_object_or_404(Utilisateur, pk=user_id)  # ✅ Ici pk est correct
     competences = CompetenceUtilisateur.objects.filter(utilisateur=utilisateur)
 
     context = {
         'utilisateur': utilisateur,
         'competences': competences,
     }
-    return render(request, 'mon_profil/profil_public.html', context)
+    return render(request, 'my_profil/profil_public.html', context)  # ✅ Bon dossier
