@@ -5,7 +5,6 @@ class Utilisateur:
         self.id_utilisateur = id_utilisateur
         self.nom = nom
         self.email = email
-        # Si aucune compétence n'est fournie, on initialise une liste vide
         self.competences = competences if competences is not None else []
 
     def afficher_profil(self):
