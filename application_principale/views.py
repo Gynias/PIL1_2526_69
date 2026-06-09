@@ -8,8 +8,45 @@ from django.db.models import Q, Max
 from .models import DemandeOuOffre, Matching, Utilisateur, Competence, CompetenceUtilisateur, Disponibilite, Conversation, Message
 import json
 
+@login_required
 def create_offer_request(request):
-    return render(request, 'annonces/create_offer_request.html')
+    if request.method == 'POST':
+        type_publication = request.POST.get('type_publication')
+        competence_id = request.POST.get('competence')
+        format_seance = request.POST.get('format_seance')
+        jour = request.POST.get('jour')
+        heure_debut = request.POST.get('heure_debut')
+        heure_fin = request.POST.get('heure_fin')
+        description = request.POST.get('description', '')
+
+        if type_publication and competence_id:
+            try:
+                competence = Competence.objects.get(id=competence_id)
+                DemandeOuOffre.objects.create(
+                    auteur=request.user,
+                    type_publication=type_publication,
+                    competence=competence,
+                    format_seance=format_seance,
+                    jour=jour if jour else None,
+                    heure_debut=heure_debut if heure_debut else None,
+                    heure_fin=heure_fin if heure_fin else None,
+                    description=description,
+                    statut='ouvert'
+                )
+                messages.success(request, "Votre annonce a été publiée avec succès !")
+                return redirect('offer_request_feed')
+            except Competence.DoesNotExist:
+                messages.error(request, "La compétence sélectionnée n'existe pas.")
+        else:
+            messages.error(request, "Veuillez remplir les champs obligatoires (Type et Compétence).")
+
+    competences = Competence.objects.all().order_by('nom')
+    jours = Disponibilite.JOURS
+    
+    return render(request, 'annonces/create_offer_request.html', {
+        'competences': competences,
+        'jours': jours,
+    })
 
 def discover_page(request):
     return render(request, 'annonces/discover_page.html')
@@ -17,8 +54,13 @@ def discover_page(request):
 def offer_request_detail(request):
     return render(request, 'annonces/offer_request_detail.html')
 
+@login_required
 def offer_request_feed(request):
-    return render(request, 'annonces/offer_request_feed.html')
+    annonces = DemandeOuOffre.objects.filter(statut='ouvert').select_related('auteur', 'competence').order_by('-date_creation')
+    
+    return render(request, 'annonces/offer_request_feed.html', {
+        'annonces': annonces
+    })
 
 def search_results(request):
     return render(request, 'annonces/search_results.html')
