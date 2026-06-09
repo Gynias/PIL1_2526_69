@@ -75,7 +75,7 @@
   <span class="material-symbols-outlined">person</span>
 </div>
 <div>
-<p class="text-on-surface font-bold">{{ user.first_name|default:user.username }} {{ user.last_name }}</p>
+<p class="text-on-surface font-bold">{{ user.prenom }} {{ user.nom }}</p>
 <p class="text-xs text-on-surface-variant">Étudiant IFRI</p>
 </div>
 </div>
@@ -121,7 +121,7 @@
 <div class="flex items-center gap-xl mb-xl">
 <div class="relative group">
 <div class="w-24 h-24 rounded-full border-4 border-surface-container shadow-md bg-primary flex items-center justify-center text-white text-3xl">
-  {{ user.first_name|default:user.username|make_list|first|upper }}
+  {{ user.prenom|make_list|first|upper }}
 </div>
 <button class="absolute bottom-0 right-0 bg-primary text-white p-2 rounded-full shadow-lg hover:bg-primary-container transition-colors border-2 border-surface-container-lowest" type="button">
 <span class="material-symbols-outlined text-[18px]">edit</span>
@@ -137,11 +137,11 @@
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
 <div class="flex flex-col gap-xs">
 <label class="text-sm text-on-surface-variant font-bold" for="firstName">Prénom</label>
-<input class="w-full px-md py-sm rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none bg-surface" id="firstName" name="first_name" type="text" value="{{ user.first_name }}"/>
+<input class="w-full px-md py-sm rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none bg-surface" id="firstName" name="first_name" type="text" value="{{ user.prenom }}"/>
 </div>
 <div class="flex flex-col gap-xs">
 <label class="text-sm text-on-surface-variant font-bold" for="lastName">Nom</label>
-<input class="w-full px-md py-sm rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none bg-surface" id="lastName" name="last_name" type="text" value="{{ user.last_name }}"/>
+<input class="w-full px-md py-sm rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none bg-surface" id="lastName" name="last_name" type="text" value="{{ user.nom }}"/>
 </div>
 </div>
 

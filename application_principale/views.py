@@ -17,8 +17,8 @@ from .models import DemandeOuOffre, Matching, Utilisateur, Competence, Competenc
 def account_settings(request):
     if request.method == 'POST':
         user = request.user
-        user.first_name = request.POST.get('first_name', '')
-        user.last_name = request.POST.get('last_name', '')
+        user.prenom = request.POST.get('first_name', '')
+        user.nom = request.POST.get('last_name', '')
         user.email = request.POST.get('email', '')
         user.save()
         messages.success(request, "Votre profil a été mis à jour avec succès.")
