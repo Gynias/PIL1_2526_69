@@ -165,6 +165,17 @@
 </div>
 </header>
 <!-- Bento-style Grid Form Container -->
+<form method="POST" action="{% url 'create_offer_request' %}">
+  {% csrf_token %}
+  {% if messages %}
+    <div class="mb-4">
+      {% for message in messages %}
+        <div class="p-4 rounded {% if message.tags == 'error' %}bg-red-100 text-red-700{% else %}bg-green-100 text-green-700{% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
 <div class="grid grid-cols-12 gap-lg">
 <!-- Primary Form Section -->
 <section class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl p-xl shadow-sm">
@@ -172,10 +183,11 @@
 <div class="flex flex-col gap-sm mb-xl">
 <label class="font-label-md text-on-surface-variant">Listing Type</label>
 <div class="inline-flex p-1 bg-surface-container rounded-lg self-start">
-<button class="px-xl py-base font-label-md rounded-lg transition-all bg-primary-container text-on-primary-container shadow-sm" id="toggleOffer" onclick="setMode('offer')">
+<input type="hidden" name="type_publication" id="type_publication" value="offre">
+<button type="button" class="px-xl py-base font-label-md rounded-lg transition-all bg-primary-container text-on-primary-container shadow-sm" id="toggleOffer" onclick="setMode('offre')">
               I want to Offer
             </button>
-<button class="px-xl py-base font-label-md rounded-lg transition-all text-on-surface-variant hover:text-on-surface" id="toggleRequest" onclick="setMode('request')">
+<button type="button" class="px-xl py-base font-label-md rounded-lg transition-all text-on-surface-variant hover:text-on-surface" id="toggleRequest" onclick="setMode('demande')">
               I want to Request
             </button>
 </div>
@@ -183,34 +195,20 @@
 <!-- Subject Selection (Multi-select Chips) -->
 <div class="flex flex-col gap-sm mb-xl">
 <label class="font-label-md text-on-surface-variant">Subjects &amp; Skills</label>
-<div class="flex flex-wrap gap-sm" id="subject-container">
-<button class="px-md py-base border border-outline rounded-full font-label-sm hover:border-primary transition-colors flex items-center gap-xs" onclick="toggleChip(this)">
-              Computer Science <span class="material-symbols-outlined text-[16px]" data-icon="add">add</span>
-</button>
-<button class="px-md py-base border border-outline rounded-full font-label-sm hover:border-primary transition-colors flex items-center gap-xs" onclick="toggleChip(this)">
-              UI/UX Design <span class="material-symbols-outlined text-[16px]" data-icon="add">add</span>
-</button>
-<button class="px-md py-base border border-outline rounded-full font-label-sm hover:border-primary transition-colors flex items-center gap-xs" onclick="toggleChip(this)">
-              Business Strategy <span class="material-symbols-outlined text-[16px]" data-icon="add">add</span>
-</button>
-<button class="px-md py-base border border-outline rounded-full font-label-sm hover:border-primary transition-colors flex items-center gap-xs" onclick="toggleChip(this)">
-              Data Science <span class="material-symbols-outlined text-[16px]" data-icon="add">add</span>
-</button>
-<button class="px-md py-base border border-outline rounded-full font-label-sm hover:border-primary transition-colors flex items-center gap-xs" onclick="toggleChip(this)">
-              Public Speaking <span class="material-symbols-outlined text-[16px]" data-icon="add">add</span>
-</button>
-</div>
+<select name="competence" class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none font-body-sm" required>
+  <option value="">Select a subject...</option>
+  {% for comp in competences %}
+    <option value="{{ comp.id }}">{{ comp.nom }}</option>
+  {% endfor %}
+</select>
 </div>
 <!-- Description -->
 <div class="flex flex-col gap-sm mb-xl">
 <label class="font-label-md text-on-surface-variant">Detailed Description (Optional)</label>
-<textarea class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none resize-none font-body-sm" placeholder="Describe what you are looking for or what you can teach in detail..." rows="4"></textarea>
+<textarea name="description" class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none resize-none font-body-sm" placeholder="Describe what you are looking for or what you can teach in detail..." rows="4"></textarea>
 </div>
 <div class="flex justify-end gap-md pt-lg border-t border-outline-variant">
-<button class="px-xl py-sm border border-outline text-on-surface font-label-md rounded-lg hover:bg-surface-container-high transition-all">
-            Save as Draft
-          </button>
-<button class="px-xl py-sm bg-primary text-on-primary font-label-md rounded-lg hover:opacity-90 transition-all shadow-md">
+<button type="submit" class="px-xl py-sm bg-primary text-on-primary font-label-md rounded-lg hover:opacity-90 transition-all shadow-md">
             Publish Listing
           </button>
 </div>
@@ -225,7 +223,7 @@
           </h3>
 <div class="grid grid-cols-1 gap-sm">
 <label class="flex items-center gap-md p-md rounded-lg border border-outline-variant cursor-pointer hover:bg-surface-container transition-all group">
-<input checked="" class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="format" type="radio"/>
+<input checked="" value="en_ligne" class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="format_seance" type="radio"/>
 <div class="flex-1">
 <p class="font-label-md">Online Remote</p>
 <p class="text-[12px] text-on-surface-variant">Zoom, Discord, or Teams</p>
@@ -233,7 +231,7 @@
 <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="videocam">videocam</span>
 </label>
 <label class="flex items-center gap-md p-md rounded-lg border border-outline-variant cursor-pointer hover:bg-surface-container transition-all group">
-<input class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="format" type="radio"/>
+<input value="presentiel" class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="format_seance" type="radio"/>
 <div class="flex-1">
 <p class="font-label-md">On-Campus</p>
 <p class="text-[12px] text-on-surface-variant">Libraries, Cafés, or Labs</p>
@@ -241,7 +239,7 @@
 <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="location_on">location_on</span>
 </label>
 <label class="flex items-center gap-md p-md rounded-lg border border-outline-variant cursor-pointer hover:bg-surface-container transition-all group">
-<input class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="format" type="radio"/>
+<input value="les_deux" class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="format_seance" type="radio"/>
 <div class="flex-1">
 <p class="font-label-md">Hybrid</p>
 <p class="text-[12px] text-on-surface-variant">Flexible mix of both</p>
@@ -256,31 +254,23 @@
 <span class="material-symbols-outlined text-primary" data-icon="calendar_month">calendar_month</span>
             Availability
           </h3>
-<div class="grid grid-cols-7 gap-xs mb-md">
-<div class="text-center font-label-sm text-[10px] text-on-surface-variant uppercase">M</div>
-<div class="text-center font-label-sm text-[10px] text-on-surface-variant uppercase">T</div>
-<div class="text-center font-label-sm text-[10px] text-on-surface-variant uppercase">W</div>
-<div class="text-center font-label-sm text-[10px] text-on-surface-variant uppercase">T</div>
-<div class="text-center font-label-sm text-[10px] text-on-surface-variant uppercase">F</div>
-<div class="text-center font-label-sm text-[10px] text-on-surface-variant uppercase">S</div>
-<div class="text-center font-label-sm text-[10px] text-on-surface-variant uppercase">S</div>
-<!-- Simple Mock Calendar Grid -->
-<button class="aspect-square flex items-center justify-center rounded-md font-label-sm border border-outline-variant hover:border-primary transition-all" onclick="this.classList.toggle('bg-primary'); this.classList.toggle('text-on-primary')">1</button>
-<button class="aspect-square flex items-center justify-center rounded-md font-label-sm border border-outline-variant hover:border-primary transition-all" onclick="this.classList.toggle('bg-primary'); this.classList.toggle('text-on-primary')">2</button>
-<button class="aspect-square flex items-center justify-center rounded-md font-label-sm border border-outline-variant hover:border-primary transition-all bg-primary-container" onclick="this.classList.toggle('bg-primary'); this.classList.toggle('text-on-primary')">3</button>
-<button class="aspect-square flex items-center justify-center rounded-md font-label-sm border border-outline-variant hover:border-primary transition-all" onclick="this.classList.toggle('bg-primary'); this.classList.toggle('text-on-primary')">4</button>
-<button class="aspect-square flex items-center justify-center rounded-md font-label-sm border border-outline-variant hover:border-primary transition-all bg-primary text-on-primary" onclick="this.classList.toggle('bg-primary'); this.classList.toggle('text-on-primary')">5</button>
-<button class="aspect-square flex items-center justify-center rounded-md font-label-sm border border-outline-variant hover:border-primary transition-all" onclick="this.classList.toggle('bg-primary'); this.classList.toggle('text-on-primary')">6</button>
-<button class="aspect-square flex items-center justify-center rounded-md font-label-sm border border-outline-variant hover:border-primary transition-all" onclick="this.classList.toggle('bg-primary'); this.classList.toggle('text-on-primary')">7</button>
-</div>
 <div class="space-y-sm">
-<div class="flex items-center justify-between p-sm bg-surface-container rounded-lg border border-outline-variant">
-<span class="font-label-md">Weekdays</span>
-<span class="font-label-sm text-primary">18:00 - 20:00</span>
-</div>
-<div class="flex items-center justify-between p-sm bg-surface-container rounded-lg border border-outline-variant opacity-50">
-<span class="font-label-md">Weekends</span>
-<span class="font-label-sm text-on-surface-variant">Not available</span>
+<label class="font-label-md text-on-surface-variant">Day of Week</label>
+<select name="jour" class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md focus:border-primary focus:ring-1 transition-all outline-none font-body-sm">
+  <option value="">Select a day (optional)</option>
+  {% for key, val in jours %}
+    <option value="{{ key }}">{{ val }}</option>
+  {% endfor %}
+</select>
+<div class="flex gap-md mt-md">
+  <div class="flex-1">
+    <label class="font-label-md text-on-surface-variant">Start Time</label>
+    <input type="time" name="heure_debut" class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md focus:border-primary outline-none">
+  </div>
+  <div class="flex-1">
+    <label class="font-label-md text-on-surface-variant">End Time</label>
+    <input type="time" name="heure_fin" class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md focus:border-primary outline-none">
+  </div>
 </div>
 </div>
 </div>
@@ -294,33 +284,22 @@
 </div>
 </aside>
 </div>
+</form>
 </main>
 <script>
     function setMode(mode) {
+      const typeInput = document.getElementById('type_publication');
       const offerBtn = document.getElementById('toggleOffer');
       const requestBtn = document.getElementById('toggleRequest');
       
-      if (mode === 'offer') {
+      typeInput.value = mode;
+      
+      if (mode === 'offre') {
         offerBtn.className = 'px-xl py-base font-label-md rounded-lg transition-all bg-primary-container text-on-primary-container shadow-sm';
         requestBtn.className = 'px-xl py-base font-label-md rounded-lg transition-all text-on-surface-variant hover:text-on-surface';
       } else {
         requestBtn.className = 'px-xl py-base font-label-md rounded-lg transition-all bg-primary-container text-on-primary-container shadow-sm';
         offerBtn.className = 'px-xl py-base font-label-md rounded-lg transition-all text-on-surface-variant hover:text-on-surface';
-      }
-    }
-
-    function toggleChip(element) {
-      const isSelected = element.classList.contains('bg-primary-container');
-      const icon = element.querySelector('.material-symbols-outlined');
-      
-      if (isSelected) {
-        element.classList.remove('bg-primary-container', 'text-on-primary-container', 'border-primary');
-        element.classList.add('border-outline');
-        icon.innerText = 'add';
-      } else {
-        element.classList.add('bg-primary-container', 'text-on-primary-container', 'border-primary');
-        element.classList.remove('border-outline');
-        icon.innerText = 'check';
       }
     }
   </script>

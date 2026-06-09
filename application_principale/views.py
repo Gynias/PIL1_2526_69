@@ -1,12 +1,60 @@
 from datetime import date, datetime
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.db.models import Q, Max
 from .models import DemandeOuOffre, Matching, Utilisateur, Competence, CompetenceUtilisateur, Disponibilite, Conversation, Message
 import json
+
+def accueil_view(request):
+    if request.user.is_authenticated:
+        return redirect('tableau_de_bord')
+    return render(request, 'accueil.html')
+
+def inscription_view(request):
+    if request.method == 'POST':
+        nom = request.POST.get('nom')
+        prenom = request.POST.get('prenom')
+        email = request.POST.get('email')
+        telephone = request.POST.get('telephone')
+        mot_de_passe = request.POST.get('mot_de_passe')
+        
+        if Utilisateur.objects.filter(email=email).exists():
+            messages.error(request, "Cet email est déjà utilisé.")
+        else:
+            utilisateur = Utilisateur.objects.create_user(
+                email=email,
+                mot_de_passe=mot_de_passe,
+                nom=nom,
+                prenom=prenom,
+                telephone=telephone
+            )
+            login(request, utilisateur)
+            messages.success(request, "Inscription réussie !")
+            return redirect('onboarding')
+            
+    return render(request, 'register.html')
+
+def connexion_view(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        mot_de_passe = request.POST.get('mot_de_passe')
+        user = authenticate(request, email=email, password=mot_de_passe)
+        if user is not None:
+            login(request, user)
+            return redirect('tableau_de_bord')
+        else:
+            messages.error(request, "Email ou mot de passe incorrect.")
+    return render(request, 'login.html')
+
+def deconnexion_view(request):
+    logout(request)
+    messages.info(request, "Vous êtes déconnecté.")
+    return redirect('accueil')
 
 @login_required
 def create_offer_request(request):
@@ -43,27 +91,47 @@ def create_offer_request(request):
     competences = Competence.objects.all().order_by('nom')
     jours = Disponibilite.JOURS
     
-    return render(request, 'annonces/create_offer_request.html', {
+    return render(request, 'create_offer_request.html', {
         'competences': competences,
         'jours': jours,
     })
 
 def discover_page(request):
-    return render(request, 'annonces/discover_page.html')
+    mentors = Utilisateur.objects.filter(role__in=['mentor', 'les_deux'], is_active=True)
+    return render(request, 'discover_page.html', {'mentors': mentors})
 
-def offer_request_detail(request):
-    return render(request, 'annonces/offer_request_detail.html')
+@login_required
+def offer_request_detail(request, annonce_id):
+    annonce = get_object_or_404(DemandeOuOffre, id=annonce_id)
+    
+    return render(request, 'offer_request_detail.html', {
+        'annonce': annonce
+    })
 
 @login_required
 def offer_request_feed(request):
     annonces = DemandeOuOffre.objects.filter(statut='ouvert').select_related('auteur', 'competence').order_by('-date_creation')
     
-    return render(request, 'annonces/offer_request_feed.html', {
+    return render(request, 'offer_request_feed.html', {
         'annonces': annonces
     })
 
+@login_required
 def search_results(request):
-    return render(request, 'annonces/search_results.html')
+    mot_cle = request.GET.get('q', '')
+    
+    if mot_cle:
+        resultats = DemandeOuOffre.objects.filter(
+            Q(description__icontains=mot_cle) | Q(competence__nom__icontains=mot_cle),
+            statut='ouvert'
+        ).select_related('auteur', 'competence').order_by('-date_creation')
+    else:
+        resultats = DemandeOuOffre.objects.none()
+        
+    return render(request, 'search_results.html', {
+        'annonces': resultats,
+        'recherche': mot_cle
+    })
 
 # ==========================================
 # MODULE : TABLEAU DE BORD ET MENTORAT
@@ -257,10 +325,28 @@ def detail_conversation(request, conv_id):
     autre = conversation.utilisateur2 if conversation.utilisateur1 == request.user else conversation.utilisateur1
     msgs = conversation.messages.select_related('expediteur').order_by('date_envoi')
 
+    # Get conversations list for the sidebar
+    toutes_conversations = Conversation.objects.filter(
+        Q(utilisateur1=request.user) | Q(utilisateur2=request.user)
+    ).prefetch_related('messages', 'utilisateur1', 'utilisateur2')
+    conv_enrichies = []
+    for conv in toutes_conversations:
+        autre_conv = conv.utilisateur2 if conv.utilisateur1 == request.user else conv.utilisateur1
+        dernier_msg = conv.messages.order_by('-date_envoi').first()
+        non_lus = conv.messages.filter(lu=False).exclude(expediteur=request.user).count()
+        conv_enrichies.append({
+            'conversation': conv,
+            'autre_utilisateur': autre_conv,
+            'dernier_message': dernier_msg,
+            'non_lus': non_lus,
+        })
+    conv_enrichies.sort(key=lambda c: c['dernier_message'].date_envoi if c['dernier_message'] else datetime.min, reverse=True)
+
     return render(request, 'open_conversation_desktop.html', {
         'conversation': conversation,
         'messages': msgs,
         'autre_utilisateur': autre,
+        'conversations': conv_enrichies,
     })
 
 
@@ -327,3 +413,60 @@ def nouveaux_messages(request, conv_id):
     } for msg in nouveaux]
 
     return JsonResponse({'messages': data})
+
+
+# ==========================================
+# MODULE : PARAMÈTRES ET PROFIL (Membre 3 - Evan)
+# ==========================================
+
+@login_required
+def account_settings(request):
+    if request.method == 'POST':
+        request.user.prenom = request.POST.get('first_name', request.user.prenom)
+        request.user.nom = request.POST.get('last_name', request.user.nom)
+        request.user.email = request.POST.get('email', request.user.email)
+        request.user.save()
+        messages.success(request, "Vos informations ont été mises à jour.")
+        return redirect('account_settings')
+    
+    return render(request, 'account_settings.html', {
+        'utilisateur': request.user
+    })
+
+@login_required
+def security_settings(request):
+    if request.method == 'POST':
+        current_password = request.POST.get('current_password')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+        
+        if not request.user.check_password(current_password):
+            messages.error(request, "L'ancien mot de passe est incorrect.")
+        elif new_password != confirm_password:
+            messages.error(request, "Les nouveaux mots de passe ne correspondent pas.")
+        else:
+            request.user.set_password(new_password)
+            request.user.save()
+            # Important : reconnecter l'utilisateur après changement de mot de passe
+            from django.contrib.auth import update_session_auth_hash
+            update_session_auth_hash(request, request.user)
+            messages.success(request, "Mot de passe modifié avec succès !")
+            return redirect('security_settings')
+            
+    return render(request, 'security_settings.html', {
+        'utilisateur': request.user
+    })
+
+
+# ==========================================
+# MODULE : ONBOARDING (Membre 2 - Emmanuel)
+# ==========================================
+
+@login_required
+def onboarding_post_inscription(request):
+    # Logique d'affichage de la page d'accueil post-inscription
+    # Peut être redirigé vers le tableau de bord une fois complété
+    return render(request, 'onboarding.html', {
+        'utilisateur': request.user
+    })
+

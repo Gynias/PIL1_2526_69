@@ -140,11 +140,11 @@
 <nav class="flex-1 space-y-xs">
 <a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-all group" href="#">
 <span class="material-symbols-outlined text-outline group-hover:text-primary" data-icon="dashboard">dashboard</span>
-<span class="font-label-md text-label-md">Dashboard</span>
+<span class="font-label-md text-label-md">Vue d'ensemble</span>
 </a>
 <a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-all group" href="#">
 <span class="material-symbols-outlined text-outline group-hover:text-primary" data-icon="handshake">handshake</span>
-<span class="font-label-md text-label-md">My Offers</span>
+<span class="font-label-md text-label-md">Mes Offres</span>
 </a>
 <a class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-lg px-md py-sm scale-[0.98]" href="#">
 <span class="material-symbols-outlined" data-icon="chat" style="font-variation-settings: 'FILL' 1;">chat</span>
@@ -152,11 +152,11 @@
 </a>
 <a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-all group" href="#">
 <span class="material-symbols-outlined text-outline group-hover:text-primary" data-icon="account_circle">account_circle</span>
-<span class="font-label-md text-label-md">My Profile</span>
+<span class="font-label-md text-label-md">Mon Profil</span>
 </a>
-<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-all group" href="#">
+<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-all group" href="{% url 'account_settings' %}">
 <span class="material-symbols-outlined text-outline group-hover:text-primary" data-icon="settings">settings</span>
-<span class="font-label-md text-label-md">Settings</span>
+<span class="font-label-md text-label-md">Paramètres</span>
 </a>
 </nav>
 <div class="mt-auto p-sm bg-surface-container rounded-xl">
@@ -184,7 +184,7 @@
 </div>
 <button class="bg-primary text-on-primary px-lg py-sm rounded-lg font-label-md flex items-center gap-sm hover:opacity-90 transition-all shadow-md">
 <span class="material-symbols-outlined text-[20px]" data-icon="add">add</span>
-                    New Chat
+                    Nouveau Chat
                 </button>
 </div>
 </header>
@@ -195,82 +195,39 @@
 <div class="p-md">
 <div class="relative">
 <span class="material-symbols-outlined absolute left-sm top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
-<input class="w-full pl-xl pr-md py-sm bg-surface-container-low border-none rounded-xl focus:ring-2 focus:ring-primary/20 font-body-sm transition-all" placeholder="Search messages..." type="text"/>
+<input class="w-full pl-xl pr-md py-sm bg-surface-container-low border-none rounded-xl focus:ring-2 focus:ring-primary/20 font-body-sm transition-all" placeholder="Rechercher des messages..." type="text"/>
 </div>
 </div>
 <div class="flex-1 overflow-y-auto custom-scrollbar">
-<!-- Active Chat -->
-<div class="px-md py-sm">
-<div class="bg-primary-container/10 border-l-4 border-primary p-md rounded-r-xl cursor-pointer transition-all">
+{% for item in conversations %}
+<a href="{% url 'detail_conversation' item.conversation.id %}" class="block px-md py-sm">
+<div class="hover:bg-surface-container transition-all p-md rounded-xl cursor-pointer group">
 <div class="flex gap-md">
 <div class="relative">
-<img class="w-12 h-12 rounded-full object-cover" data-alt="A professional woman with glasses smiling, set against a blurred modern office background with soft neutral tones. The lighting is bright and even, reflecting a supportive and knowledgeable mentor persona. Corporate photography style with a focus on friendly expression." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBP_65UIST_nVN2eOVuAWAM-b9201ImoctDiyVGgslPz86RraRx0Q9vEsMrUBpKg-ph7raEW5RvwFLL1xWU7GjofEFXoys6Zg9Mymeb_uy6t_VB8QAaGcRjoJh7tlMeH0SF9X327QZOUCiCR_PkENOcZZjj8MSeuufg0aOC8X6SMGl7oHI8Y3gH7d7u2scvsCJMjKlqNI217YP-dNKtzaWv5gjXA-A7pB8mJJqLXb6Xqq7nKi-wE1e_pY49QyY7dRhwx24n27DVxDs"/>
-<div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-green-500 border-2 border-white rounded-full"></div>
+<div class="w-12 h-12 rounded-full border-2 border-primary bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xl">
+    {{ item.autre_utilisateur.prenom|first|upper }}{{ item.autre_utilisateur.nom|first|upper }}
+</div>
 </div>
 <div class="flex-1 min-w-0">
 <div class="flex justify-between items-baseline mb-xs">
-<h3 class="font-label-md text-on-surface font-bold truncate">Dr. Sarah Chen</h3>
-<span class="text-[11px] text-primary font-bold">2m ago</span>
+<h3 class="font-label-md text-on-surface font-bold truncate">{{ item.autre_utilisateur.prenom }} {{ item.autre_utilisateur.nom }}</h3>
+<span class="text-[11px] text-on-surface-variant">{% if item.dernier_message %}{{ item.dernier_message.date_envoi|date:"H:i" }}{% endif %}</span>
 </div>
-<p class="text-body-sm text-on-surface truncate font-bold">The research proposal looks solid. Let's discuss...</p>
+<p class="text-body-sm text-on-surface-variant truncate">{% if item.dernier_message %}{{ item.dernier_message.contenu }}{% else %}Nouvelle conversation{% endif %}</p>
 </div>
+{% if item.non_lus > 0 %}
 <div class="flex flex-col items-end gap-1">
-<div class="w-5 h-5 bg-primary text-on-primary rounded-full flex items-center justify-center text-[10px] font-bold">2</div>
+<div class="w-5 h-5 bg-primary text-on-primary rounded-full flex items-center justify-center text-[10px] font-bold">{{ item.non_lus }}</div>
+</div>
+{% endif %}
 </div>
 </div>
+</a>
+{% empty %}
+<div class="px-md py-xl text-center text-on-surface-variant">
+    Aucune conversation pour le moment.
 </div>
-</div>
-<!-- Conversation Thread 2 -->
-<div class="px-md py-sm">
-<div class="hover:bg-surface-container transition-all p-md rounded-xl cursor-pointer group">
-<div class="flex gap-md">
-<img class="w-12 h-12 rounded-full object-cover" data-alt="A male mentor in a professional collared shirt, looking thoughtfully towards the camera. The background is a minimalist interior with clean lines and soft daylighting. The image conveys reliable guidance and professional experience in a modern academic setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuButjhJ7JsfquLqqGaF-hhkhlbHlx1hWMrMOae7e-vgHIWS6ZD_uFGh4HM1tJDLkeFVZAgLo6J7VoupxR_8G9bDbQjmN7eYXX1qXmykGyT7ujHR_ebPebcE5ZofZwbuRLi1Szw7gigZBklEKAWoK8fE5gD010TI0IfGVR3lXhKFfsfWwv3igRZFRLlsQIJZb3Lz_tdJuMQdXZ9gugqkoU7ZycfuXRA7KLORf36IJ115C8noyWtBS8sVZNS4a_hnbpP2rzuAQclIG6w"/>
-<div class="flex-1 min-w-0">
-<div class="flex justify-between items-baseline mb-xs">
-<h3 class="font-label-md text-on-surface font-bold truncate">Mark Thompson</h3>
-<span class="text-[11px] text-on-surface-variant">1h ago</span>
-</div>
-<p class="text-body-sm text-on-surface-variant truncate">Thanks for the feedback on the Python script!</p>
-</div>
-</div>
-</div>
-</div>
-<!-- Conversation Thread 3 -->
-<div class="px-md py-sm">
-<div class="hover:bg-surface-container transition-all p-md rounded-xl cursor-pointer group">
-<div class="flex gap-md">
-<img class="w-12 h-12 rounded-full object-cover" data-alt="A portrait of a young female mentor with a friendly, supportive smile. She is in a bright, modern library setting with soft focus books in the background. The lighting is natural and high-key, emphasizing a welcoming and educational atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoGxfaoCjqWCWRBK8dYpKISb8WpXYuA1gPzWiMzJt5QDp8TIwX2k2RcuSynnONtJghxX2CAvp3iOZaQWrFbWJvD601-tZRGsYxXkl3pFwc4sEVp64gddNInrzwHU5kVq5vBk-9a0t7vxjbXx4Z6owOWvZeLzjv1Yr3I2ka0esB1ZtfHTCLsJMIUIJ_w5GQt_trsUMi41i5pK3dmClSCCWpTkChJ40HJWkGEmhbRvfc74K6OYP8hvZ74fuG6bjddYyyrxRy-2he1Rw"/>
-<div class="flex-1 min-w-0">
-<div class="flex justify-between items-baseline mb-xs">
-<h3 class="font-label-md text-on-surface font-bold truncate">Elena Rodriguez</h3>
-<span class="text-[11px] text-on-surface-variant">Yesterday</span>
-</div>
-<p class="text-body-sm text-on-surface-variant truncate">Are you coming to the seminar tomorrow morning?</p>
-</div>
-<div class="flex flex-col items-end">
-<span class="material-symbols-outlined text-[16px] text-primary" data-icon="done_all">done_all</span>
-</div>
-</div>
-</div>
-</div>
-<!-- Conversation Thread 4 -->
-<div class="px-md py-sm">
-<div class="hover:bg-surface-container transition-all p-md rounded-xl cursor-pointer group">
-<div class="flex gap-md">
-<div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-on-secondary-container font-bold text-headline-sm">
-                                    JS
-                                </div>
-<div class="flex-1 min-w-0">
-<div class="flex justify-between items-baseline mb-xs">
-<h3 class="font-label-md text-on-surface font-bold truncate">James Smith</h3>
-<span class="text-[11px] text-on-surface-variant">Feb 12</span>
-</div>
-<p class="text-body-sm text-on-surface-variant truncate">I've attached the internship guidelines for you.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
+{% endfor %}
 </div>
 <!-- Right Panel: Conversation Details (Bento Grid Style Viewport) -->
 <div class="flex-1 flex flex-col bg-surface relative">
@@ -300,7 +257,7 @@
 <!-- Messages Area -->
 <div class="flex-1 overflow-y-auto p-xl space-y-lg custom-scrollbar">
 <div class="flex justify-center mb-xl">
-<span class="text-[12px] text-on-surface-variant bg-surface-container-high px-md py-1 rounded-full uppercase tracking-wider font-bold">Today</span>
+<span class="text-[12px] text-on-surface-variant bg-surface-container-high px-md py-1 rounded-full uppercase tracking-wider font-bold">Aujourd'hui</span>
 </div>
 <!-- Mentor Message -->
 <div class="flex gap-md max-w-[80%]">
@@ -343,7 +300,7 @@
 <button class="p-sm hover:bg-surface-container rounded-lg text-primary transition-all">
 <span class="material-symbols-outlined" data-icon="attach_file">attach_file</span>
 </button>
-<textarea class="flex-1 bg-transparent border-none focus:ring-0 resize-none font-body-sm py-sm max-h-[120px] custom-scrollbar" placeholder="Type your message here..." rows="1"></textarea>
+<textarea class="flex-1 bg-transparent border-none focus:ring-0 resize-none font-body-sm py-sm max-h-[120px] custom-scrollbar" placeholder="Écrivez votre message ici..." rows="1"></textarea>
 <div class="flex items-center gap-sm pr-xs pb-xs">
 <button class="p-sm hover:bg-surface-container rounded-lg text-tertiary transition-all">
 <span class="material-symbols-outlined" data-icon="mood">mood</span>
@@ -356,7 +313,7 @@
 <div class="mt-sm flex justify-center gap-lg">
 <p class="text-[11px] text-on-surface-variant flex items-center gap-1">
 <span class="material-symbols-outlined text-[14px]" data-icon="info">info</span>
-                            Press Enter to send, Shift + Enter for new line
+                            Appuyez sur Entrée pour envoyer, Maj + Entrée pour sauter une ligne
                         </p>
 </div>
 </div>
@@ -377,8 +334,8 @@
 <!-- Shared Resources Bento Block -->
 <div class="bg-white p-lg rounded-2xl shadow-sm border border-outline-variant/30">
 <div class="flex justify-between items-center mb-md">
-<h6 class="font-label-md text-on-surface font-bold">Shared Files</h6>
-<a class="text-[12px] text-primary font-bold hover:underline" href="#">View all</a>
+<h6 class="font-label-md text-on-surface font-bold">Fichiers partagés</h6>
+<a class="text-[12px] text-primary font-bold hover:underline" href="#">Voir tout</a>
 </div>
 <div class="space-y-sm">
 <div class="flex items-center gap-sm p-sm hover:bg-surface-container-low rounded-xl transition-all cursor-pointer border border-transparent hover:border-outline-variant/30">
@@ -403,11 +360,11 @@
 </div>
 <!-- Quick Actions Bento Block -->
 <div class="bg-primary-container/20 p-lg rounded-2xl border border-primary/20">
-<h6 class="font-label-md text-primary font-bold mb-md">Mentorship Progress</h6>
+<h6 class="font-label-md text-primary font-bold mb-md">Progression du mentorat</h6>
 <div class="space-y-md">
 <div>
 <div class="flex justify-between text-[12px] font-bold text-primary mb-1">
-<span>Milestones</span>
+<span>Jalons</span>
 <span>4 / 6</span>
 </div>
 <div class="w-full bg-white rounded-full h-2">
@@ -415,7 +372,7 @@
 </div>
 </div>
 <button class="w-full bg-white text-primary font-bold py-sm rounded-xl text-body-sm shadow-sm hover:shadow-md transition-all">
-                                Schedule Next Meeting
+                                Planifier la prochaine réunion
                             </button>
 </div>
 </div>

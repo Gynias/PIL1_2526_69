@@ -194,10 +194,11 @@
 </div>
 <!-- Filters Bento-ish Bar -->
 <div class="grid grid-cols-12 gap-md mb-xl">
-<div class="col-span-8 flex items-center gap-md bg-surface-container-lowest p-sm rounded-xl border border-outline-variant shadow-sm">
+<form action="{% url 'search_results' %}" method="GET" class="col-span-8 flex items-center gap-md bg-surface-container-lowest p-sm rounded-xl border border-outline-variant shadow-sm">
 <span class="material-symbols-outlined text-outline ml-sm" data-icon="search">search</span>
-<input class="flex-1 bg-transparent border-none focus:ring-0 text-body-md font-body-md outline-none" placeholder="Search by subject, skill, or keyword..." type="text"/>
-</div>
+<input name="q" class="flex-1 bg-transparent border-none focus:ring-0 text-body-md font-body-md outline-none" placeholder="Search by subject, skill, or keyword..." type="text"/>
+<button type="submit" class="hidden"></button>
+</form>
 <div class="col-span-4 flex gap-md">
 <button class="flex-1 flex items-center justify-center gap-sm bg-surface-container-lowest border border-outline-variant rounded-xl font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors">
 <span class="material-symbols-outlined" data-icon="tune">tune</span>
@@ -212,176 +213,52 @@
 </section>
 <!-- Feed Grid -->
 <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
-<!-- Card 1: Offer -->
+{% for annonce in annonces %}
 <div class="group relative flex flex-col bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
 <div class="absolute top-md right-md">
-<span class="bg-secondary-container text-on-secondary-container px-sm py-xs rounded-full font-label-sm text-label-sm">OFFER</span>
+{% if annonce.type_publication == 'offre' %}
+<span class="bg-secondary-container text-on-secondary-container px-sm py-xs rounded-full font-label-sm text-label-sm">OFFRE</span>
+{% else %}
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-sm py-xs rounded-full font-label-sm text-label-sm">DEMANDE</span>
+{% endif %}
 </div>
 <div class="p-lg flex flex-col h-full">
 <div class="flex items-center gap-md mb-md">
-<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary-container">
-<img alt="Mentor avatar" class="w-full h-full object-cover" data-alt="A portrait of a male university professor in a library setting. He has a friendly, knowledgeable expression and is wearing a classic academic blazer. The lighting is soft and natural, coming from a large window. The background is filled with blurred rows of leather-bound books, conveying a sense of deep academic expertise and professional mentorship." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQiGDE7NQKE4LOaIVwMkJOjgVPPu3gOAVcfrGML-yKjuFhO_BKFROCI_ZGG7qeWIWlgeD-fUjnF_G-BpTwD-ywNmEwxQiyKfOWxTJCKLI0ZzZjYnzatmJwT6om-FcA_HjKw-v-wh2TSrWAV70qJ_MVlOhcl-Plt7Y2Q15AUo9nNXO0482LkWd9NFBI5b012H9hSJBDdslNjVN-0J-dLaMdhbXs_hukPwKbqrGqLOqaYPZhPcMHKPOI-I-YNFtx_31OC6KnP-voYiA"/>
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 {% if annonce.type_publication == 'offre' %}border-primary-container{% else %}border-tertiary{% endif %}">
+<img alt="Avatar" class="w-full h-full object-cover" src="https://ui-avatars.com/api/?name={{ annonce.auteur.nom|urlencode }}+{{ annonce.auteur.prenom|urlencode }}&background=random"/>
 </div>
 <div>
-<h4 class="font-label-md text-label-md text-on-surface font-bold">Dr. Marcus Chen</h4>
-<p class="text-on-surface-variant font-label-sm text-label-sm">Faculty of Engineering</p>
+<h4 class="font-label-md text-label-md text-on-surface font-bold">{{ annonce.auteur.prenom }} {{ annonce.auteur.nom }}</h4>
+<p class="text-on-surface-variant font-label-sm text-label-sm">{{ annonce.competence.nom }}</p>
 </div>
 </div>
-<h3 class="font-headline-sm text-headline-sm text-on-surface mb-sm group-hover:text-primary transition-colors">Advanced Algorithm Analysis &amp; Optimization</h3>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-sm group-hover:text-primary transition-colors">{{ annonce.get_type_publication_display }} : {{ annonce.competence.nom }}</h3>
 <p class="text-on-surface-variant font-body-sm text-body-sm mb-lg line-clamp-3">
-              Offering 1-on-1 guidance for graduate students working on complexity analysis and dynamic programming. Focus on practical application in high-frequency trading systems.
+              {{ annonce.description }}
             </p>
 <div class="mt-auto space-y-sm">
 <div class="flex items-center gap-sm text-on-surface-variant">
-<span class="material-symbols-outlined text-primary" data-icon="calendar_today">calendar_today</span>
-<span class="font-label-md text-label-md">Tuesdays &amp; Thursdays, 4:00 PM</span>
+<span class="material-symbols-outlined text-{% if annonce.type_publication == 'offre' %}primary{% else %}tertiary{% endif %}" data-icon="calendar_today">calendar_today</span>
+<span class="font-label-md text-label-md">
+    {% if annonce.jour %}{{ annonce.get_jour_display }}{% else %}Tous les jours{% endif %}
+    {% if annonce.heure_debut and annonce.heure_fin %} | {{ annonce.heure_debut|time:"H:i" }} - {{ annonce.heure_fin|time:"H:i" }}{% endif %}
+</span>
 </div>
 <div class="flex items-center gap-sm text-on-surface-variant">
-<span class="material-symbols-outlined text-primary" data-icon="video_chat">video_chat</span>
-<span class="font-label-md text-label-md">Virtual (Zoom)</span>
+<span class="material-symbols-outlined text-{% if annonce.type_publication == 'offre' %}primary{% else %}tertiary{% endif %}" data-icon="video_chat">video_chat</span>
+<span class="font-label-md text-label-md">{{ annonce.get_format_seance_display }}</span>
 </div>
 </div>
-<button class="mt-lg w-full py-sm bg-primary-container text-on-primary-container rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity">
-              View Mentorship Details
-            </button>
+<a href="{% url 'offer_request_detail' annonce.id %}" class="mt-lg w-full block text-center py-sm {% if annonce.type_publication == 'offre' %}bg-primary-container text-on-primary-container{% else %}border border-tertiary text-tertiary hover:bg-tertiary hover:text-on-tertiary{% endif %} rounded-lg font-label-md text-label-md hover:opacity-90 transition-all">
+              Voir les détails
+            </a>
 </div>
 </div>
-<!-- Card 2: Request -->
-<div class="group relative flex flex-col bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
-<div class="absolute top-md right-md">
-<span class="bg-tertiary-fixed text-on-tertiary-fixed px-sm py-xs rounded-full font-label-sm text-label-sm">REQUEST</span>
+{% empty %}
+<div class="col-span-3 text-center py-10">
+  <p class="text-on-surface-variant font-body-md">Aucune annonce trouvée pour le moment.</p>
 </div>
-<div class="p-lg flex flex-col h-full">
-<div class="flex items-center gap-md mb-md">
-<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-tertiary">
-<img alt="Student avatar" class="w-full h-full object-cover" data-alt="A high-quality studio portrait of a young man with a creative and enthusiastic demeanor. He is wearing a modern casual outfit. The lighting is crisp and energetic with subtle blue and orange rim lights. The aesthetic is clean and modern, reflecting a student looking for guidance in a supportive, tech-forward educational environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuASdlaUT5w5-RcMCt1uxjYRJkU0xdSp9xOlfxOHeO3s2lIRAk7pXzSOI-JQS38Xk2C_U1qu0neHVXum9DKH4VlNYHYoZT7JpuVCHRH7nAoZT14ROOnxO3t1a6ElrOJdZVjAOLNkWGRjc8BguF6pLaxRjdlDsm6xOSwPbNKzVHcqj66aKvBnasAyrpnNq0Dnbby7fCBJLchVo31GffKNZQwij-GcBDQ8Obpz9AQh7Do8ARNC-3pjrsqKR3Y1nxEKm65jENSitQ2b6Gk"/>
-</div>
-<div>
-<h4 class="font-label-md text-label-md text-on-surface font-bold">Liam Thompson</h4>
-<p class="text-on-surface-variant font-label-sm text-label-sm">3rd Year, Computer Science</p>
-</div>
-</div>
-<h3 class="font-headline-sm text-headline-sm text-on-surface mb-sm group-hover:text-primary transition-colors">Career Guidance: Entry into FinTech</h3>
-<p class="text-on-surface-variant font-body-sm text-body-sm mb-lg line-clamp-3">
-              I'm looking for a mentor with experience in the financial technology sector to help me navigate internship applications and technical interview preparation for quant roles.
-            </p>
-<div class="mt-auto space-y-sm">
-<div class="flex items-center gap-sm text-on-surface-variant">
-<span class="material-symbols-outlined text-tertiary" data-icon="schedule">schedule</span>
-<span class="font-label-md text-label-md">Flexible Weekends</span>
-</div>
-<div class="flex items-center gap-sm text-on-surface-variant">
-<span class="material-symbols-outlined text-tertiary" data-icon="location_on">location_on</span>
-<span class="font-label-md text-label-md">On-Campus / Coffee Shop</span>
-</div>
-</div>
-<button class="mt-lg w-full py-sm border border-tertiary text-tertiary rounded-lg font-label-md text-label-md hover:bg-tertiary hover:text-on-tertiary transition-all">
-              Offer Mentorship
-            </button>
-</div>
-</div>
-<!-- Card 3: Offer -->
-<div class="group relative flex flex-col bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
-<div class="absolute top-md right-md">
-<span class="bg-secondary-container text-on-secondary-container px-sm py-xs rounded-full font-label-sm text-label-sm">OFFER</span>
-</div>
-<div class="p-lg flex flex-col h-full">
-<div class="flex items-center gap-md mb-md">
-<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary-container">
-<img alt="Mentor avatar" class="w-full h-full object-cover" data-alt="A professional and friendly portrait of a woman in her 30s, likely a senior industry professional. She is standing in a modern office lounge with soft, warm bokeh lights in the background. She is wearing stylish business-casual attire. The mood is supportive and welcoming, perfectly representing a corporate yet accessible mentor profile." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCj-G2xgzKkogrWbrp1p_cLN8c5iaHSPZFVRw0KNEE17s0k8AcsHHuBWpzMm08J8Dr0OSa0XDDd0WZDieSU_q_1ihPGWeunbty7nW8UGv8bGKxqGRQ5oykHljCHCkRQu8fmRVrqJIMqPQ_NcQkudfrpakKTAj2c-wQ0n0WGGaRp7a2ZRMGbOj0QNf06OZYz4e4OC0Enrt52VprhSK7gjIueV2OaNXd3gUdI1_IGGS4_T89BK9shlSB5uhjTOs6l4kD0mQlrRLu8deE"/>
-</div>
-<div>
-<h4 class="font-label-md text-label-md text-on-surface font-bold">Sarah Jenkins</h4>
-<p class="text-on-surface-variant font-label-sm text-label-sm">UX Design Lead, TechCorp</p>
-</div>
-</div>
-<h3 class="font-headline-sm text-headline-sm text-on-surface mb-sm group-hover:text-primary transition-colors">UI/UX Portfolio Review &amp; Critique</h3>
-<p class="text-on-surface-variant font-body-sm text-body-sm mb-lg line-clamp-3">
-              Reviewing senior portfolios and providing industry-level feedback on case studies, visual hierarchy, and accessibility standards for upcoming design recruits.
-            </p>
-<div class="mt-auto space-y-sm">
-<div class="flex items-center gap-sm text-on-surface-variant">
-<span class="material-symbols-outlined text-primary" data-icon="event">event</span>
-<span class="font-label-md text-label-md">Monthly, Last Friday</span>
-</div>
-<div class="flex items-center gap-sm text-on-surface-variant">
-<span class="material-symbols-outlined text-primary" data-icon="devices">devices</span>
-<span class="font-label-md text-label-md">Hybrid (On-Campus or Meet)</span>
-</div>
-</div>
-<button class="mt-lg w-full py-sm bg-primary-container text-on-primary-container rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity">
-              View Mentorship Details
-            </button>
-</div>
-</div>
-<!-- Card 4: Request -->
-<div class="group relative flex flex-col bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
-<div class="absolute top-md right-md">
-<span class="bg-tertiary-fixed text-on-tertiary-fixed px-sm py-xs rounded-full font-label-sm text-label-sm">REQUEST</span>
-</div>
-<div class="p-lg flex flex-col h-full">
-<div class="flex items-center gap-md mb-md">
-<div class="w-12 h-12 rounded-full overflow-hidden border-2 border-tertiary">
-<img alt="Student avatar" class="w-full h-full object-cover" data-alt="A portrait of a male student looking focused and academic. He is in a brightly lit modern library with minimalist architecture. The color palette is neutral and professional. He represents a serious and dedicated student seeking deep knowledge in a specific academic field, fitting the corporate yet supportive brand of the mentorship platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpQenesAks8AP5AzXkA5Jkr4t_ckL6So6xYALQZIxQbIwehCE0Ufhu_L7l3o6uWjg8T6hYRIOMpO4hCoRCTDS9A3yyMVBiRWXPZYfntNbeWil8Zw6wnh-dYW9BK3M6LQ_4swDQ0JdAzaOO2DyzeKZShxpNeKLUTfi54UPFGEea0xCzTbFgMruaIHbJ085an_7-NvBZhlf8_lQIXay4pegwT2jT58TzGOWU1GdCjDLDeQqHc5wze4w5hqJRKH7sHDGxD7XeopG1eXo"/>
-</div>
-<div>
-<h4 class="font-label-md text-label-md text-on-surface font-bold">Daniel Vogt</h4>
-<p class="text-on-surface-variant font-label-sm text-label-sm">Master's Student, Physics</p>
-</div>
-</div>
-<h3 class="font-headline-sm text-headline-sm text-on-surface mb-sm group-hover:text-primary transition-colors">Tensor Calculus for GR</h3>
-<p class="text-on-surface-variant font-body-sm text-body-sm mb-lg line-clamp-3">
-              Need assistance mastering the mathematical framework of General Relativity, specifically non-coordinate bases and curvature tensors. Seeking PhD student or faculty.
-            </p>
-<div class="mt-auto space-y-sm">
-<div class="flex items-center gap-sm text-on-surface-variant">
-<span class="material-symbols-outlined text-tertiary" data-icon="history">history</span>
-<span class="font-label-md text-label-md">Evenings (6:00 PM+)</span>
-</div>
-<div class="flex items-center gap-sm text-on-surface-variant">
-<span class="material-symbols-outlined text-tertiary" data-icon="laptop_mac">laptop_mac</span>
-<span class="font-label-md text-label-md">Remote Only</span>
-</div>
-</div>
-<button class="mt-lg w-full py-sm border border-tertiary text-tertiary rounded-lg font-label-md text-label-md hover:bg-tertiary hover:text-on-tertiary transition-all">
-              Offer Mentorship
-            </button>
-</div>
-</div>
-<!-- Skeleton Placeholder for Loading Effect -->
-<div class="flex flex-col bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden p-lg opacity-40 animate-pulse">
-<div class="flex items-center gap-md mb-md">
-<div class="w-12 h-12 rounded-full bg-surface-variant"></div>
-<div class="space-y-xs">
-<div class="w-24 h-4 bg-surface-variant rounded"></div>
-<div class="w-32 h-3 bg-surface-variant rounded"></div>
-</div>
-</div>
-<div class="w-full h-8 bg-surface-variant rounded mb-sm"></div>
-<div class="w-full h-20 bg-surface-variant rounded mb-lg"></div>
-<div class="mt-auto space-y-sm">
-<div class="w-48 h-4 bg-surface-variant rounded"></div>
-<div class="w-36 h-4 bg-surface-variant rounded"></div>
-</div>
-<div class="mt-lg w-full h-10 bg-surface-variant rounded"></div>
-</div>
-<!-- Skeleton Placeholder 2 -->
-<div class="flex flex-col bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden p-lg opacity-40 animate-pulse hidden lg:flex">
-<div class="flex items-center gap-md mb-md">
-<div class="w-12 h-12 rounded-full bg-surface-variant"></div>
-<div class="space-y-xs">
-<div class="w-24 h-4 bg-surface-variant rounded"></div>
-<div class="w-32 h-3 bg-surface-variant rounded"></div>
-</div>
-</div>
-<div class="w-full h-8 bg-surface-variant rounded mb-sm"></div>
-<div class="w-full h-20 bg-surface-variant rounded mb-lg"></div>
-<div class="mt-auto space-y-sm">
-<div class="w-48 h-4 bg-surface-variant rounded"></div>
-<div class="w-36 h-4 bg-surface-variant rounded"></div>
-</div>
-<div class="mt-lg w-full h-10 bg-surface-variant rounded"></div>
-</div>
+{% endfor %}
 </section>
 <!-- Pagination/Load More -->
 <div class="mt-xxl flex flex-col items-center">

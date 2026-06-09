@@ -131,9 +131,9 @@
 <div class="flex items-center gap-xl">
 <span class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">IFRI_MentorLink</span>
 <nav class="hidden md:flex items-center gap-lg">
-<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Home</a>
-<a class="font-label-md text-label-md text-primary dark:text-inverse-primary font-bold border-b-2 border-primary pb-1" href="#">Discover</a>
-<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Feed</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Accueil</a>
+<a class="font-label-md text-label-md text-primary dark:text-inverse-primary font-bold border-b-2 border-primary pb-1" href="#">Découvrir</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Flux</a>
 <a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Messages</a>
 </nav>
 </div>
@@ -150,30 +150,30 @@
 <aside class="hidden lg:flex flex-col w-sidebar-width shrink-0 gap-xl">
 <div class="bg-surface-container-low dark:bg-inverse-surface rounded-xl p-md shadow-md">
 <div class="mb-lg">
-<h2 class="font-headline-sm text-headline-sm font-bold text-primary">Student Dashboard</h2>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Manage your mentorships</p>
+<h2 class="font-headline-sm text-headline-sm font-bold text-primary">Tableau de Bord</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Gérez vos mentorats</p>
 </div>
 <nav class="flex flex-col gap-xs">
 <a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
 <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-<span class="font-label-md text-label-md">Dashboard</span>
+<span class="font-label-md text-label-md">Vue d'ensemble</span>
 </a>
 <a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
 <span class="material-symbols-outlined" data-icon="handshake">handshake</span>
-<span class="font-label-md text-label-md">My Offers</span>
+<span class="font-label-md text-label-md">Mes Offres</span>
 </a>
 <a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
 <span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
-<span class="font-label-md text-label-md">My Profile</span>
+<span class="font-label-md text-label-md">Mon Profil</span>
 </a>
-<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
+<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="{% url 'account_settings' %}">
 <span class="material-symbols-outlined" data-icon="settings">settings</span>
-<span class="font-label-md text-label-md">Settings</span>
+<span class="font-label-md text-label-md">Paramètres</span>
 </a>
 </nav>
 <button class="mt-xl w-full bg-primary-container text-on-primary-container font-label-md text-label-md py-md rounded-lg hover:opacity-90 transition-all flex items-center justify-center gap-sm">
 <span class="material-symbols-outlined" data-icon="search">search</span>
-                    Find a Mentor
+                    Trouver un Mentor
                 </button>
 </div>
 <!-- Ad/Promo Card -->
@@ -196,46 +196,46 @@
 <div class="flex items-center gap-md">
 <div class="flex-1 relative">
 <span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
-<input class="w-full pl-xl pr-md py-md bg-surface-container border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md text-body-md" placeholder="Search by name, expertise, or research area..." type="text"/>
+<input class="w-full pl-xl pr-md py-md bg-surface-container border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md text-body-md" placeholder="Recherche par nom, expertise ou domaine..." type="text"/>
 </div>
 <button class="bg-primary text-on-primary px-xl py-md rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity">
-                            Find Match
+                            Trouver
                         </button>
 </div>
 <!-- Filter Chips -->
 <div class="flex flex-wrap items-center gap-md">
 <div class="flex items-center gap-sm">
-<span class="font-label-md text-label-md text-on-surface-variant">Subject:</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Sujet:</span>
 <select class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
-<option>Computer Science</option>
-<option>Cybersecurity</option>
+<option>Informatique</option>
+<option>Cybersécurité</option>
 <option>Data Science</option>
-<option>AI &amp; Robotics</option>
+<option>IA &amp; Robotique</option>
 </select>
 </div>
 <div class="flex items-center gap-sm">
-<span class="font-label-md text-label-md text-on-surface-variant">Schedule:</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Disponibilité:</span>
 <select class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
-<option>Weekdays</option>
-<option>Weekends</option>
-<option>Evening</option>
+<option>Semaine</option>
+<option>Week-ends</option>
+<option>Soirée</option>
 </select>
 </div>
 <div class="flex items-center gap-sm">
-<span class="font-label-md text-label-md text-on-surface-variant">Level:</span>
+<span class="font-label-md text-label-md text-on-surface-variant">Niveau:</span>
 <select class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
-<option>Bachelor</option>
+<option>Licence</option>
 <option>Master</option>
-<option>PhD</option>
-<option>Professional</option>
+<option>Doctorat</option>
+<option>Professionnel</option>
 </select>
 </div>
 <div class="flex items-center gap-sm">
 <span class="font-label-md text-label-md text-on-surface-variant">Format:</span>
 <select class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
-<option>Virtual</option>
-<option>In-person</option>
-<option>Hybrid</option>
+<option>Virtuel</option>
+<option>En personne</option>
+<option>Hybride</option>
 </select>
 </div>
 <div class="flex items-center gap-sm">
@@ -248,7 +248,7 @@
 </div>
 <button class="ml-auto text-primary font-label-md text-label-md flex items-center gap-xs hover:underline">
 <span class="material-symbols-outlined text-[18px]" data-icon="restart_alt">restart_alt</span>
-                            Clear All
+                            Tout effacer
                         </button>
 </div>
 </div>
@@ -256,8 +256,8 @@
 <!-- Results Headline -->
 <div class="flex justify-between items-end mb-lg">
 <div>
-<h1 class="font-headline-lg text-headline-lg text-on-surface">Discover Mentors</h1>
-<p class="font-body-md text-body-md text-on-surface-variant">Found 128 mentors matching your criteria</p>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Découvrir des Mentors</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">128 mentors correspondant à vos critères trouvés</p>
 </div>
 <div class="flex items-center gap-sm bg-surface-container-low p-xs rounded-lg border border-outline-variant">
 <button class="p-xs bg-surface-container-lowest shadow-sm rounded flex items-center">
@@ -270,164 +270,44 @@
 </div>
 <!-- Mentor Grid -->
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-lg">
-<!-- Mentor Card 1 (High Match) -->
+{% for mentor in mentors %}
+<!-- Mentor Card -->
 <article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden mentor-card-shadow flex flex-col">
 <div class="relative h-32 bg-primary-fixed">
 <div class="absolute top-md right-md px-md py-xs rounded-full bg-green-50 text-green-700 font-label-sm text-label-sm border border-green-200 flex items-center gap-xs">
 <span class="material-symbols-outlined text-[14px]" data-icon="bolt">bolt</span>
-                            98% Match
+                            Actif
                         </div>
-<img alt="Mentor" class="absolute -bottom-10 left-md w-20 h-20 rounded-xl border-4 border-surface-container-lowest object-cover" data-alt="A professional headshot of a female computer science professor in her late 30s. She is smiling confidently in a modern tech-integrated classroom. The aesthetic is clean and corporate, featuring a palette of soft whites and deep indigo. The lighting is bright and natural, reflecting a supportive and professional mentorship atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoy4AcP07Fqe_0SU1LBezGpqypabPLz8p7u9ADaUWup3oUSQpPWM5wcKvBJZPh_C3tARccgFjWc38zfWdbTbqD9OpAL0YUyjchp7PIGxSwPpauRf4QdgVCaIACa7G642jhvMXbyQ_059wevLYiT4vbGgEOWaZIXOMxQKuc6Qm_WrgBIWnHhLp6GhONP9uK3mfG9b2v_MCsiRhwISyB0wVrNUygaNDMln-GErzKUjVww3LNl5B4TNu4ydxO8oRlegZVyvRRvJ6r45I"/>
+<div class="absolute -bottom-10 left-md w-20 h-20 rounded-xl border-4 border-surface-container-lowest bg-primary flex items-center justify-center text-white text-3xl font-bold">
+    {{ mentor.prenom|first|upper }}{{ mentor.nom|first|upper }}
+</div>
 </div>
 <div class="pt-12 px-md pb-md flex-1">
-<h3 class="font-headline-sm text-headline-sm mb-xs">Dr. Sarah Johnson</h3>
-<p class="font-label-md text-label-md text-on-surface-variant mb-md">PhD in Machine Learning • 8 yrs Exp.</p>
+<h3 class="font-headline-sm text-headline-sm mb-xs">{{ mentor.prenom }} {{ mentor.nom }}</h3>
+<p class="font-label-md text-label-md text-on-surface-variant mb-md">{{ mentor.filiere.nom|default:"Filière non précisée" }} • {{ mentor.get_niveau_display|default:"Niveau non précisé" }}</p>
 <div class="flex flex-wrap gap-xs mb-md">
-<span class="px-sm py-xs bg-surface-container-high rounded font-label-sm text-label-sm">PyTorch</span>
-<span class="px-sm py-xs bg-surface-container-high rounded font-label-sm text-label-sm">Natural Language</span>
-<span class="px-sm py-xs bg-surface-container-high rounded font-label-sm text-label-sm">Research</span>
+{% for force in mentor.competences.all %}
+  {% if force.type_competence == 'force' %}
+    <span class="px-sm py-xs bg-surface-container-high rounded font-label-sm text-label-sm">{{ force.competence.nom }}</span>
+  {% endif %}
+{% empty %}
+    <span class="px-sm py-xs bg-surface-container-high rounded font-label-sm text-label-sm text-on-surface-variant">Aucune compétence</span>
+{% endfor %}
 </div>
 <div class="mt-auto pt-md border-t border-outline-variant flex items-center justify-between">
 <div class="flex items-center gap-xs">
 <span class="material-symbols-outlined text-tertiary" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-label-md text-label-md font-bold">4.9</span>
-<span class="text-on-surface-variant text-[12px]">(124 reviews)</span>
+<span class="font-label-md text-label-md font-bold">N/A</span>
 </div>
-<button class="text-primary font-label-md text-label-md hover:underline">View Profile</button>
-</div>
-</div>
-</article>
-<!-- Mentor Card 2 (Medium Match) -->
-<article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden mentor-card-shadow flex flex-col">
-<div class="relative h-32 bg-secondary-fixed">
-<div class="absolute top-md right-md px-md py-xs rounded-full bg-amber-50 text-amber-700 font-label-sm text-label-sm border border-amber-200 flex items-center gap-xs">
-<span class="material-symbols-outlined text-[14px]" data-icon="bolt">bolt</span>
-                            76% Match
-                        </div>
-<img alt="Mentor" class="absolute -bottom-10 left-md w-20 h-20 rounded-xl border-4 border-surface-container-lowest object-cover" data-alt="A portrait of a male cybersecurity expert in a high-tech office environment. He looks supportive and professional, wearing a smart casual outfit. The room is filled with subtle ambient blue and white lights, maintaining a modern and corporate feel. The lighting is soft and focused, emphasizing a sense of reliable guidance and academic rigor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYa0VAzGGi-Kt57nVHvnL1i0bV2039sHHYz9LbO27TY_hcYxz-XQ7ntRhLBG38im8gCa4Dnw3RllFNBFjIwfO5e-X_gIrWitXn8_YN4vYUd_jJhFY_13ZHt9uEg4nLU2e4ZNHaOFy-zukC3pOYQhvYeqwB62eeKDWhLSQZqErrW-Fl-QG-qsoYjHxuj20sfllkUs3lIkewWbKdx61IMc_OnjCRXg7jfSDMZSXUV2QLT8fxmOHiAkJdQxATf2PeqmJMrI7rAlyTY-c"/>
-</div>
-<div class="pt-12 px-md pb-md flex-1">
-<h3 class="font-headline-sm text-headline-sm mb-xs">Marc-Antoine Koffi</h3>
-<p class="font-label-md text-label-md text-on-surface-variant mb-md">Lead Security Architect • Google</p>
-<div class="flex flex-wrap gap-xs mb-md">
-<span class="px-sm py-xs bg-surface-container-high rounded font-label-sm text-label-sm">Ethical Hacking</span>
-<span class="px-sm py-xs bg-surface-container-high rounded font-label-sm text-label-sm">Cloud Security</span>
-</div>
-<div class="mt-auto pt-md border-t border-outline-variant flex items-center justify-between">
-<div class="flex items-center gap-xs">
-<span class="material-symbols-outlined text-tertiary" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-label-md text-label-md font-bold">4.7</span>
-<span class="text-on-surface-variant text-[12px]">(89 reviews)</span>
-</div>
-<button class="text-primary font-label-md text-label-md hover:underline">View Profile</button>
+<button class="text-primary font-label-md text-label-md hover:underline">Voir Profil</button>
 </div>
 </div>
 </article>
-<!-- Mentor Card 3 (High Match) -->
-<article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden mentor-card-shadow flex flex-col">
-<div class="relative h-32 bg-tertiary-fixed">
-<div class="absolute top-md right-md px-md py-xs rounded-full bg-green-50 text-green-700 font-label-sm text-label-sm border border-green-200 flex items-center gap-xs">
-<span class="material-symbols-outlined text-[14px]" data-icon="bolt">bolt</span>
-                            92% Match
-                        </div>
-<img alt="Mentor" class="absolute -bottom-10 left-md w-20 h-20 rounded-xl border-4 border-surface-container-lowest object-cover" data-alt="A bright, professional portrait of a female software engineer in a collaborative coworking space. She is smiling warmly at the camera. The atmosphere is energetic yet professional, with a focus on human connection. The color palette features light grays, whites, and vibrant indigo accents, consistent with the IFRI_MentorLink minimal yet modern design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQVqp1BcCkX0vM44nQnDckvrbLC4_ptg7BSlWiiii5wNcifJzm8WJU5dcsHy9CAYpq-rqrjc97nCJVypSYdWDSBLubmt4Ad_sC7v1M89dwtRdQiArzJPcU_LoY6Nw3V93Bs2u361BtWr7zt4RVV9q1pIZeXng_afSu4UWQKFacMAdYD7y4-JIx6kBPhXc5xsLDEsFFsaJ-TsOTRs--IP9qeRwTSq__g_CJky3n3WIHLTf__R78JbDc25KkX_0bxVv5xT8FkxagFh4"/>
+{% empty %}
+<div class="col-span-full text-center py-10">
+    <p class="text-on-surface-variant">Aucun mentor trouvé pour le moment.</p>
 </div>
-<div class="pt-12 px-md pb-md flex-1">
-<h3 class="font-headline-sm text-headline-sm mb-xs">Elena Rodriguez</h3>
-<p class="font-label-md text-label-md text-on-surface-variant mb-md">Senior Frontend Dev • IFRI Alumna</p>
-<div class="flex flex-wrap gap-xs mb-md">
-<span class="px-sm py-xs bg-surface-container-high rounded font-label-sm text-label-sm">UI/UX Design</span>
-<span class="px-sm py-xs bg-surface-container-high rounded font-label-sm text-label-sm">React</span>
-<span class="px-sm py-xs bg-surface-container-high rounded font-label-sm text-label-sm">Mentoring</span>
-</div>
-<div class="mt-auto pt-md border-t border-outline-variant flex items-center justify-between">
-<div class="flex items-center gap-xs">
-<span class="material-symbols-outlined text-tertiary" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-label-md text-label-md font-bold">5.0</span>
-<span class="text-on-surface-variant text-[12px]">(56 reviews)</span>
-</div>
-<button class="text-primary font-label-md text-label-md hover:underline">View Profile</button>
-</div>
-</div>
-</article>
-<!-- Mentor Card 4 -->
-<article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden mentor-card-shadow flex flex-col">
-<div class="relative h-32 bg-primary-fixed-dim">
-<div class="absolute top-md right-md px-md py-xs rounded-full bg-green-50 text-green-700 font-label-sm text-label-sm border border-green-200 flex items-center gap-xs">
-<span class="material-symbols-outlined text-[14px]" data-icon="bolt">bolt</span>
-                            85% Match
-                        </div>
-<img alt="Mentor" class="absolute -bottom-10 left-md w-20 h-20 rounded-xl border-4 border-surface-container-lowest object-cover" data-alt="A dignified and professional portrait of a senior male data scientist in a corporate boardroom setting. The lighting is sophisticated and directional, creating a sense of expert knowledge and leadership. The background includes blurred architectural elements of a modern city, with a palette dominated by professional blues and clean whites." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQR5d5hX98gsUZAACEy-yEybeRNIxxQTba950riWmggTVevwJhSagqrG3aSfjnK7nJuYt4JAcaFCfKzd7VYfHTIAzZnDekOTnmGL6AtRNDp1bmpLqCYk04t4Yk_SoP60SjI6KZOdVfUX8aXSRlQSZWg0sdtpzMhvnKcRYGfXX-ES6Yhhd_vkctbl8-SHb1d2wU00OfKX2maxZxLEzF-D07g2rLjW_a1Pxm3VKnMG5Fggy49MMdt_sXf10A7uFM74LV33_rDRJDRns"/>
-</div>
-<div class="pt-12 px-md pb-md flex-1">
-<h3 class="font-headline-sm text-headline-sm mb-xs">Dr. David Chen</h3>
-<p class="font-label-md text-label-md text-on-surface-variant mb-md">Data Science Director • Fintech</p>
-<div class="flex flex-wrap gap-xs mb-md">
-<span class="px-sm py-xs bg-surface-container-high rounded font-label-sm text-label-sm">Big Data</span>
-<span class="px-sm py-xs bg-surface-container-high rounded font-label-sm text-label-sm">Statistics</span>
-</div>
-<div class="mt-auto pt-md border-t border-outline-variant flex items-center justify-between">
-<div class="flex items-center gap-xs">
-<span class="material-symbols-outlined text-tertiary" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-label-md text-label-md font-bold">4.8</span>
-<span class="text-on-surface-variant text-[12px]">(210 reviews)</span>
-</div>
-<button class="text-primary font-label-md text-label-md hover:underline">View Profile</button>
-</div>
-</div>
-</article>
-<!-- Mentor Card 5 -->
-<article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden mentor-card-shadow flex flex-col">
-<div class="relative h-32 bg-secondary-fixed-dim">
-<div class="absolute top-md right-md px-md py-xs rounded-full bg-amber-50 text-amber-700 font-label-sm text-label-sm border border-amber-200 flex items-center gap-xs">
-<span class="material-symbols-outlined text-[14px]" data-icon="bolt">bolt</span>
-                            62% Match
-                        </div>
-<img alt="Mentor" class="absolute -bottom-10 left-md w-20 h-20 rounded-xl border-4 border-surface-container-lowest object-cover" data-alt="A professional portrait of a female university lecturer in a modern academic setting. She is holding a tablet and appears ready to assist. The mood is supportive and educational. The background features bookshelves and a glass-walled office with a minimal corporate aesthetic in shades of cool white and deep indigo." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDU45AWsGtmk4SL2qIv7J6zxogFNoMmBm4AL-goRAjexMdlJhd9OG1_BV5uVEfkLVllWFvpjkiFizea5Mv2Hp_DrjE9mOGtdlSfZiKSyieAXXHT8kSh8-wMh56ISgEzjzRMwg8YpwlbIyw7K55GH0Or1RFw1vzKjHWwEjRkvQKhYdE6Lcq6ACuCYn62vYadbkv_j5NjjXaiRBOywaOGKGXjz2Lft5mYUdCkCdszrbjMrQV3vO3wFEkUTg58LUHuN-uiOjSR_jMpp_8"/>
-</div>
-<div class="pt-12 px-md pb-md flex-1">
-<h3 class="font-headline-sm text-headline-sm mb-xs">Prof. Amina Toure</h3>
-<p class="font-label-md text-label-md text-on-surface-variant mb-md">Systems Design Specialist</p>
-<div class="flex flex-wrap gap-xs mb-md">
-<span class="px-sm py-xs bg-surface-container-high rounded font-label-sm text-label-sm">Architecture</span>
-<span class="px-sm py-xs bg-surface-container-high rounded font-label-sm text-label-sm">Networking</span>
-</div>
-<div class="mt-auto pt-md border-t border-outline-variant flex items-center justify-between">
-<div class="flex items-center gap-xs">
-<span class="material-symbols-outlined text-tertiary" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-label-md text-label-md font-bold">4.6</span>
-<span class="text-on-surface-variant text-[12px]">(42 reviews)</span>
-</div>
-<button class="text-primary font-label-md text-label-md hover:underline">View Profile</button>
-</div>
-</div>
-</article>
-<!-- Mentor Card 6 -->
-<article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden mentor-card-shadow flex flex-col">
-<div class="relative h-32 bg-tertiary-fixed-dim">
-<div class="absolute top-md right-md px-md py-xs rounded-full bg-red-50 text-red-700 font-label-sm text-label-sm border border-red-200 flex items-center gap-xs">
-<span class="material-symbols-outlined text-[14px]" data-icon="bolt">bolt</span>
-                            58% Match
-                        </div>
-<img alt="Mentor" class="absolute -bottom-10 left-md w-20 h-20 rounded-xl border-4 border-surface-container-lowest object-cover" data-alt="A portrait of a male tech entrepreneur in a creative workspace. He has a focused and visionary expression. The setting is a minimalist studio with clean lines and high-quality materials. The lighting is crisp and modern, featuring a palette of whites and professional indigo, maintaining the brand's knowledgeable and support identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzZlXAslDyZwoaQJujTMglZ_dmuyGfyFYswVZsNNQGORDQ4lQxSLGFjgWo_cgftMLVD8zsJFd-MrHUYKpOya1XE2n0cJUKXe8lDLC4e1vYOMmMllhsTdR1yWP-UegQ-kg0_W9j8u6NJwk_aPy9lZs5TpijfKq8wL3PyHRtBpGtbLrIlitL9RJRDi5V9zuRvrWCojkkMY_oobwFfUk5ekB1jxdcyUSrvvq3yaP0S-z69MQW_t5GkBKRMoIfS7wjZdt0Jla_K-cn0m0"/>
-</div>
-<div class="pt-12 px-md pb-md flex-1">
-<h3 class="font-headline-sm text-headline-sm mb-xs">Samuel Mensah</h3>
-<p class="font-label-md text-label-md text-on-surface-variant mb-md">CTO @ TechHub • Startup Mentor</p>
-<div class="flex flex-wrap gap-xs mb-md">
-<span class="px-sm py-xs bg-surface-container-high rounded font-label-sm text-label-sm">Product Strategy</span>
-<span class="px-sm py-xs bg-surface-container-high rounded font-label-sm text-label-sm">Scale</span>
-</div>
-<div class="mt-auto pt-md border-t border-outline-variant flex items-center justify-between">
-<div class="flex items-center gap-xs">
-<span class="material-symbols-outlined text-tertiary" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
-<span class="font-label-md text-label-md font-bold">4.5</span>
-<span class="text-on-surface-variant text-[12px]">(34 reviews)</span>
-</div>
-<button class="text-primary font-label-md text-label-md hover:underline">View Profile</button>
-</div>
-</div>
-</article>
+{% endfor %}
 </div>
 <!-- Pagination -->
 <div class="mt-xxl flex justify-center items-center gap-md">

@@ -204,104 +204,35 @@
 </section>
 <!-- Results Grid -->
 <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-lg">
-<!-- Mentor Card 1 (High Compatibility) -->
+{% for annonce in annonces %}
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm hover:shadow-md transition-all group flex flex-col h-full">
 <div class="flex justify-between items-start mb-md">
 <div class="flex gap-md">
-<div class="w-16 h-16 rounded-xl overflow-hidden shadow-sm">
-<img alt="Mentor Profile" data-alt="A focused professional male mentor in a minimalist workspace. He is wearing a smart-casual shirt, looking directly into the camera with a confident and helpful demeanor. The background features clean architectural lines and soft, neutral lighting, emphasizing a modern and academic atmosphere consistent with the IFRI_MentorLink brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4dpGMwNgtkj5-sA-MtB00jVARLE2iz7hmSpNmTVIkICbxJSdogItQBCWCLynyZCRNf5t7GNGrNgl3QuplJ4yBdied6VhRPeXwjLN_kUAIy5HgQBC1zWGM552bmgJAmbODHRcsB6iExteX7WqP9cOFajRQ42pyAP9fkalE2osF7NdACklyqhmrNOtvOBCXPreJXvhdSQw-cBq2eYLu1mKtKYzfvmiMWVvmR66_ud8Hvuy-ChwBYTfr5xezx51zCf_W6Yu_qZ7EJfs"/>
+<div class="w-16 h-16 rounded-xl overflow-hidden shadow-sm bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-2xl">
+    {{ annonce.auteur.prenom|first|upper }}{{ annonce.auteur.nom|first|upper }}
 </div>
 <div>
-<h3 class="font-headline-sm text-headline-sm text-on-surface">Dr. James Wilson</h3>
-<p class="text-label-md font-label-md text-on-surface-variant">Senior Research Lead at TechCorp</p>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">{{ annonce.auteur.prenom }} {{ annonce.auteur.nom }}</h3>
+<p class="text-label-md font-label-md text-on-surface-variant">{{ annonce.get_type_demande_display }}</p>
 </div>
-</div>
-<div class="bg-green-500/10 text-green-700 px-sm py-xs rounded-lg flex flex-col items-center">
-<span class="text-label-sm font-label-sm font-bold">98%</span>
-<span class="text-[10px] uppercase font-bold">Match</span>
 </div>
 </div>
 <div class="flex flex-wrap gap-xs mb-md">
-<span class="bg-surface-container text-on-surface-variant px-sm py-xs rounded-full text-label-sm font-label-sm">AI Ethics</span>
-<span class="bg-surface-container text-on-surface-variant px-sm py-xs rounded-full text-label-sm font-label-sm">Python</span>
-<span class="bg-surface-container text-on-surface-variant px-sm py-xs rounded-full text-label-sm font-label-sm">PhD Mentoring</span>
+<span class="bg-surface-container text-on-surface-variant px-sm py-xs rounded-full text-label-sm font-label-sm">{{ annonce.competence.nom }}</span>
 </div>
 <p class="text-body-sm font-body-sm text-on-surface-variant mb-lg line-clamp-2">
-                        Specializing in algorithmic fairness and deep learning applications. I help students navigate research paper submissions and career transitions.
-                    </p>
+    {{ annonce.description }}
+</p>
 <div class="mt-auto pt-md border-t border-outline-variant flex items-center justify-between">
-<div class="flex items-center gap-xs text-tertiary">
-<span class="material-symbols-outlined text-[18px]">star</span>
-<span class="font-label-md text-label-md">4.9 (42 reviews)</span>
-</div>
-<button class="bg-primary text-on-primary px-lg py-xs rounded-lg font-label-md text-label-md hover:bg-primary-container transition-all">View Profile</button>
+<span class="text-label-sm text-on-surface-variant">{{ annonce.date_creation|date:"d M Y" }}</span>
+<a href="{% url 'offer_request_detail' annonce.id %}" class="bg-primary text-on-primary px-lg py-xs rounded-lg font-label-md text-label-md hover:bg-primary-container transition-all">Voir l'annonce</a>
 </div>
 </div>
-<!-- Mentor Card 2 (Medium Compatibility) -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm hover:shadow-md transition-all group flex flex-col h-full">
-<div class="flex justify-between items-start mb-md">
-<div class="flex gap-md">
-<div class="w-16 h-16 rounded-xl overflow-hidden shadow-sm">
-<img alt="Mentor Profile" data-alt="A portrait of a smiling woman in a professional attire, posing in a modern glass-walled office space. The image conveys accessibility and expertise, with soft morning light filling the room. The color palette is dominated by corporate blues and whites, echoing the supportive and academic essence of a mentorship platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq4yqNU_c3srGodf61GTWm43WyBzrLyk7qtOrlLxgYNJqRCjK9y75f0L333V5SuLp8fMnBBsWGwNaD9e2nsGVuQAxSXsrRka-Pwhyrj0PJ9cQwcTeKGLBKNgP5TYom5UouJRRzBpAHTLSrPWq4gFltI8mKBHcWMOfwFu3C11zKAN4eLU4qqFH_p14IWItgvkyH6T2xjgAan3ZMg7HLA0MTCwfAKGSDkKPHlk6ws-JWX2NpDYxeb2NyFyt77o1a99wuTP7IIuRN0RY"/>
+{% empty %}
+<div class="col-span-full py-xl text-center text-on-surface-variant">
+    Aucune annonce trouvée pour cette recherche.
 </div>
-<div>
-<h3 class="font-headline-sm text-headline-sm text-on-surface">Sarah Jenkins</h3>
-<p class="text-label-md font-label-md text-on-surface-variant">Full-Stack Engineer at GlobalDev</p>
-</div>
-</div>
-<div class="bg-amber-500/10 text-amber-700 px-sm py-xs rounded-lg flex flex-col items-center">
-<span class="text-label-sm font-label-sm font-bold">75%</span>
-<span class="text-[10px] uppercase font-bold">Match</span>
-</div>
-</div>
-<div class="flex flex-wrap gap-xs mb-md">
-<span class="bg-surface-container text-on-surface-variant px-sm py-xs rounded-full text-label-sm font-label-sm">React</span>
-<span class="bg-surface-container text-on-surface-variant px-sm py-xs rounded-full text-label-sm font-label-sm">Node.js</span>
-</div>
-<p class="text-body-sm font-body-sm text-on-surface-variant mb-lg line-clamp-2">
-                        Passionate about clean code and helping junior developers master the JavaScript ecosystem. Open to code reviews and architectural discussions.
-                    </p>
-<div class="mt-auto pt-md border-t border-outline-variant flex items-center justify-between">
-<div class="flex items-center gap-xs text-tertiary">
-<span class="material-symbols-outlined text-[18px]">star</span>
-<span class="font-label-md text-label-md">4.7 (128 reviews)</span>
-</div>
-<button class="bg-primary text-on-primary px-lg py-xs rounded-lg font-label-md text-label-md hover:bg-primary-container transition-all">View Profile</button>
-</div>
-</div>
-<!-- Mentor Card 3 (High Compatibility) -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm hover:shadow-md transition-all group flex flex-col h-full">
-<div class="flex justify-between items-start mb-md">
-<div class="flex gap-md">
-<div class="w-16 h-16 rounded-xl overflow-hidden shadow-sm">
-<img alt="Mentor Profile" data-alt="An elegant portrait of a male mentor with a thoughtful expression, set in a library or study environment. The lighting is soft and focused, creating a sense of wisdom and academic rigor. The image uses a palette of deep navy and ivory, maintaining a professional yet approachable look consistent with the mentorship brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRF0OijPkeL9VtNIBxMPpT2EPNwODWkFuTifYwLji7DVLYwpTwVBPuiPIhbPof00l9PQP5v-wTIQh1U1uSc5sr2n41EsMAY-gspykguU9J9Y8rktpxq1OhVR4uojWi2epMsxDWvtoQqCNbRFO7qP8eXrt-tG-CERlkF7ETOXNUscJeAfh-IWBWfTKKaBS6zKBYV_PRqf7K5i6w-cpLm0kFzlsHqG1BaVNfQri9G15NzZez8Ed4xIeDtUivJZsB6OlN5vcrr4C9xTg"/>
-</div>
-<div>
-<h3 class="font-headline-sm text-headline-sm text-on-surface">Prof. Michael Chen</h3>
-<p class="text-label-md font-label-md text-on-surface-variant">Head of Data Science, State Uni</p>
-</div>
-</div>
-<div class="bg-green-500/10 text-green-700 px-sm py-xs rounded-lg flex flex-col items-center">
-<span class="text-label-sm font-label-sm font-bold">92%</span>
-<span class="text-[10px] uppercase font-bold">Match</span>
-</div>
-</div>
-<div class="flex flex-wrap gap-xs mb-md">
-<span class="bg-surface-container text-on-surface-variant px-sm py-xs rounded-full text-label-sm font-label-sm">Statistics</span>
-<span class="bg-surface-container text-on-surface-variant px-sm py-xs rounded-full text-label-sm font-label-sm">MLOps</span>
-<span class="bg-surface-container text-on-surface-variant px-sm py-xs rounded-full text-label-sm font-label-sm">R</span>
-</div>
-<p class="text-body-sm font-body-sm text-on-surface-variant mb-lg line-clamp-2">
-                        I focus on bridging the gap between theoretical statistics and industry applications. Excellent for students looking for rigorous foundations.
-                    </p>
-<div class="mt-auto pt-md border-t border-outline-variant flex items-center justify-between">
-<div class="flex items-center gap-xs text-tertiary">
-<span class="material-symbols-outlined text-[18px]">star</span>
-<span class="font-label-md text-label-md">5.0 (15 reviews)</span>
-</div>
-<button class="bg-primary text-on-primary px-lg py-xs rounded-lg font-label-md text-label-md hover:bg-primary-container transition-all">View Profile</button>
-</div>
-</div>
+{% endfor %}
 <!-- Bento Style Insight Card -->
 <div class="lg:col-span-2 xl:col-span-3 bg-primary-container text-on-primary-container rounded-xl p-xl flex flex-col md:flex-row items-center justify-between gap-xl shadow-lg relative overflow-hidden">
 <div class="relative z-10 flex-1">
