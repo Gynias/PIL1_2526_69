@@ -13,7 +13,7 @@ def mon_profil(request):
         'utilisateur': utilisateur,
         'competences': competences,
     }
-    return render(request, 'my_profil/mon_profil.html', context)  # ✅ Bon dossier
+    return render(request, 'my_profil/my_profil.html', context)
 
 
 @login_required
@@ -36,7 +36,7 @@ def modifier_profil(request):
         messages.success(request, "Profil mis à jour avec succès !")
         return redirect('mon_profil')
 
-    return render(request, 'my_profil/edit_profil.html', {'utilisateur': utilisateur})  # ✅ Bon dossier
+    return render(request, 'edit_profil/edit_profil.html', {'utilisateur': utilisateur})
 
 
 @login_required
@@ -48,6 +48,4 @@ def profil_public(request, user_id):
         'utilisateur': utilisateur,
         'competences': competences,
     }
-    return render(request, 'my_profil/my_profil.html', context)
-    return render(request, 'edit_profil/edit_profil.html', context)
-    return render(request, 'public_profil/public_profil.html' , context)
+    return render(request, 'public_profil/public_profil.html', context)
