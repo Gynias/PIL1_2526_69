@@ -9,19 +9,19 @@ from .models import DemandeOuOffre, Matching, Utilisateur, Competence, Competenc
 import json
 
 def create_offer_request(request):
-    return render(request, 'create_offer_request.html')
+    return render(request, 'annonces/create_offer_request.html')
 
 def discover_page(request):
-    return render(request, 'discover_page.html')
+    return render(request, 'annonces/discover_page.html')
 
 def offer_request_detail(request):
-    return render(request, 'offer_request_detail.html')
+    return render(request, 'annonces/offer_request_detail.html')
 
 def offer_request_feed(request):
-    return render(request, 'offer_request_feed.html')
+    return render(request, 'annonces/offer_request_feed.html')
 
 def search_results(request):
-    return render(request, 'search_results.html')
+    return render(request, 'annonces/search_results.html')
 
 # ==========================================
 # MODULE : TABLEAU DE BORD ET MENTORAT
