@@ -48,4 +48,4 @@ def profil_public(request, user_id):
         'utilisateur': utilisateur,
         'competences': competences,
     }
-    return render(request, 'my_profil/profil_public.html', context)  # ✅ Bon dossier
+    return render(request, 'my_profil/my_profil.html', 'edit_profil/edit_profil.html' , 'public_profil/public_profil.html' context)  # ✅ Bon dossier
