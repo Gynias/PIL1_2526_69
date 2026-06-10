@@ -2,13 +2,13 @@
 {% load static %}
 
 {% block content %}
-<div class="max-w-container-max mx-auto space-y-lg">
+<div class="max-w-5xl mx-auto space-y-lg px-4 sm:px-6 lg:px-8">
 
- Top Bar Component 
+ <!-- Top Bar Component -->
 <header class="flex justify-between items-center mb-xl">
 <div>
-<h2 class="font-headline-md text-headline-md text-on-surface">Create New Listing</h2>
-<p class="text-on-surface-variant font-body-sm">Share your knowledge or find the guidance you need.</p>
+<h2 class="font-headline-md text-headline-md text-on-surface">Créer une nouvelle annonce</h2>
+<p class="text-on-surface-variant font-body-sm">Partagez vos connaissances ou trouvez l'aide dont vous avez besoin.</p>
 </div>
 <div class="flex gap-md">
 <button class="bg-surface-container-highest text-on-surface p-sm rounded-full hover:bg-surface-variant transition-colors">
@@ -16,24 +16,24 @@
 </button>
 </div>
 </header>
- Bento-style Grid Form Container 
+ <!-- Bento-style Grid Form Container -->
 <form action="{% url 'create_offer_request' %}" method="POST">
   {% csrf_token %}
   {% if messages %}
     <div class="mb-4">
       {% for message in messages %}
-        <div class="p-4 rounded {% if message.tags == 'error' %}bg-red-100 text-red-700{% else %}bg-green-100 text-green-700{% endif %}">
+        <div class="p-4 rounded-xl {% if message.tags == 'error' %}bg-error-container text-on-error-container{% else %}bg-primary-container text-on-primary-container{% endif %}">
           {{ message }}
         </div>
       {% endfor %}
     </div>
   {% endif %}
-<div class="grid grid-cols-12 gap-lg">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-lg">
 <!-- Primary Form Section -->
-<section class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl p-xl shadow-sm">
+<section class="lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl p-xl shadow-sm w-full overflow-hidden">
 <!-- Toggle Switch -->
 <div class="flex flex-col gap-sm mb-xl">
-<label class="font-label-md text-on-surface-variant">Listing Type</label>
+<label class="font-label-md text-on-surface-variant">Type d'annonce</label>
 <div class="inline-flex p-1 bg-surface-container rounded-lg self-start">
 <input id="type_publication" name="type_publication" type="hidden" value="offre"/>
 <button class="px-xl py-base font-label-md rounded-lg transition-all bg-primary-container text-on-primary-container shadow-sm" id="toggleOffer" onclick="setMode('offre')" type="button">
@@ -45,10 +45,10 @@
 </div>
 </div>
 <!-- Subject Selection (Multi-select Chips) -->
-<div class="flex flex-col gap-sm mb-xl">
-<label class="font-label-md text-on-surface-variant">Subjects &amp; Skills</label>
-<select class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none font-body-sm" name="competence" required="">
-<option value="">Select a subject...</option>
+<div class="flex flex-col gap-sm mb-xl max-w-full">
+<label class="font-label-md text-on-surface-variant">Matières et Compétences</label>
+<select class="w-full max-w-full truncate bg-surface-container-low border border-outline-variant rounded-lg p-md focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none font-body-sm" name="competence" required="">
+<option value="">Sélectionnez une matière...</option>
   {% for comp in competences %}
     <option value="{{ comp.id }}">{{ comp.nom }}</option>
   {% endfor %}
@@ -56,17 +56,18 @@
 </div>
 <!-- Description -->
 <div class="flex flex-col gap-sm mb-xl">
-<label class="font-label-md text-on-surface-variant">Detailed Description (Optional)</label>
-<textarea class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none resize-none font-body-sm" name="description" placeholder="Describe what you are looking for or what you can teach in detail..." rows="4"></textarea>
+<label class="font-label-md text-on-surface-variant">Description détaillée (Optionnel)</label>
+<textarea class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none resize-none font-body-sm" name="description" placeholder="Décrivez en détail ce que vous recherchez ou ce que vous proposez..." rows="4"></textarea>
 </div>
 <div class="flex justify-end gap-md pt-lg border-t border-outline-variant">
-<button class="px-xl py-sm bg-primary text-on-primary font-label-md rounded-lg hover:opacity-90 transition-all shadow-md" type="submit">
+<button class="px-xl py-sm bg-primary text-on-primary font-label-md rounded-lg hover:opacity-90 transition-all shadow-md flex items-center gap-2" type="submit">
             Publier l'annonce
+            <span class="material-symbols-outlined text-sm" data-icon="send">send</span>
           </button>
 </div>
 </section>
 <!-- Sidebar Configuration Sections -->
-<aside class="col-span-12 lg:col-span-4 flex flex-col gap-lg">
+<aside class="lg:col-span-4 flex flex-col gap-lg w-full">
 <!-- Format Selector -->
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
 <h3 class="font-headline-sm text-headline-sm mb-md flex items-center gap-sm">
@@ -77,8 +78,8 @@
 <label class="flex items-center gap-md p-md rounded-lg border border-outline-variant cursor-pointer hover:bg-surface-container transition-all group">
 <input checked="" class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="format_seance" type="radio" value="en_ligne"/>
 <div class="flex-1">
-<p class="font-label-md">Online Remote</p>
-<p class="text-[12px] text-on-surface-variant">Zoom, Discord, or Teams</p>
+<p class="font-label-md">En ligne</p>
+<p class="text-[12px] text-on-surface-variant">Zoom, Teams ou Meet</p>
 </div>
 <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="videocam">videocam</span>
 </label>
@@ -86,7 +87,7 @@
 <input class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="format_seance" type="radio" value="presentiel"/>
 <div class="flex-1">
 <p class="font-label-md">Présentiel</p>
-<p class="text-[12px] text-on-surface-variant">Libraries, Cafés, or Labs</p>
+<p class="text-[12px] text-on-surface-variant">Bibliothèque, IFRI</p>
 </div>
 <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="location_on">location_on</span>
 </label>
@@ -94,7 +95,7 @@
 <input class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="format_seance" type="radio" value="les_deux"/>
 <div class="flex-1">
 <p class="font-label-md">Hybride</p>
-<p class="text-[12px] text-on-surface-variant">Flexible mix of both</p>
+<p class="text-[12px] text-on-surface-variant">Flexible</p>
 </div>
 <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="sync_alt">sync_alt</span>
 </label>
@@ -104,23 +105,23 @@
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
 <h3 class="font-headline-sm text-headline-sm mb-md flex items-center gap-sm">
 <span class="material-symbols-outlined text-primary" data-icon="calendar_month">calendar_month</span>
-            Availability
+            Disponibilité
           </h3>
 <div class="space-y-sm">
-<label class="font-label-md text-on-surface-variant">Day of Week</label>
+<label class="font-label-md text-on-surface-variant">Jour de la semaine</label>
 <select class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md focus:border-primary focus:ring-1 transition-all outline-none font-body-sm" name="jour">
-<option value="">Select a day (optional)</option>
+<option value="">Sélectionnez un jour (optionnel)</option>
   {% for key, val in jours %}
     <option value="{{ key }}">{{ val }}</option>
   {% endfor %}
 </select>
 <div class="flex gap-md mt-md">
 <div class="flex-1">
-<label class="font-label-md text-on-surface-variant">Start Time</label>
+<label class="font-label-md text-on-surface-variant">Heure de début</label>
 <input class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md focus:border-primary outline-none" name="heure_debut" type="time"/>
 </div>
 <div class="flex-1">
-<label class="font-label-md text-on-surface-variant">End Time</label>
+<label class="font-label-md text-on-surface-variant">Heure de fin</label>
 <input class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md focus:border-primary outline-none" name="heure_fin" type="time"/>
 </div>
 </div>
@@ -130,8 +131,8 @@
 <div class="bg-secondary-container text-on-secondary-container p-lg rounded-xl shadow-sm flex gap-md items-start">
 <span class="material-symbols-outlined text-on-secondary-container" data-icon="lightbulb">lightbulb</span>
 <div>
-<h4 class="font-label-md font-bold mb-xs">Pro Tip</h4>
-<p class="text-[12px] leading-relaxed">Offers with clear, concise descriptions and 3+ subject tags get matched 40% faster on IFRI_MentorLink.</p>
+<h4 class="font-label-md font-bold mb-xs">Astuce</h4>
+<p class="text-[12px] leading-relaxed">Les annonces avec des descriptions claires et concises ont 40% de chances en plus de trouver preneur sur IFRI MentorLink.</p>
 </div>
 </div>
 </aside>
