@@ -49,3 +49,14 @@ def profil_public(request, user_id):
         'competences': competences,
     }
     return render(request, 'public_profil/public_profil.html', context)
+
+@login_required
+def supprimer_competence(request, competence_id):
+    competence = get_object_or_404(
+        CompetenceUtilisateur, 
+        pk=competence_id, 
+        utilisateur=request.user  # sécurité : seul le propriétaire peut supprimer
+    )
+    competence.delete()
+    messages.success(request, "Compétence supprimée !")
+    return redirect('mon_profil')
