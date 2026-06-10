@@ -18,15 +18,13 @@
         <div class="relative z-10 flex flex-col md:flex-row items-center md:items-start gap-lg mt-md">
             <!-- Avatar -->
             <div class="shrink-0 relative">
-                {% if profil_user.profile_set.first and profil_user.profile_set.first.filiere == 'GL' %}
-                    <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-surface p-1 bg-primary-container flex items-center justify-center text-5xl text-primary font-bold shadow-md">
-                        {{ profil_user.first_name|first|upper }}{{ profil_user.last_name|first|upper }}
-                    </div>
-                {% else %}
-                    <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-surface p-1 bg-primary-container flex items-center justify-center text-5xl text-primary font-bold shadow-md">
-                        {{ profil_user.username|first|upper }}
-                    </div>
-                {% endif %}
+                <div class="h-32 w-32 rounded-full border-4 border-surface-bright bg-primary flex items-center justify-center text-on-primary font-display-md shadow-lg shrink-0 overflow-hidden relative">
+                    {% if profil_user.photo_profil %}
+                        <img src="{{ profil_user.photo_profil.url }}" alt="{{ profil_user.prenom }} {{ profil_user.nom }}" class="w-full h-full object-cover">
+                    {% else %}
+                        {{ profil_user.prenom|first|upper }}{{ profil_user.nom|first|upper }}
+                    {% endif %}
+                </div>
                 <div class="absolute bottom-2 right-2 bg-secondary text-on-secondary px-sm py-xs rounded-full text-xs font-bold border-2 border-surface shadow-sm">
                     {{ profil_user.get_role_display|upper }}
                 </div>
@@ -35,7 +33,7 @@
             <!-- Info -->
             <div class="flex-grow text-center md:text-left pt-sm">
                 <h1 class="font-display-sm text-display-sm text-on-surface mb-xs">
-                    {% if profil_user.first_name %}{{ profil_user.first_name }} {{ profil_user.last_name }}{% else %}{{ profil_user.username }}{% endif %}
+                    {{ profil_user.prenom }} {{ profil_user.nom }}
                 </h1>
                 
                 <p class="font-body-lg text-body-lg text-on-surface-variant flex items-center justify-center md:justify-start gap-xs mb-md">
