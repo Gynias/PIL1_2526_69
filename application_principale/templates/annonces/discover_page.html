@@ -74,7 +74,7 @@
 <div class="flex justify-between items-end mb-lg">
 <div>
 <h1 class="font-headline-lg text-headline-lg text-on-surface">Discover Mentors</h1>
-<p class="font-body-md text-body-md text-on-surface-variant">Found 128 mentors matching your criteria</p>
+<p class="font-body-md text-body-md text-on-surface-variant">Mentors disponibles sur la plateforme</p>
 </div>
 <div class="flex items-center gap-sm bg-surface-container-low p-xs rounded-lg border border-outline-variant">
 <button class="p-xs bg-surface-container-lowest shadow-sm rounded flex items-center">
@@ -87,7 +87,7 @@
 </div>
 <!-- Mentor Grid -->
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-lg">
-{% for mentor in mentors_list %}
+{% for mentor in mentors %}
 <article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden mentor-card-shadow flex flex-col">
 <div class="relative h-32 {% cycle 'bg-primary-fixed' 'bg-secondary-fixed' 'bg-tertiary-fixed' 'bg-primary-fixed-dim' 'bg-secondary-fixed-dim' 'bg-tertiary-fixed-dim' %}">
 <div class="absolute top-md right-md px-md py-xs rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm border border-outline-variant flex items-center gap-xs">

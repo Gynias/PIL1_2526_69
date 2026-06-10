@@ -120,7 +120,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL = '/media/'
+import os
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Modele utilisateur personnalise
 AUTH_USER_MODEL = 'application_principale.Utilisateur'
 LOGIN_URL = 'connexion'
+LOGIN_REDIRECT_URL = 'tableau_de_bord'
+LOGOUT_REDIRECT_URL = 'accueil'

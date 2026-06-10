@@ -153,11 +153,11 @@
                         <p class="text-sm font-semibold text-on-surface">{{ request.user.prenom }} {{ request.user.nom }}</p>
                         <p class="text-xs text-on-surface-variant truncate">{{ request.user.email }}</p>
                     </div>
-                    <a href="{% url 'account_settings' %}" class="block px-4 py-2 text-sm text-on-surface hover:bg-surface-container-low transition-colors">Mon Profil</a>
+                    <a href="{% url 'mon_profil' %}" class="block px-4 py-2 text-sm text-on-surface hover:bg-surface-container-low transition-colors">Mon Profil</a>
                     <a href="{% url 'account_settings' %}" class="block px-4 py-2 text-sm text-on-surface hover:bg-surface-container-low transition-colors">Paramètres</a>
                     <div class="border-t border-outline-variant mt-1"></div>
                     <!-- Assuming there's a logout view -->
-                    <a href="/" class="block px-4 py-2 text-sm text-error hover:bg-error-container transition-colors">Se déconnecter</a>
+                    <a href="{% url 'deconnexion' %}" class="block px-4 py-2 text-sm text-error hover:bg-error-container transition-colors">Se déconnecter</a>
                 </div>
             </div>
         </div>

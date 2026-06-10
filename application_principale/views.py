@@ -24,12 +24,8 @@ def inscription_view(request):
         mot_de_passe = request.POST.get('mot_de_passe')
         role = request.POST.get('role', 'les_deux')
         
-        # Mappons les valeurs du formulaire au modèle (Mentor/Mentee/Both -> mentor/mentore/les_deux)
-        if role == 'Mentor':
-            role = 'mentor'
-        elif role == 'Mentee':
-            role = 'mentore'
-        else:
+        # Validation du rôle
+        if role not in ['mentor', 'mentore', 'les_deux']:
             role = 'les_deux'
             
         if not telephone:
@@ -117,7 +113,7 @@ def create_offer_request(request):
         heures_options.append(f"{h:02d}:00")
         heures_options.append(f"{h:02d}:30")
     
-    return render(request, 'create_offer_request.html', {
+    return render(request, 'annonces/create_offer_request.html', {
         'competences': competences,
         'jours': jours,
         'heures_options': heures_options,
@@ -149,13 +145,13 @@ def discover_page(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
-    return render(request, 'discover_page.html', {'mentors': page_obj})
+    return render(request, 'annonces/discover_page.html', {'mentors': page_obj})
 
 @login_required
 def offer_request_detail(request, annonce_id):
     annonce = get_object_or_404(DemandeOuOffre, id=annonce_id)
     
-    return render(request, 'offer_request_detail.html', {
+    return render(request, 'annonces/offer_request_detail.html', {
         'annonce': annonce
     })
 
@@ -168,7 +164,7 @@ def offer_request_feed(request):
         
     annonces = annonces.select_related('auteur', 'competence').order_by('-date_creation')
     
-    return render(request, 'offer_request_feed.html', {
+    return render(request, 'annonces/offer_request_feed.html', {
         'annonces': annonces,
         'current_filter': type_filter
     })
@@ -185,7 +181,7 @@ def search_results(request):
     else:
         resultats = DemandeOuOffre.objects.none()
         
-    return render(request, 'search_results.html', {
+    return render(request, 'annonces/search_results.html', {
         'annonces': resultats,
         'recherche': mot_cle
     })
@@ -627,8 +623,8 @@ def public_profile_view(request, user_id):
     forces = CompetenceUtilisateur.objects.filter(utilisateur=user_profile, type_competence='force')
     lacunes = CompetenceUtilisateur.objects.filter(utilisateur=user_profile, type_competence='lacune')
     
-    return render(request, 'public_profile.html', {
-        'profil_user': user_profile,
+    return render(request, 'public_profil/public_profil.html', {
+        'utilisateur': user_profile,
         'annonces': annonces,
         'forces': forces,
         'lacunes': lacunes

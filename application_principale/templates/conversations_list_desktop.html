@@ -56,13 +56,6 @@
 {% block extra_scripts %}
 <script></script>
 <script>
-        // Simple micro-interaction for the send button
-        const sendBtn = document.querySelector('button .material-symbols-outlined[data-icon="send"]').parentElement;
-        sendBtn.addEventListener('click', () => {
-            sendBtn.classList.add('scale-90');
-            setTimeout(() => sendBtn.classList.remove('scale-90'), 150);
-        });
-
         // Hover effect for chat items
         document.querySelectorAll('.cursor-pointer').forEach(item => {
             item.addEventListener('mouseenter', () => {
