@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapport de Projet - IFRI MentorLink</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 900px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; }
+        h1 { color: #1e3a8a; border-bottom: 2px solid #1e3a8a; padding-bottom: 10px; }
+        h2 { color: #2563eb; margin-top: 30px; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
+        h3 { color: #3b82f6; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #f1f5f9; font-weight: bold; }
+        code { background-color: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+        pre { background-color: #1e293b; color: #f8fafc; padding: 15px; border-radius: 8px; overflow-x: auto; }
+        .highlight { background-color: #dbeafe; padding: 10px; border-left: 4px solid #3b82f6; margin: 10px 0; }
+    </style>
+</head>
+<body>
+
+    <h1>Rapport de Projet Intégrateur : IFRI MentorLink</h1>
+    <div class="card">
+        <p><strong>Groupe :</strong> PIL1_2526_69</p>
+        <p><strong>Institution :</strong> Institut de Formation et de Recherche en Informatique (IFRI)</p>
+        <p><strong>Année Universitaire :</strong> 2025-2026</p>
+    </div>
+
+    <h2>1. Équipe et Mode de Fonctionnement</h2>
+    <div class="card">
+        <h3>Membres de l'équipe</h3>
+        <table>
+            <tr>
+                <th>Nom & Prénom</th>
+                <th>Rôle / Contribution</th>
+                <th>Filière</th>
+            </tr>
+            <tr>
+                <td>Frejus Gynias (Scrum Master)</td>
+                <td>Coordination, intégration Git, déploiement et interface Backend (Django).</td>
+                <td>IA / GL</td>
+            </tr>
+            <tr>
+                <td>(Membre 2)</td>
+                <td>Développement des vues d'authentification (Connexion, Inscription, Déconnexion) et sécurité.</td>
+                <td>SE&IoT</td>
+            </tr>
+            <tr>
+                <td>(Membre 3)</td>
+                <td>Implémentation du profil utilisateur (Compétences, filière) et base de données.</td>
+                <td>IM</td>
+            </tr>
+            <tr>
+                <td>(Membre 4)</td>
+                <td>Création du flux d'annonces (Demandes/Offres) et recherche avec filtres.</td>
+                <td>SI</td>
+            </tr>
+            <tr>
+                <td>(Membre 5)</td>
+                <td>Développement de l'algorithme de matching et de la messagerie instantanée (Long Polling).</td>
+                <td>IA</td>
+            </tr>
+            <tr>
+                <td>(Membre 6)</td>
+                <td>Intégration Frontend, design UI/UX (Tailwind CSS, Glassmorphism) et tests QA.</td>
+                <td>GL</td>
+            </tr>
+        </table>
+        
+        <h3>Démarche Suivie</h3>
+        <p>Notre équipe a opté pour une approche agile. La communication s'est faite via des canaux dédiés (Discord/WhatsApp), et la gestion des tâches a été centralisée sur un tableau Kanban (Trello). Nous avons utilisé <strong>Git et GitHub</strong> pour le versionning de notre code, en respectant la règle des Pull Requests avec validation croisée avant de fusionner vers la branche `developpement` et `main`.</p>
+    </div>
+
+    <h2>2. Conception et Architecture</h2>
+    <div class="card">
+        <h3>Architecture Logicielle</h3>
+        <p>L'application repose sur une architecture <strong>Client-Serveur</strong> suivant le motif architectural <strong>MVT (Modèle-Vue-Template)</strong> du framework Python Django :</p>
+        <ul>
+            <li><strong>Frontend (Client) :</strong> HTML5, CSS3 avec des utilitaires Tailwind, JavaScript Vanilla (pour la messagerie temps réel).</li>
+            <li><strong>Backend (Serveur) :</strong> Django (Python 3.10+).</li>
+            <li><strong>Base de Données :</strong> Configuré par défaut sur SQLite pour les tests, mais entièrement modélisé via l'ORM Django, ce qui le rend 100% compatible avec MySQL ou PostgreSQL en production. Le fichier <code>structure_bdd.sql</code> inclus montre l'architecture des tables.</li>
+        </ul>
+
+        <h3>Structure de la Base de Données</h3>
+        <p>Les modèles principaux sont :</p>
+        <ul>
+            <li><strong>Utilisateur :</strong> Étend le modèle de base Django avec filière, rôle (mentor, mentoré), photo, etc.</li>
+            <li><strong>Competence :</strong> Les matières de l'IFRI (ex: Python, Mathématiques).</li>
+            <li><strong>DemandeOuOffre :</strong> Les annonces publiées, avec format (ligne/présentiel) et horaires.</li>
+            <li><strong>Conversation & Message :</strong> Gère les échanges de texte entre deux utilisateurs.</li>
+            <li><strong>Notification :</strong> Alertes pour les nouveaux messages et annonces.</li>
+        </ul>
+    </div>
+
+    <h2>3. Instructions de Déploiement</h2>
+    <div class="card">
+        <div class="highlight">
+            <p><strong>Note Technique :</strong> Le projet est livré "prêt à l'emploi".</p>
+        </div>
+        <ol>
+            <li>Cloner le dépôt : <code>git clone https://github.com/Gynias/PIL1_2526_69.git</code></li>
+            <li>Créer un environnement virtuel : <code>python -m venv venv</code> puis l'activer (<code>venv\Scripts\activate</code> sous Windows).</li>
+            <li>Installer les dépendances : <code>pip install -r requirements.txt</code></li>
+            <li>Initialiser la base de données : <code>python manage.py migrate</code></li>
+            <li>Peupler les compétences par défaut : <code>python manage.py seed_competences</code></li>
+            <li>Lancer le serveur : <code>python manage.py runserver</code></li>
+            <li>Accéder à <code>http://127.0.0.1:8000/</code></li>
+        </ol>
+        <p><em>Pour passer en environnement de production, modifiez <code>ALLOWED_HOSTS</code> dans <code>settings.py</code> et passez <code>DEBUG = False</code>. Branchez un SGBD MySQL dans la section DATABASES.</em></p>
+    </div>
+
+    <h2>4. Manuel d'Utilisation</h2>
+    <div class="card">
+        <h3>Pour un Nouvel Utilisateur</h3>
+        <ul>
+            <li><strong>Étape 1 :</strong> Rendez-vous sur la page d'inscription et créez un compte (Rôle Mentor, Mentoré ou les deux).</li>
+            <li><strong>Étape 2 :</strong> Passez par l'Onboarding interactif pour renseigner vos "Points forts" (si vous êtes mentor) et "Lacunes" (si mentoré).</li>
+            <li><strong>Étape 3 :</strong> Accédez au Dashboard. Si vous cherchez de l'aide, l'algorithme vous proposera automatiquement dans la section "Mentors Recommandés" les profils compatibles avec vos lacunes.</li>
+            <li><strong>Étape 4 :</strong> Cliquez sur "Contacter" pour ouvrir la messagerie instantanée intégrée.</li>
+            <li><strong>Étape 5 :</strong> Vous pouvez également publier une Annonce globale depuis l'interface "Annonces", ou répondre à celles des autres.</li>
+        </ul>
+    </div>
+
+</body>
+</html>
