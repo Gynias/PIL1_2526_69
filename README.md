@@ -81,14 +81,20 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
-### 6. (Optionnel) Créer un administrateur
+### 6. Ajouter les compétences (Matières) par défaut
+Pour que les formulaires d'inscription et de création d'annonces fonctionnent, vous devez peupler la base de données avec la liste des matières enseignées à l'IFRI. Lancez simplement cette commande :
+```bash
+python manage.py seed_competences
+```
+
+### 7. (Optionnel) Créer un administrateur
 Pour accéder au panneau d'administration (`/admin/`), créez un super-utilisateur :
 ```bash
 python manage.py createsuperuser
 ```
 *(Suivez les instructions à l'écran pour l'email et le mot de passe)*
 
-### 7. Lancer le serveur local
+### 8. Lancer le serveur local
 ```bash
 python manage.py runserver
 ```
