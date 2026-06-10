@@ -3,9 +3,9 @@
 
 {% block content %}
 
- Top App Bar 
 
- Contenu du Formulaire 
+
+
 <div class="max-w-4xl mx-auto space-y-lg">
 <div class="grid grid-cols-1 md:grid-cols-12 gap-xl">
 <!-- Menu Paramètres -->
@@ -26,32 +26,37 @@
 <h2 class="text-xl text-on-surface font-bold">Détails Personnels</h2>
 <p class="text-on-surface-variant text-sm mt-xs">Mettez à jour vos informations personnelles pour aider les mentors à vous contacter.</p>
 </div>
-<form class="space-y-lg" id="profileForm" method="POST">
+<form class="space-y-lg" id="profileForm" method="POST" enctype="multipart/form-data">
 {% csrf_token %}
 <!-- Photo de Profil -->
 <div class="flex items-center gap-xl mb-xl">
 <div class="relative group">
-<div class="w-24 h-24 rounded-full border-4 border-surface-container shadow-md bg-primary flex items-center justify-center text-white text-3xl">
-  {{ utilisateur.prenom|default:utilisateur.email|make_list|first|upper }}
+<div class="w-24 h-24 rounded-full border-4 border-surface-container shadow-md bg-surface-container-highest overflow-hidden flex items-center justify-center text-white text-3xl">
+  {% if user.photo_profil %}
+    <img src="{{ user.photo_profil.url }}" alt="Photo de profil" class="w-full h-full object-cover">
+  {% else %}
+    <span class="material-symbols-outlined text-5xl text-on-surface-variant">account_circle</span>
+  {% endif %}
 </div>
-<button class="absolute bottom-0 right-0 bg-primary text-white p-2 rounded-full shadow-lg hover:bg-primary-container transition-colors border-2 border-surface-container-lowest" type="button">
+<label for="photo_profil_input" class="absolute bottom-0 right-0 bg-primary text-white p-2 rounded-full shadow-lg hover:bg-primary-container transition-colors border-2 border-surface-container-lowest cursor-pointer">
 <span class="material-symbols-outlined text-[18px]">edit</span>
-</button>
+<input type="file" id="photo_profil_input" name="photo_profil" class="hidden" accept="image/png, image/jpeg">
+</label>
 </div>
 <div>
 <h3 class="font-bold text-on-surface">Photo de Profil</h3>
-<p class="text-xs text-on-surface-variant mt-1">PNG ou JPG, max 10MB.</p>
+<p class="text-xs text-on-surface-variant mt-1">PNG ou JPG, max 10MB. Sera utilisée pour vous identifier.</p>
 </div>
 </div>
 <!-- Champs Nom/Prénom -->
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
 <div class="flex flex-col gap-xs">
 <label class="text-sm text-on-surface-variant font-bold" for="firstName">Prénom</label>
-<input class="w-full px-md py-sm rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none bg-surface" id="firstName" name="first_name" type="text" value="{{ user.first_name }}"/>
+<input class="w-full px-md py-sm rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none bg-surface" id="firstName" name="first_name" type="text" value="{{ user.prenom }}"/>
 </div>
 <div class="flex flex-col gap-xs">
 <label class="text-sm text-on-surface-variant font-bold" for="lastName">Nom</label>
-<input class="w-full px-md py-sm rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none bg-surface" id="lastName" name="last_name" type="text" value="{{ user.last_name }}"/>
+<input class="w-full px-md py-sm rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none bg-surface" id="lastName" name="last_name" type="text" value="{{ user.nom }}"/>
 </div>
 </div>
 <!-- Champ Email -->

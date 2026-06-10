@@ -112,7 +112,7 @@
 </head>
 <body class="bg-background text-on-surface h-screen overflow-hidden flex flex-col">
 
-    <!-- TopNavBar -->
+    
     <nav class="shrink-0 w-full z-50 bg-surface-container-lowest border-b border-outline-variant shadow-sm flex justify-between items-center px-lg h-navbar-height">
         <div class="flex items-center gap-md">
             <span class="font-bold text-xl text-primary">IFRI_MentorLink</span>
@@ -126,10 +126,26 @@
         </div>
         
         <div class="flex items-center gap-md">
-            <button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all">notifications</button>
+            
+        <div class="relative" id="notification-container">
+            <button id="notification-bell" onclick="toggleNotifications()" class="relative material-symbols-outlined text-on-surface-variant hover:text-primary transition-all">
+                notifications
+                <span id="notification-badge" class="hidden absolute -top-1 -right-1 bg-error text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+            </button>
+            <div id="notification-dropdown" class="hidden absolute right-0 mt-2 w-80 bg-surface-container-lowest rounded-xl shadow-xl border border-outline-variant py-2 z-50 overflow-hidden">
+                <div class="px-4 py-3 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+                    <span class="font-bold text-on-surface">Notifications</span>
+                    <button onclick="markNotificationsRead()" class="text-xs text-primary font-bold hover:underline">Marquer lu</button>
+                </div>
+                <div id="notification-list" class="max-h-72 overflow-y-auto bg-surface-container-lowest">
+                    <div class="px-4 py-6 text-center text-sm text-on-surface-variant">Aucune notification</div>
+                </div>
+            </div>
+        </div>
+
             <div class="relative group">
                 <div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant cursor-pointer">
-                    <img alt="User avatar" src="{% if request.user.photo_profil %}{{ request.user.photo_profil.url }}{% else %}https://ui-avatars.com/api/?name={{ request.user.prenom|default:request.user.email|urlencode }}&background=4648d4&color=fff{% endif %}"/>
+                    {% if request.user.photo_profil %}<img alt="User avatar" src="{{ request.user.photo_profil.url }}" class="w-full h-full object-cover"/>{% else %}<span class="material-symbols-outlined w-full h-full flex items-center justify-center text-on-surface-variant bg-surface-container-high">person</span>{% endif %}
                 </div>
                 <!-- Dropdown Menu -->
                 <div class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-outline-variant py-1 z-50">
@@ -188,5 +204,94 @@
     </div>
 
     {% block extra_scripts %}{% endblock %}
+
+<script>
+    // --- Notification System ---
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    let notifDropdown = document.getElementById('notification-dropdown');
+    let notifBadge = document.getElementById('notification-badge');
+    let notifList = document.getElementById('notification-list');
+
+    function toggleNotifications() {
+        notifDropdown.classList.toggle('hidden');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+        let container = document.getElementById('notification-container');
+        if (container && !container.contains(event.target)) {
+            notifDropdown.classList.add('hidden');
+        }
+    });
+
+    function fetchNotifications() {
+        fetch('/api/notifications/')
+        .then(res => res.json())
+        .then(data => {
+            if (data.count > 0) {
+                notifBadge.innerText = data.count;
+                notifBadge.classList.remove('hidden');
+                
+                let html = '';
+                data.notifications.forEach(n => {
+                    html += `
+                    <a href="${n.lien || '#'}" class="block px-4 py-3 hover:bg-surface-container transition-colors border-b border-outline-variant/50 last:border-0">
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-[18px]">
+                                    ${n.type_notif === 'message' ? 'forum' : 'notifications'}
+                                </span>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-on-surface">${n.titre}</h4>
+                                <p class="text-xs text-on-surface-variant mt-1 line-clamp-2">${n.message}</p>
+                                <span class="text-[10px] text-on-surface-variant mt-1 block">${n.date}</span>
+                            </div>
+                        </div>
+                    </a>
+                    `;
+                });
+                notifList.innerHTML = html;
+            } else {
+                notifBadge.classList.add('hidden');
+                notifList.innerHTML = '<div class="px-4 py-6 text-center text-sm text-on-surface-variant">Aucune nouvelle notification</div>';
+            }
+        })
+        .catch(err => console.error(err));
+    }
+
+    function markNotificationsRead() {
+        fetch('/api/notifications/marquer-lues/', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Content-Type': 'application/json'
+            }
+        }).then(() => {
+            fetchNotifications(); // Refresh
+        });
+    }
+
+    // Polling every 15 seconds
+    if (document.getElementById('notification-container')) {
+        fetchNotifications();
+        setInterval(fetchNotifications, 15000);
+    }
+</script>
 </body>
+
 </html>

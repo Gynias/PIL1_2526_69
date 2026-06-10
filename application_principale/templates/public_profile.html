@@ -1,0 +1,144 @@
+{% extends 'base_dashboard.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="max-w-4xl mx-auto space-y-lg pb-xl">
+    <!-- Back Action -->
+    <a href="{% url 'offer_request_feed' %}" class="inline-flex items-center gap-xs text-primary font-label-md text-label-md hover:underline mb-sm">
+        <span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+        Retour au Fil d'actualitǸ
+    </a>
+
+    <!-- Header Section -->
+    <div class="bg-surface-container-lowest rounded-3xl p-xl border border-outline-variant shadow-sm relative overflow-hidden">
+        <!-- Cover Background -->
+        <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-r from-primary to-tertiary opacity-10"></div>
+        
+        <div class="relative z-10 flex flex-col md:flex-row items-center md:items-start gap-lg mt-md">
+            <!-- Avatar -->
+            <div class="shrink-0 relative">
+                {% if profil_user.profile_set.first and profil_user.profile_set.first.filiere == 'GL' %}
+                    <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-surface p-1 bg-primary-container flex items-center justify-center text-5xl text-primary font-bold shadow-md">
+                        {{ profil_user.first_name|first|upper }}{{ profil_user.last_name|first|upper }}
+                    </div>
+                {% else %}
+                    <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-surface p-1 bg-primary-container flex items-center justify-center text-5xl text-primary font-bold shadow-md">
+                        {{ profil_user.username|first|upper }}
+                    </div>
+                {% endif %}
+                <div class="absolute bottom-2 right-2 bg-secondary text-on-secondary px-sm py-xs rounded-full text-xs font-bold border-2 border-surface shadow-sm">
+                    {{ profil_user.get_role_display|upper }}
+                </div>
+            </div>
+            
+            <!-- Info -->
+            <div class="flex-grow text-center md:text-left pt-sm">
+                <h1 class="font-display-sm text-display-sm text-on-surface mb-xs">
+                    {% if profil_user.first_name %}{{ profil_user.first_name }} {{ profil_user.last_name }}{% else %}{{ profil_user.username }}{% endif %}
+                </h1>
+                
+                <p class="font-body-lg text-body-lg text-on-surface-variant flex items-center justify-center md:justify-start gap-xs mb-md">
+                    <span class="material-symbols-outlined text-lg" data-icon="school">school</span>
+                    %tudiant  l'IFRI {% if profil_user.profile_set.first %}- {{ profil_user.profile_set.first.filiere }} ({{ profil_user.profile_set.first.niveau }}){% endif %}
+                </p>
+                
+                <div class="flex flex-wrap gap-sm justify-center md:justify-start">
+                    {% if request.user != profil_user %}
+                    <a href="{% url 'demarrer_conversation' profil_user.id %}" class="inline-flex items-center gap-xs px-lg py-sm bg-primary text-on-primary rounded-full hover:bg-primary-container transition-all font-label-lg text-label-lg shadow-sm">
+                        <span class="material-symbols-outlined text-lg" data-icon="chat">chat</span>
+                        Envoyer un message
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Details Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-lg mt-lg">
+        <!-- Left Column: Competences -->
+        <div class="md:col-span-1 flex flex-col gap-lg">
+            
+            {% if profil_user.profile_set.first.bio %}
+            <div class="bg-surface-container-lowest rounded-2xl p-lg border border-outline-variant shadow-sm">
+                <h3 class="font-headline-sm text-headline-sm mb-sm text-on-surface flex items-center gap-xs">
+                    <span class="material-symbols-outlined text-primary" data-icon="person">person</span>
+                    % propos
+                </h3>
+                <p class="text-body-md text-on-surface-variant leading-relaxed">{{ profil_user.profile_set.first.bio }}</p>
+            </div>
+            {% endif %}
+
+            {% if forces.exists %}
+            <div class="bg-surface-container-lowest rounded-2xl p-lg border border-outline-variant shadow-sm">
+                <h3 class="font-headline-sm text-headline-sm mb-md text-on-surface flex items-center gap-xs">
+                    <span class="material-symbols-outlined text-success" data-icon="psychology">psychology</span>
+                    Points forts
+                </h3>
+                <div class="flex flex-wrap gap-xs">
+                    {% for force in forces %}
+                    <span class="px-sm py-1 bg-success-container text-on-success-container rounded-lg text-label-sm font-label-sm border border-success/20">
+                        {{ force.competence.nom }}
+                    </span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if lacunes.exists %}
+            <div class="bg-surface-container-lowest rounded-2xl p-lg border border-outline-variant shadow-sm">
+                <h3 class="font-headline-sm text-headline-sm mb-md text-on-surface flex items-center gap-xs">
+                    <span class="material-symbols-outlined text-error" data-icon="menu_book">menu_book</span>
+                    Sujets  amǸliorer
+                </h3>
+                <div class="flex flex-wrap gap-xs">
+                    {% for lacune in lacunes %}
+                    <span class="px-sm py-1 bg-error-container text-on-error-container rounded-lg text-label-sm font-label-sm border border-error/20">
+                        {{ lacune.competence.nom }}
+                    </span>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Right Column: Annonces -->
+        <div class="md:col-span-2 space-y-md">
+            <h3 class="font-headline-sm text-headline-sm text-on-surface flex items-center gap-xs pl-sm">
+                <span class="material-symbols-outlined text-primary" data-icon="campaign">campaign</span>
+                Annonces actives ({{ annonces.count }})
+            </h3>
+            
+            {% if annonces.exists %}
+                <div class="space-y-md">
+                {% for annonce in annonces %}
+                    <a href="{% url 'detail_annonce' annonce.id %}" class="block bg-surface-container-lowest border border-outline-variant rounded-2xl p-md hover:shadow-md transition-shadow group relative overflow-hidden">
+                        <div class="absolute left-0 top-0 bottom-0 w-1 {% if annonce.type == 'offre' %}bg-primary{% else %}bg-secondary{% endif %}"></div>
+                        <div class="flex justify-between items-start mb-sm pl-sm">
+                            <span class="text-label-sm font-label-sm uppercase tracking-wider {% if annonce.type == 'offre' %}text-primary{% else %}text-secondary{% endif %}">
+                                {% if annonce.type == 'offre' %}Offre de Mentorat{% else %}Demande d'Aide{% endif %}
+                            </span>
+                            <span class="text-label-sm text-on-surface-variant">{{ annonce.date_creation|date:"d/m/Y" }}</span>
+                        </div>
+                        <h4 class="font-headline-sm text-on-surface mb-xs pl-sm group-hover:text-primary transition-colors">{{ annonce.titre }}</h4>
+                        <div class="flex items-center gap-xs pl-sm mt-sm">
+                            <span class="px-sm py-1 bg-surface-container-high rounded-md text-label-sm text-on-surface">{{ annonce.competence.nom }}</span>
+                        </div>
+                    </a>
+                {% endfor %}
+                </div>
+            {% else %}
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-xl text-center">
+                    <div class="w-16 h-16 bg-surface-container mx-auto rounded-full flex items-center justify-center mb-md">
+                        <span class="material-symbols-outlined text-3xl text-outline" data-icon="inbox">inbox</span>
+                    </div>
+                    <h3 class="font-headline-sm text-on-surface mb-xs">Aucune annonce</h3>
+                    <p class="text-body-md text-on-surface-variant">Cet utilisateur n'a pas encore publiǸ d'annonces.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

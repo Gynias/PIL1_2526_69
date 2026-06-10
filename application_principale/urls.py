@@ -13,6 +13,7 @@ urlpatterns = [
     path('annonces/fil/', views.offer_request_feed, name='offer_request_feed'),
     path('annonces/recherche/', views.search_results, name='search_results'),
     path('parametres/profil/', views.account_settings, name='account_settings'),
+    path('profil/<int:user_id>/', views.public_profile_view, name='public_profile'),
     path('parametres/securite/', views.security_settings, name='security_settings'),
 
     # MODULE : ONBOARDING (Membre 2)
@@ -30,4 +31,8 @@ urlpatterns = [
     path('messagerie/demarrer/<int:user_id>/', views.demarrer_conversation, name='demarrer_conversation'),
     path('messagerie/<int:conv_id>/envoyer/', views.envoyer_message, name='envoyer_message'),
     path('messagerie/<int:conv_id>/nouveaux/', views.nouveaux_messages, name='nouveaux_messages'),
+
+    # MODULE : NOTIFICATIONS
+    path('api/notifications/', views.api_get_notifications, name='api_get_notifications'),
+    path('api/notifications/marquer-lues/', views.api_marquer_notifications_lues, name='api_marquer_notifications_lues'),
 ]

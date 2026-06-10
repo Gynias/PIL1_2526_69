@@ -255,3 +255,26 @@ class Message(models.Model):
 
     def __str__(self):
         return f"{self.expediteur} : {self.contenu[:40]}"
+
+
+class Notification(models.Model):
+    TYPES_NOTIF = (
+        ('message', 'Nouveau message'),
+        ('alerte', 'Alerte système'),
+    )
+    
+    utilisateur = models.ForeignKey(Utilisateur, on_delete=models.CASCADE, related_name='notifications')
+    type_notif = models.CharField(max_length=20, choices=TYPES_NOTIF, default='message')
+    titre = models.CharField(max_length=255)
+    message = models.TextField()
+    lien = models.CharField(max_length=255, blank=True, null=True)
+    lu = models.BooleanField(default=False)
+    date_creation = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = 'notifications'
+        verbose_name = 'Notification'
+        ordering = ['-date_creation']
+
+    def __str__(self):
+        return f"Notif: {self.titre} pour {self.utilisateur.email}"

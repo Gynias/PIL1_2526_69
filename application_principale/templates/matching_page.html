@@ -36,9 +36,9 @@
     <div class="mt-auto flex gap-sm">
         
             {% if match.mentor == utilisateur %}
-                <form action="{% url 'envoyer_message' match.mentore.id %}" method="POST" class="w-full">
+                <form action="{% url 'demarrer_conversation' match.mentore.id %}" method="POST" class="w-full">
             {% else %}
-                <form action="{% url 'envoyer_message' match.mentor.id %}" method="POST" class="w-full">
+                <form action="{% url 'demarrer_conversation' match.mentor.id %}" method="POST" class="w-full">
             {% endif %}
 
             {% csrf_token %}
@@ -58,39 +58,7 @@
 {% endfor %}
 
 </div>
-<!-- Stats/Insights Section (Bottom Bento) -->
-<div class="mt-xl grid grid-cols-1 lg:grid-cols-4 gap-lg">
-<div class="lg:col-span-3 glass-card rounded-xl p-lg">
-<div class="flex items-center justify-between mb-lg">
-<h2 class="font-headline-sm text-headline-sm text-on-surface">Détails de compatibilité</h2>
-<button class="text-primary font-label-md text-label-md flex items-center gap-xs">
-                            Voir l'algorithme <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
-</button>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
-<div class="bg-surface-container-highest/30 rounded-lg p-md border border-outline-variant">
-<div class="text-primary mb-sm">
-<span class="material-symbols-outlined" data-icon="psychology">psychology</span>
-</div>
-<h4 class="font-label-md text-label-md text-on-surface">Style d'apprentissage</h4>
-<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">92% d'alignement en "Pratique" vs "Théorie".</p>
-</div>
-<div class="bg-surface-container-highest/30 rounded-lg p-md border border-outline-variant">
-<div class="text-primary mb-sm">
-<span class="material-symbols-outlined" data-icon="schedule">schedule</span>
-</div>
-<h4 class="font-label-md text-label-md text-on-surface">Disponibilité</h4>
-<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">En moyenne 6.5 heures partagées par semaine.</p>
-</div>
-<div class="bg-surface-container-highest/30 rounded-lg p-md border border-outline-variant">
-<div class="text-primary mb-sm">
-<span class="material-symbols-outlined" data-icon="school">school</span>
-</div>
-<h4 class="font-label-md text-label-md text-on-surface">Matières communes</h4>
-<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Alignement sur 4 de vos 5 domaines principaux.</p>
-</div>
-</div>
-</div>
+
 <div class="glass-card rounded-xl p-lg flex flex-col items-center justify-center text-center bg-primary/5">
 <div class="w-20 h-20 relative mb-md">
 <svg class="w-full h-full transform -rotate-90">

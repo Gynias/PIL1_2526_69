@@ -3,21 +3,21 @@
 
 {% block content %}
 
- TopNavBar (Execution from JSON) 
 
- Page Content 
+
+<!-- Page Content -->
 <div class="max-w-container-max mx-auto space-y-lg">
 <!-- Header & Tab Bar Section -->
 <section class="mb-xl">
 <div class="flex items-end justify-between mb-lg">
 <div>
-<h2 class="font-headline-lg text-headline-lg text-on-surface">Community Feed</h2>
-<p class="text-on-surface-variant font-body-md text-body-md">Connect with students and mentors across campus.</p>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Fil d'Actualité</h2>
+<p class="text-on-surface-variant font-body-md text-body-md">Échangez avec les étudiants et mentors de l'IFRI.</p>
 </div>
 <div class="flex bg-surface-container-high p-xs rounded-xl shadow-inner">
-<button class="px-xl py-sm rounded-lg font-label-md text-label-md transition-all bg-surface-container-lowest shadow-sm text-primary" id="tab-all" onclick="switchTab('all')">All</button>
-<button class="px-xl py-sm rounded-lg font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-container" id="tab-offers" onclick="switchTab('offers')">Offres</button>
-<button class="px-xl py-sm rounded-lg font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-container" id="tab-requests" onclick="switchTab('requests')">Demandes</button>
+<a href="?type=all" class="px-xl py-sm rounded-lg font-label-md text-label-md transition-all {% if current_filter != 'offre' and current_filter != 'demande' %}bg-surface-container-lowest shadow-sm text-primary{% else %}text-on-surface-variant hover:bg-surface-container{% endif %}">Tout</a>
+<a href="?type=offre" class="px-xl py-sm rounded-lg font-label-md text-label-md transition-all {% if current_filter == 'offre' %}bg-surface-container-lowest shadow-sm text-primary{% else %}text-on-surface-variant hover:bg-surface-container{% endif %}">Offres</a>
+<a href="?type=demande" class="px-xl py-sm rounded-lg font-label-md text-label-md transition-all {% if current_filter == 'demande' %}bg-surface-container-lowest shadow-sm text-primary{% else %}text-on-surface-variant hover:bg-surface-container{% endif %}">Demandes</a>
 </div>
 </div>
 <!-- Filters Bento-ish Bar -->
@@ -53,7 +53,7 @@
 <div class="p-lg flex flex-col h-full">
 <div class="flex items-center gap-md mb-md">
 <div class="w-12 h-12 rounded-full overflow-hidden border-2 {% if annonce.type_publication == 'offre' %}border-primary-container{% else %}border-tertiary{% endif %}">
-<img alt="Avatar" class="w-full h-full object-cover" src="https://ui-avatars.com/api/?name={{ annonce.auteur.nom|urlencode }}+{{ annonce.auteur.prenom|urlencode }}&amp;background=random"/>
+{% if annonce.auteur.photo_profil %}<img alt="Avatar" class="w-full h-full object-cover" src="{{ annonce.auteur.photo_profil.url }}"/>{% else %}<span class="material-symbols-outlined w-full h-full flex items-center justify-center text-xl text-on-surface-variant bg-surface-container-high">person</span>{% endif %}
 </div>
 <div>
 <h4 class="font-label-md text-label-md text-on-surface font-bold">{{ annonce.auteur.prenom }} {{ annonce.auteur.nom }}</h4>

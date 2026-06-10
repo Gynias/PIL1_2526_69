@@ -3,19 +3,19 @@
 
 {% block content %}
 
- TopNavBar (Execution from JSON) 
 
- Page Content 
+
+
 <div class="max-w-container-max mx-auto space-y-lg">
 <!-- Header & Tab Bar Section -->
 <section class="mb-xl">
 <div class="flex items-end justify-between mb-lg">
 <div>
-<h2 class="font-headline-lg text-headline-lg text-on-surface">Community Feed</h2>
-<p class="text-on-surface-variant font-body-md text-body-md">Connect with students and mentors across campus.</p>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Fil d'Actualité</h2>
+<p class="text-on-surface-variant font-body-md text-body-md">Échangez avec les étudiants et mentors de l'IFRI.</p>
 </div>
 <div class="flex bg-surface-container-high p-xs rounded-xl shadow-inner">
-<button class="px-xl py-sm rounded-lg font-label-md text-label-md transition-all bg-surface-container-lowest shadow-sm text-primary" id="tab-all" onclick="switchTab('all')">All</button>
+<button class="px-xl py-sm rounded-lg font-label-md text-label-md transition-all bg-surface-container-lowest shadow-sm text-primary" id="tab-all" onclick="switchTab('all')">Tout</button>
 <button class="px-xl py-sm rounded-lg font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-container" id="tab-offers" onclick="switchTab('offers')">Offres</button>
 <button class="px-xl py-sm rounded-lg font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-container" id="tab-requests" onclick="switchTab('requests')">Demandes</button>
 </div>
@@ -55,7 +55,11 @@
     {{ annonce.auteur.prenom|first|upper }}{{ annonce.auteur.nom|first|upper }}
 </div>
 <div>
-<h4 class="font-label-md text-label-md text-on-surface font-bold">{{ annonce.auteur.prenom }} {{ annonce.auteur.nom }}</h4>
+<h4 class="font-label-md text-label-md text-on-surface font-bold">
+    <a href="{% url 'public_profile' annonce.auteur.id %}" class="hover:underline hover:text-primary transition-colors">
+        {{ annonce.auteur.prenom }} {{ annonce.auteur.nom }}
+    </a>
+</h4>
 <p class="text-on-surface-variant font-label-sm text-label-sm">{{ annonce.auteur.get_niveau_display|default:"Niveau non précisé" }}</p>
 </div>
 </div>

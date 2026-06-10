@@ -54,7 +54,8 @@ def inscription_view(request):
                 messages.success(request, "Inscription réussie !")
                 return redirect('onboarding')
             except Exception as e:
-                messages.error(request, "Une erreur s'est produite lors de la création du compte.")
+                messages.error(request, f"Erreur système: {str(e)}")
+                print("REGISTRATION EXCEPTION:", e)
             
     return render(request, 'register.html')
 
@@ -110,9 +111,16 @@ def create_offer_request(request):
     competences = Competence.objects.all().order_by('nom')
     jours = Disponibilite.JOURS
     
+    # GǸnǸrer des options d'heures par intervalles de 30 minutes
+    heures_options = []
+    for h in range(7, 23):
+        heures_options.append(f"{h:02d}:00")
+        heures_options.append(f"{h:02d}:30")
+    
     return render(request, 'create_offer_request.html', {
         'competences': competences,
         'jours': jours,
+        'heures_options': heures_options,
     })
 
 from django.core.paginator import Paginator
@@ -153,10 +161,16 @@ def offer_request_detail(request, annonce_id):
 
 @login_required
 def offer_request_feed(request):
-    annonces = DemandeOuOffre.objects.filter(statut='ouvert').select_related('auteur', 'competence').order_by('-date_creation')
+    type_filter = request.GET.get('type')
+    annonces = DemandeOuOffre.objects.filter(statut='ouvert')
+    if type_filter in ['offre', 'demande']:
+        annonces = annonces.filter(type_publication=type_filter)
+        
+    annonces = annonces.select_related('auteur', 'competence').order_by('-date_creation')
     
     return render(request, 'offer_request_feed.html', {
-        'annonces': annonces
+        'annonces': annonces,
+        'current_filter': type_filter
     })
 
 @login_required
@@ -397,10 +411,29 @@ def detail_conversation(request, conv_id):
 def demarrer_conversation(request, user_id):
     autre = get_object_or_404(Utilisateur, id=user_id, is_active=True)
     if autre == request.user:
-        messages.error(request, "Vous ne pouvez pas vous envoyer un message à vous-même.")
+        messages.error(request, "Vous ne pouvez pas vous envoyer un message  vous-mme.")
         return redirect('tableau_de_bord')
 
     conv = Conversation.get_ou_creer(request.user, autre)
+    
+    if request.method == 'POST':
+        contenu = request.POST.get('contenu')
+        if contenu:
+            Message.objects.create(
+                conversation=conv,
+                expediteur=request.user,
+                contenu=contenu
+            )
+            from application_principale.models import Notification
+            from django.urls import reverse
+            Notification.objects.create(
+                utilisateur=autre,
+                type_notif='message',
+                titre='Nouveau message',
+                message=f"{request.user.nom_complet()} vous a envoyé un message.",
+                lien=reverse('detail_conversation', args=[conv.id])
+            )
+            
     return redirect('detail_conversation', conv_id=conv.id)
 
 
@@ -422,6 +455,16 @@ def envoyer_message(request, conv_id):
         conversation=conversation,
         expediteur=request.user,
         contenu=contenu
+    )
+    from application_principale.models import Notification
+    from django.urls import reverse
+    autre = conversation.utilisateur2 if conversation.utilisateur1 == request.user else conversation.utilisateur1
+    Notification.objects.create(
+        utilisateur=autre,
+        type_notif='message',
+        titre='Nouveau message',
+        message=f"{request.user.nom_complet()} vous a envoyé un message.",
+        lien=reverse('detail_conversation', args=[conversation.id])
     )
 
     return JsonResponse({
@@ -469,6 +512,10 @@ def account_settings(request):
         request.user.prenom = request.POST.get('first_name', request.user.prenom)
         request.user.nom = request.POST.get('last_name', request.user.nom)
         request.user.email = request.POST.get('email', request.user.email)
+        
+        if 'photo_profil' in request.FILES:
+            request.user.photo_profil = request.FILES['photo_profil']
+            
         request.user.save()
         
         # Update competences
@@ -570,3 +617,45 @@ def onboarding_post_inscription(request):
         'competences': competences
     })
 
+
+@login_required
+def public_profile_view(request, user_id):
+    user_profile = get_object_or_404(Utilisateur, id=user_id)
+    annonces = DemandeOuOffre.objects.filter(auteur=user_profile).order_by('-date_creation')
+    
+    # Calculate stats if needed
+    forces = CompetenceUtilisateur.objects.filter(utilisateur=user_profile, type_competence='force')
+    lacunes = CompetenceUtilisateur.objects.filter(utilisateur=user_profile, type_competence='lacune')
+    
+    return render(request, 'public_profile.html', {
+        'profil_user': user_profile,
+        'annonces': annonces,
+        'forces': forces,
+        'lacunes': lacunes
+    })
+
+
+# API Notifications
+from django.urls import reverse
+
+@login_required
+def api_get_notifications(request):
+    from application_principale.models import Notification
+    notifs = Notification.objects.filter(utilisateur=request.user, lu=False).order_by('-date_creation')[:10]
+    data = []
+    for n in notifs:
+        data.append({
+            'id': n.id,
+            'titre': n.titre,
+            'message': n.message,
+            'lien': n.lien,
+            'date': n.date_creation.strftime('%H:%M')
+        })
+    return JsonResponse({'notifications': data, 'count': len(data)})
+
+@login_required
+@require_POST
+def api_marquer_notifications_lues(request):
+    from application_principale.models import Notification
+    Notification.objects.filter(utilisateur=request.user, lu=False).update(lu=True)
+    return JsonResponse({'status': 'ok'})

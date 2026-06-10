@@ -68,14 +68,14 @@
 </div>
 </div>
 <!-- Contenu des messages -->
-<div class="flex-1 overflow-y-auto p-xl space-y-lg custom-scrollbar">
+<div id="chat-container" class="flex-1 overflow-y-auto p-xl space-y-lg custom-scrollbar">
 <div class="flex justify-center">
 <span class="bg-surface-container-high text-on-surface-variant px-md py-1 rounded-full text-label-sm font-label-sm">Hier</span>
 </div>
 {% for msg in messages %}
     {% if msg.expediteur == request.user %}
         <!-- Message envoyé -->
-        <div class="flex flex-row-reverse gap-md max-w-[80%] ml-auto">
+        <div class="flex flex-row-reverse gap-md max-w-[80%] ml-auto" data-message-id="{{ msg.id }}">
         <div class="space-y-xs text-right">
         <div class="bg-primary text-on-primary p-md rounded-2xl rounded-br-none shadow-md">
         <p class="text-body-md font-body-md">{{ msg.contenu }}</p>
@@ -88,7 +88,7 @@
         </div>
     {% else %}
         <!-- Message reçu -->
-        <div class="flex gap-md max-w-[80%]">
+        <div class="flex gap-md max-w-[80%]" data-message-id="{{ msg.id }}">
         <div class="w-8 h-8 rounded-full border border-outline-variant bg-primary-container text-on-primary-container flex items-center justify-center font-bold self-end mb-xs">
             {{ msg.expediteur.prenom|first|upper }}{{ msg.expediteur.nom|first|upper }}
         </div>
@@ -136,8 +136,50 @@
 {% block extra_scripts %}
 <script>
         const form = document.getElementById('message-form');
-        const textarea = document.getElementById('message-textarea');
         const chatContainer = document.getElementById('chat-container');
+
+        // Polling des nouveaux messages
+        let lastMsgId = 0;
+        const msgElements = chatContainer.querySelectorAll('[data-message-id]');
+        if (msgElements.length > 0) {
+            lastMsgId = msgElements[msgElements.length - 1].getAttribute('data-message-id');
+        }
+
+        setInterval(() => {
+            fetch(`{% url 'nouveaux_messages' conversation.id %}?dernier_id=${lastMsgId}`, {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.messages && data.messages.length > 0) {
+                    let scrolledToBottom = chatContainer.scrollHeight - chatContainer.clientHeight <= chatContainer.scrollTop + 10;
+                    
+                    data.messages.forEach(msg => {
+                        if (document.querySelector(`[data-message-id="${msg.id}"]`)) return;
+                        
+                        const msgHTML = `
+                        <div class="flex flex-col items-start mb-md" data-message-id="${msg.id}">
+                            <div class="max-w-[85%] sm:max-w-[75%]">
+                                <div class="bg-surface-container-highest text-on-surface rounded-2xl rounded-bl-none p-md shadow-sm">
+                                    <p class="text-body-md font-body-md whitespace-pre-wrap">${msg.contenu.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>
+                                </div>
+                                <div class="flex items-center gap-1 mt-1">
+                                    <span class="text-[11px] text-on-surface-variant font-medium">${msg.date_envoi}</span>
+                                </div>
+                            </div>
+                        </div>`;
+                        chatContainer.insertAdjacentHTML('beforeend', msgHTML);
+                        lastMsgId = msg.id;
+                    });
+
+                    if (scrolledToBottom) {
+                        chatContainer.scrollTop = chatContainer.scrollHeight;
+                    }
+                }
+            })
+            .catch(err => console.error("Polling error", err));
+        }, 3000);
+        const textarea = document.getElementById('message-textarea');
 
         if (textarea) {
             textarea.addEventListener('input', function() {
@@ -174,13 +216,13 @@
                         alert(data.erreur);
                     } else {
                         const msgHTML = `
-                        <div class="flex flex-col items-end mb-md">
+                        <div class="flex flex-col items-end mb-md" data-message-id="${data.id}">
                             <div class="max-w-[85%] sm:max-w-[75%]">
                                 <div class="bg-primary text-on-primary rounded-2xl rounded-br-none p-md shadow-sm">
                                     <p class="text-body-md font-body-md whitespace-pre-wrap">${contenu.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>
                                 </div>
                                 <div class="flex items-center justify-end gap-1 mt-1">
-                                    <span class="text-[11px] text-on-surface-variant font-medium">À l'instant</span>
+                                    <span class="text-[11px] text-on-surface-variant font-medium">${data.date_envoi}</span>
                                     <span class="material-symbols-outlined text-[14px] text-outline" data-icon="done_all">done_all</span>
                                 </div>
                             </div>

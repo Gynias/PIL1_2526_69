@@ -15,7 +15,7 @@
 </div>
 </div>
 <div class="relative w-full md:w-1/3 aspect-square rounded-full overflow-hidden border-8 border-white/10 shrink-0">
-<img alt="Student studying" class="w-full h-full object-cover" data-alt="A candid, high-quality photograph of a group of diverse university students collaborating in a modern, sunlit glass-walled study pod. The aesthetic is clean and corporate, with vibrant Indigo and Slate blue tones. The lighting is natural and bright, creating a focused and supportive atmosphere that matches the professional mentorship platform's visual identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVir13sA2CvQBMsKqN3DpyHAuY9FvFfX9UlFfH971w9WESGGl26Qgu41uDHPPIOn88f-5kwyOljPqSmrAjexC5JQkYk9dXI-TO0xuMnWqBmzDkxzxO8Uhk_dSnQMARwQKKpnkgzkFRN8DhrlgQKhLDzUo8HhibMoR-Z6hv3zYFW1TyFyaP3K8doV1iCPCYXG3DOFU4_O4qHb7-urV_h2koqgVgBvydlxbgTFr8UkP_OZUr08flQ5D7hp3D0d8rAesR_HYbsRVHLqs"/>
+<div class="w-full h-full bg-primary-container flex items-center justify-center"><span class="material-symbols-outlined text-primary text-[120px] opacity-50">school</span></div>
 </div>
 <!-- Decorative Background Element -->
 <div class="absolute top-[-50px] right-[-50px] w-80 h-80 bg-primary-container rounded-full blur-3xl opacity-40"></div>
@@ -65,14 +65,14 @@
 {% for matching in matchings %}
 <div class="bg-surface-container-lowest border border-outline-variant p-md rounded-xl shadow-sm hover:shadow-lg transition-all transform hover:-translate-y-1">
 <div class="relative mb-md">
-<img alt="Mentor Avatar" class="w-full aspect-square object-cover rounded-lg" src="https://ui-avatars.com/api/?name={{ matching.mentor.prenom|urlencode }}+{{ matching.mentor.nom|urlencode }}&amp;background=random"/>
+{% if matching.mentor.photo_profil %}<img alt="Mentor Avatar" class="w-full aspect-square object-cover rounded-lg" src="{{ matching.mentor.photo_profil.url }}"/>{% else %}<div class="w-full aspect-square rounded-lg bg-surface-container-high flex items-center justify-center"><span class="material-symbols-outlined text-4xl text-on-surface-variant">person</span></div>{% endif %}
 <div class="absolute top-sm right-sm bg-white/90 backdrop-blur-md px-sm py-xs rounded-full shadow-sm">
 <span class="text-[#15803d] font-bold text-label-sm font-label-sm">{{ matching.score_global }}% Compatible</span>
 </div>
 </div>
 <h4 class="font-headline-sm text-headline-sm text-on-surface">{% if matching.mentor == utilisateur %}{{ matching.mentore.prenom }} {{ matching.mentore.nom }}{% else %}{{ matching.mentor.prenom }} {{ matching.mentor.nom }}{% endif %}</h4>
 <p class="font-label-md text-label-md text-on-surface-variant">{% if matching.mentor == utilisateur %}Votre mentoré{% else %}Votre mentor{% endif %}</p>
-<button class="w-full mt-lg border border-primary text-primary py-sm rounded-lg font-label-md text-label-md hover:bg-primary/5 transition-colors">Contacter</button>
+<a href="{% if matching.mentor == utilisateur %}{% url 'demarrer_conversation' matching.mentore.id %}{% else %}{% url 'demarrer_conversation' matching.mentor.id %}{% endif %}" class="w-full mt-lg border border-primary text-primary py-sm rounded-lg font-label-md text-label-md hover:bg-primary/5 transition-colors text-center block">Contacter</a>
 </div>
 {% empty %}
 <div class="col-span-1 md:col-span-2 xl:col-span-3 flex flex-col items-center justify-center py-12 bg-surface-container-lowest rounded-xl border border-dashed border-outline-variant">
