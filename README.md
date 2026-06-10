@@ -41,48 +41,58 @@ IFRI_MentorLink/
 
 ---
 
-## 🚀 Guide d'Installation et de Démarrage
+## 🚀 Guide d'Installation et de Démarrage Rapide
 
-Pour une personne extérieure qui souhaite tester le projet sur sa machine, voici les étapes à suivre :
+Ce guide est conçu pour vous permettre de lancer le projet **sans aucune erreur** du premier coup. L'application est configurée pour fonctionner "Out of the box".
 
 ### 1. Prérequis
-- Avoir **Python 3.8+** installé sur sa machine.
-- Avoir un terminal (Command Prompt, PowerShell, ou Terminal MacOS/Linux).
+- Avoir **Python 3.10+** d'installé. (Assurez-vous que la commande `python` ou `python3` est accessible dans votre terminal).
+- Utiliser un terminal (PowerShell sous Windows ou Terminal sous Linux/Mac).
 
-### 2. Cloner ou récupérer le projet
-Placez-vous dans le dossier du projet extrait.
-
-### 3. Créer un environnement virtuel (Recommandé)
-Cela permet d'isoler les dépendances du projet.
+### 2. Télécharger et préparer le projet
+Ouvrez votre terminal et placez-vous dans le dossier du projet :
 ```bash
-# Windows
-python -m venv venv
-venv\Scripts\activate
+cd IFRI_MentorLink  # Ou le nom du dossier où vous avez extrait le projet
+```
 
-# MacOS / Linux
+### 3. Créer et activer l'environnement virtuel (Obligatoire)
+L'environnement virtuel garantit que les bibliothèques n'entrent pas en conflit avec votre système.
+**Sous Windows (PowerShell) :**
+```powershell
+python -m venv venv
+.\venv\Scripts\activate
+```
+**Sous MacOS / Linux :**
+```bash
 python3 -m venv venv
 source venv/bin/activate
 ```
 
 ### 4. Installer les dépendances
-Installez Django et les autres paquets nécessaires (si un fichier `requirements.txt` est présent) :
+Nous avons préparé un fichier `requirements.txt` avec toutes les bibliothèques requises (Django, Pillow pour les images, etc.).
 ```bash
-pip install django
-# Ou si requirements.txt existe : pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
-### 5. Préparer la Base de Données
-Appliquez les migrations pour construire les tables dans la base de données SQLite :
+### 5. Préparer la Base de Données (SQLite)
+Nous utilisons SQLite pour faciliter les tests (pas de serveur externe requis). Créez la base de données locale avec :
 ```bash
 python manage.py makemigrations
 python manage.py migrate
 ```
 
-### 6. Lancer le serveur local
+### 6. (Optionnel) Créer un administrateur
+Pour accéder au panneau d'administration (`/admin/`), créez un super-utilisateur :
+```bash
+python manage.py createsuperuser
+```
+*(Suivez les instructions à l'écran pour l'email et le mot de passe)*
+
+### 7. Lancer le serveur local
 ```bash
 python manage.py runserver
 ```
-Le projet sera alors accessible depuis votre navigateur à l'adresse : **http://127.0.0.1:8000/**
+Le projet est maintenant 100% fonctionnel et accessible sur : **http://127.0.0.1:8000/**
 
 ---
 
