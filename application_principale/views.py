@@ -659,3 +659,56 @@ def api_marquer_notifications_lues(request):
     from application_principale.models import Notification
     Notification.objects.filter(utilisateur=request.user, lu=False).update(lu=True)
     return JsonResponse({'status': 'ok'})
+
+
+# ==========================================
+# MODULE : PROFIL ÉTUDIANT (Membre 3 - Evan)
+# ==========================================
+
+@login_required
+def mon_profil(request):
+    utilisateur = request.user
+    competences = CompetenceUtilisateur.objects.filter(utilisateur=utilisateur).select_related('competence')
+    return render(request, 'my_profil/my_profil.html', {
+        'utilisateur': utilisateur,
+        'competences': competences,
+    })
+
+
+@login_required
+def modifier_profil(request):
+    utilisateur = request.user
+    if request.method == 'POST':
+        nom = request.POST.get('nom')
+        prenom = request.POST.get('prenom')
+        email = request.POST.get('email')
+        if nom:
+            utilisateur.nom = nom
+        if prenom:
+            utilisateur.prenom = prenom
+        if email:
+            utilisateur.email = email
+        if 'photo_profil' in request.FILES:
+            utilisateur.photo_profil = request.FILES['photo_profil']
+        utilisateur.save()
+        messages.success(request, "Profil mis à jour avec succès !")
+        return redirect('mon_profil')
+    return render(request, 'edit_profil/edit_profil.html', {'utilisateur': utilisateur})
+
+
+@login_required
+def profil_public(request, user_id):
+    profil = get_object_or_404(Utilisateur, pk=user_id)
+    competences = CompetenceUtilisateur.objects.filter(utilisateur=profil).select_related('competence')
+    return render(request, 'public_profil/public_profil.html', {
+        'utilisateur': profil,
+        'competences': competences,
+    })
+
+
+@login_required
+def supprimer_competence(request, competence_id):
+    competence = get_object_or_404(CompetenceUtilisateur, pk=competence_id, utilisateur=request.user)
+    competence.delete()
+    messages.success(request, "Compétence supprimée !")
+    return redirect('mon_profil')

@@ -35,4 +35,10 @@ urlpatterns = [
     # MODULE : NOTIFICATIONS
     path('api/notifications/', views.api_get_notifications, name='api_get_notifications'),
     path('api/notifications/marquer-lues/', views.api_marquer_notifications_lues, name='api_marquer_notifications_lues'),
+
+    # MODULE : PROFIL ÉTUDIANT (Membre 3 - Evan)
+    path('profil/moi/', views.mon_profil, name='mon_profil'),
+    path('profil/modifier/', views.modifier_profil, name='modifier_profil'),
+    path('profil/public/<int:user_id>/', views.profil_public, name='profil_public'),
+    path('competence/supprimer/<int:competence_id>/', views.supprimer_competence, name='supprimer_competence'),
 ]
