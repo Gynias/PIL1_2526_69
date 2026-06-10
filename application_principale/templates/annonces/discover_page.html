@@ -1,0 +1,166 @@
+{% extends 'base_dashboard.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+
+<div class="max-w-container-max mx-auto space-y-lg">
+<!-- Search & Filters Section -->
+<section class="mb-xl">
+<div class="flex flex-col gap-lg bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm">
+<div class="flex items-center gap-md">
+<div class="flex-1 relative">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full pl-xl pr-md py-md bg-surface-container border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md text-body-md" placeholder="Search by name, expertise, or research area..." type="text"/>
+</div>
+<button class="bg-primary text-on-primary px-xl py-md rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity">
+                            Find Compatible
+                        </button>
+</div>
+<!-- Filter Chips -->
+<div class="flex flex-wrap items-center gap-md">
+<div class="flex items-center gap-sm">
+<span class="font-label-md text-label-md text-on-surface-variant">Subject:</span>
+<select class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
+<option>Computer Science</option>
+<option>Cybersecurity</option>
+<option>Data Science</option>
+<option>AI &amp; Robotics</option>
+</select>
+</div>
+<div class="flex items-center gap-sm">
+<span class="font-label-md text-label-md text-on-surface-variant">Schedule:</span>
+<select class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
+<option>Weekdays</option>
+<option>Weekends</option>
+<option>Evening</option>
+</select>
+</div>
+<div class="flex items-center gap-sm">
+<span class="font-label-md text-label-md text-on-surface-variant">Level:</span>
+<select class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
+<option>Bachelor</option>
+<option>Master</option>
+<option>PhD</option>
+<option>Professional</option>
+</select>
+</div>
+<div class="flex items-center gap-sm">
+<span class="font-label-md text-label-md text-on-surface-variant">Format:</span>
+<select class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
+<option>Virtual</option>
+<option>In-person</option>
+<option>Hybride</option>
+</select>
+</div>
+<div class="flex items-center gap-sm">
+<span class="font-label-md text-label-md text-on-surface-variant">Filière:</span>
+<select class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
+<option>GL</option>
+<option>ASRI</option>
+<option>IMTS</option>
+</select>
+</div>
+<button class="ml-auto text-primary font-label-md text-label-md flex items-center gap-xs hover:underline">
+<span class="material-symbols-outlined text-[18px]" data-icon="restart_alt">restart_alt</span>
+                            Clear All
+                        </button>
+</div>
+</div>
+</section>
+<!-- Results Headline -->
+<div class="flex justify-between items-end mb-lg">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Discover Mentors</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Found 128 mentors matching your criteria</p>
+</div>
+<div class="flex items-center gap-sm bg-surface-container-low p-xs rounded-lg border border-outline-variant">
+<button class="p-xs bg-surface-container-lowest shadow-sm rounded flex items-center">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+</button>
+<button class="p-xs text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="list">list</span>
+</button>
+</div>
+</div>
+<!-- Mentor Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-lg">
+{% for mentor in mentors_list %}
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden mentor-card-shadow flex flex-col">
+<div class="relative h-32 {% cycle 'bg-primary-fixed' 'bg-secondary-fixed' 'bg-tertiary-fixed' 'bg-primary-fixed-dim' 'bg-secondary-fixed-dim' 'bg-tertiary-fixed-dim' %}">
+<div class="absolute top-md right-md px-md py-xs rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm border border-outline-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]" data-icon="school">school</span>
+                            {{ mentor.filiere.nom|default:"IFRI" }}
+                        </div>
+{% if mentor.photo_profil %}
+<img alt="Mentor" class="absolute -bottom-10 left-md w-20 h-20 rounded-xl border-4 border-surface-container-lowest object-cover" src="{{ mentor.photo_profil.url }}"/>
+{% else %}
+<div class="absolute -bottom-10 left-md w-20 h-20 rounded-xl border-4 border-surface-container-lowest bg-surface-container-high flex items-center justify-center">
+    <span class="material-symbols-outlined text-4xl text-on-surface-variant">person</span>
+</div>
+{% endif %}
+</div>
+<div class="pt-12 px-md pb-md flex-1 flex flex-col">
+<h3 class="font-headline-sm text-headline-sm mb-xs">{{ mentor.prenom }} {{ mentor.nom }}</h3>
+<p class="font-label-md text-label-md text-on-surface-variant mb-md">{{ mentor.get_niveau_display|default:"Etudiant" }}</p>
+<div class="flex flex-wrap gap-xs mb-md">
+{% for comp_user in mentor.competences.all|slice:":3" %}
+<span class="px-sm py-xs bg-surface-container-high rounded font-label-sm text-label-sm">{{ comp_user.competence.nom }}</span>
+{% empty %}
+<span class="px-sm py-xs bg-surface-container-high rounded font-label-sm text-label-sm italic">Aucune compétence</span>
+{% endfor %}
+</div>
+<div class="mt-auto pt-md border-t border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary" data-icon="workspace_premium" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span class="font-label-md text-label-md font-bold">{{ mentor.get_role_display }}</span>
+</div>
+<a href="{% url 'public_profile' mentor.id %}" class="text-primary font-label-md text-label-md hover:underline">Voir Profil</a>
+</div>
+</div>
+</article>
+{% empty %}
+<div class="col-span-1 md:col-span-3 text-center py-xxl bg-surface-container-lowest rounded-xl border border-dashed border-outline-variant">
+    <span class="material-symbols-outlined text-6xl text-on-surface-variant mb-md">search_off</span>
+    <h3 class="text-headline-md font-headline-md text-on-surface mb-sm">Aucun mentor trouvé</h3>
+    <p class="text-body-md font-body-md text-on-surface-variant max-w-md mx-auto">Modifiez vos filtres de recherche pour voir plus de résultats.</p>
+</div>
+{% endfor %}
+</div>
+
+
+<!-- Pagination -->
+<div class="mt-xxl flex justify-center items-center gap-md">
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<div class="flex gap-sm">
+<button class="w-10 h-10 rounded-full bg-primary text-on-primary font-label-md text-label-md">1</button>
+<button class="w-10 h-10 rounded-full border border-outline-variant font-label-md text-label-md hover:bg-surface-container-high">2</button>
+<button class="w-10 h-10 rounded-full border border-outline-variant font-label-md text-label-md hover:bg-surface-container-high">3</button>
+<span class="flex items-center px-xs text-on-surface-variant">...</span>
+<button class="w-10 h-10 rounded-full border border-outline-variant font-label-md text-label-md hover:bg-surface-container-high">12</button>
+</div>
+<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+        // Micro-interactions for chips and hover effects
+        document.querySelectorAll('article').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                // Potential for JS-based shimmer or subtle elevation change beyond CSS
+            });
+        });
+
+        // Basic toggle for active nav if needed via JS (already handled by static classes per prompt requirements)
+        console.log("Discover page loaded successfully with active navigation state.");
+    </script>
+{% endblock %}

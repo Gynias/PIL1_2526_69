@@ -1,0 +1,125 @@
+{% extends 'base_dashboard.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+
+<div class="max-w-container-max mx-auto space-y-lg">
+<!-- Header & Tab Bar Section -->
+<section class="mb-xl">
+<div class="flex items-end justify-between mb-lg">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Fil d'Actualité</h2>
+<p class="text-on-surface-variant font-body-md text-body-md">Échangez avec les étudiants et mentors de l'IFRI.</p>
+</div>
+<div class="flex bg-surface-container-high p-xs rounded-xl shadow-inner">
+<button class="px-xl py-sm rounded-lg font-label-md text-label-md transition-all bg-surface-container-lowest shadow-sm text-primary" id="tab-all" onclick="switchTab('all')">Tout</button>
+<button class="px-xl py-sm rounded-lg font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-container" id="tab-offers" onclick="switchTab('offers')">Offres</button>
+<button class="px-xl py-sm rounded-lg font-label-md text-label-md transition-all text-on-surface-variant hover:bg-surface-container" id="tab-requests" onclick="switchTab('requests')">Demandes</button>
+</div>
+</div>
+<!-- Filters Bento-ish Bar -->
+<div class="grid grid-cols-12 gap-md mb-xl">
+<div class="col-span-8 flex items-center gap-md bg-surface-container-lowest p-sm rounded-xl border border-outline-variant shadow-sm">
+<span class="material-symbols-outlined text-outline ml-sm" data-icon="search">search</span>
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-body-md font-body-md outline-none" placeholder="Rechercher par compétence, mot-clé..." type="text"/>
+</div>
+<div class="col-span-4 flex gap-md">
+<button class="flex-1 flex items-center justify-center gap-sm bg-surface-container-lowest border border-outline-variant rounded-xl font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="tune">tune</span>
+              Filters
+            </button>
+<button class="flex-1 flex items-center justify-center gap-sm bg-surface-container-lowest border border-outline-variant rounded-xl font-label-md text-label-md text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="sort">sort</span>
+              Latest
+            </button>
+</div>
+</div>
+</section>
+<!-- Feed Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+{% for annonce in annonces %}
+<div class="group relative flex flex-col bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
+<div class="absolute top-md right-md">
+{% if annonce.type_annonce == 'offre' %}
+<span class="bg-secondary-container text-on-secondary-container px-sm py-xs rounded-full font-label-sm text-label-sm">OFFRE</span>
+{% else %}
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-sm py-xs rounded-full font-label-sm text-label-sm">DEMANDE</span>
+{% endif %}
+</div>
+<div class="p-lg flex flex-col h-full">
+<div class="flex items-center gap-md mb-md">
+<div class="w-12 h-12 rounded-full overflow-hidden border-2 {% if annonce.type_annonce == 'offre' %}border-primary-container{% else %}border-tertiary{% endif %} bg-primary text-white flex items-center justify-center font-bold text-xl">
+    {{ annonce.auteur.prenom|first|upper }}{{ annonce.auteur.nom|first|upper }}
+</div>
+<div>
+<h4 class="font-label-md text-label-md text-on-surface font-bold">
+    <a href="{% url 'public_profile' annonce.auteur.id %}" class="hover:underline hover:text-primary transition-colors">
+        {{ annonce.auteur.prenom }} {{ annonce.auteur.nom }}
+    </a>
+</h4>
+<p class="text-on-surface-variant font-label-sm text-label-sm">{{ annonce.auteur.get_niveau_display|default:"Niveau non précisé" }}</p>
+</div>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface mb-sm group-hover:text-primary transition-colors">{{ annonce.titre }}</h3>
+<p class="text-on-surface-variant font-body-sm text-body-sm mb-lg line-clamp-3">
+    {{ annonce.description }}
+</p>
+<div class="mt-auto space-y-sm">
+<div class="flex items-center gap-sm text-on-surface-variant">
+<span class="material-symbols-outlined {% if annonce.type_annonce == 'offre' %}text-primary{% else %}text-tertiary{% endif %}" data-icon="category">category</span>
+<span class="font-label-md text-label-md">{{ annonce.competence.nom }}</span>
+</div>
+</div>
+<a class="mt-lg text-center block w-full py-sm {% if annonce.type_annonce == 'offre' %}bg-primary-container text-on-primary-container hover:opacity-90{% else %}border border-tertiary text-tertiary hover:bg-tertiary hover:text-on-tertiary{% endif %} rounded-lg font-label-md text-label-md transition-all" href="{% url 'offer_request_detail' annonce.id %}">
+    Voir les détails
+</a>
+</div>
+</div>
+{% empty %}
+<div class="col-span-full text-center py-10">
+<p class="text-on-surface-variant">Aucune annonce trouvée.</p>
+</div>
+{% endfor %}
+</section>
+<!-- Pagination/Load More -->
+<div class="mt-xxl flex flex-col items-center">
+<button class="px-xxl py-md bg-surface-container-lowest border border-outline text-on-surface rounded-xl font-label-md text-label-md hover:bg-surface-container transition-colors shadow-sm">
+          Load More Activities
+        </button>
+<p class="mt-md text-on-surface-variant font-label-sm text-label-sm">Showing 4 of 28 available connections</p>
+</div>
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    function switchTab(tab) {
+      const tabs = ['all', 'offers', 'requests'];
+      tabs.forEach(t => {
+        const el = document.getElementById(`tab-${t}`);
+        if (t === tab) {
+          el.classList.add('bg-surface-container-lowest', 'shadow-sm', 'text-primary');
+          el.classList.remove('text-on-surface-variant', 'hover:bg-surface-container');
+        } else {
+          el.classList.remove('bg-surface-container-lowest', 'shadow-sm', 'text-primary');
+          el.classList.add('text-on-surface-variant', 'hover:bg-surface-container');
+        }
+      });
+      // In a real app, this would trigger content filtering
+    }
+
+    // Small interaction for cards
+    document.querySelectorAll('.group').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-4px)';
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0)';
+      });
+    });
+  </script>
+{% endblock %}

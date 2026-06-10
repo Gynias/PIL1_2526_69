@@ -1,0 +1,111 @@
+{% extends 'base_dashboard.html' %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-container-max mx-auto">
+  <div class="max-w-2xl mx-auto space-y-xl">
+
+    <!-- En-tête -->
+    <div>
+      <h1 class="font-headline-lg text-headline-lg text-on-surface">Modifier mon profil</h1>
+      <p class="text-on-surface-variant font-body-md text-body-md mt-xs">Mettez à jour vos informations personnelles.</p>
+    </div>
+
+    <!-- Formulaire principal -->
+    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-xl shadow-sm">
+      <div class="mb-xl border-b border-outline-variant pb-md">
+        <h2 class="font-headline-sm text-headline-sm text-on-surface">Informations personnelles</h2>
+      </div>
+
+      <form class="space-y-lg" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <!-- Photo de profil -->
+        <div class="flex items-center gap-xl mb-xl">
+          <div class="relative shrink-0">
+            {% if utilisateur.photo_profil %}
+              <img id="avatarPreview" src="{{ utilisateur.photo_profil.url }}" alt="Photo de profil" class="w-24 h-24 rounded-full object-cover border-4 border-surface-container shadow-md"/>
+            {% else %}
+              <div id="avatarPreview" class="w-24 h-24 rounded-full border-4 border-surface-container shadow-md bg-surface-container-high flex items-center justify-center">
+                <span class="material-symbols-outlined text-5xl text-on-surface-variant">person</span>
+              </div>
+            {% endif %}
+          </div>
+          <div>
+            <h3 class="font-label-md text-label-md text-on-surface font-bold">Photo de profil</h3>
+            <p class="text-xs text-on-surface-variant mt-1">PNG ou JPG, max 5 Mo.</p>
+            <label for="photo_profil" class="mt-md inline-flex cursor-pointer px-md py-1.5 border border-outline text-on-surface-variant font-label-md text-label-md rounded-lg hover:bg-surface-container-low transition-all">
+              Changer la photo
+            </label>
+            <input type="file" name="photo_profil" id="photo_profil" accept="image/*" class="hidden" onchange="previewPhoto(this)"/>
+          </div>
+        </div>
+
+        <!-- Nom et Prénom -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
+          <div class="flex flex-col gap-xs">
+            <label class="font-label-md text-label-md text-on-surface-variant" for="prenom">Prénom</label>
+            <input class="w-full px-md py-sm rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none font-body-md text-body-md text-on-surface bg-surface-bright" id="prenom" name="prenom" type="text" value="{{ utilisateur.prenom }}"/>
+          </div>
+          <div class="flex flex-col gap-xs">
+            <label class="font-label-md text-label-md text-on-surface-variant" for="nom">Nom</label>
+            <input class="w-full px-md py-sm rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none font-body-md text-body-md text-on-surface bg-surface-bright" id="nom" name="nom" type="text" value="{{ utilisateur.nom }}"/>
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="flex flex-col gap-xs">
+          <label class="font-label-md text-label-md text-on-surface-variant" for="email">Adresse email</label>
+          <div class="relative">
+            <span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="mail">mail</span>
+            <input class="w-full pl-xl pr-md py-sm rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none font-body-md text-body-md text-on-surface bg-surface-bright" id="email" name="email" type="email" value="{{ utilisateur.email }}"/>
+          </div>
+        </div>
+
+        <!-- Messages de succès/erreur -->
+        {% if messages %}
+          {% for message in messages %}
+            <div class="px-md py-sm rounded-lg {% if message.tags == 'success' %}bg-secondary-container text-on-secondary-container{% else %}bg-error-container text-on-error-container{% endif %} font-label-md text-label-md">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+
+        <!-- Boutons -->
+        <div class="pt-xl flex items-center justify-end gap-md border-t border-outline-variant">
+          <a href="{% url 'mon_profil' %}" class="px-xl py-sm rounded-lg text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-all">
+            Annuler
+          </a>
+          <button class="px-xl py-sm rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:shadow-lg active:scale-95 transition-all" type="submit">
+            Enregistrer
+          </button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function previewPhoto(input) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const preview = document.getElementById('avatarPreview');
+      // Replace div with img if needed
+      if (preview.tagName === 'DIV') {
+        const img = document.createElement('img');
+        img.id = 'avatarPreview';
+        img.className = 'w-24 h-24 rounded-full object-cover border-4 border-surface-container shadow-md';
+        img.alt = 'Prévisualisation';
+        img.src = e.target.result;
+        preview.replaceWith(img);
+      } else {
+        preview.src = e.target.result;
+      }
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+</script>
+{% endblock %}

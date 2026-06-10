@@ -1,0 +1,172 @@
+{% extends 'base_dashboard.html' %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-container-max mx-auto space-y-lg">
+
+ En-tête de recherche et filtres 
+<section class="mb-xl">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-lg">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Résultats de recherche</h1>
+<p class="text-on-surface-variant font-body-md">Showing 124 mentors matching your criteria</p>
+</div>
+<div class="flex items-center gap-sm">
+<span class="text-label-md font-label-md text-on-surface-variant">Sort by:</span>
+<select class="bg-surface border border-outline rounded-lg px-md py-xs text-label-md font-label-md focus:ring-2 focus:ring-primary outline-none transition-all">
+<option>Best Compatible</option>
+<option>Highest Rating</option>
+<option>Experience (Years)</option>
+<option>Compatibility Score</option>
+</select>
+</div>
+</div>
+<!-- Active Filter Tags -->
+<div class="flex flex-wrap items-center gap-sm py-sm">
+<div class="flex items-center gap-xs bg-primary-container text-on-primary-container px-sm py-xs rounded-full text-label-sm font-label-sm shadow-sm">
+                        Computer Science <button class="material-symbols-outlined text-[16px]">close</button>
+</div>
+<div class="flex items-center gap-xs bg-primary-container text-on-primary-container px-sm py-xs rounded-full text-label-sm font-label-sm shadow-sm">
+                        Machine Learning <button class="material-symbols-outlined text-[16px]">close</button>
+</div>
+<div class="flex items-center gap-xs bg-primary-container text-on-primary-container px-sm py-xs rounded-full text-label-sm font-label-sm shadow-sm">
+                        Availability: Morning <button class="material-symbols-outlined text-[16px]">close</button>
+</div>
+<button class="text-primary font-label-sm text-label-sm hover:underline ml-xs">Clear all filters</button>
+</div>
+</section>
+ Results Grid 
+<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-lg">
+{% for annonce in annonces %}
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm hover:shadow-md transition-all group flex flex-col h-full">
+<div class="flex justify-between items-start mb-md">
+<div class="flex gap-md">
+<div class="w-16 h-16 rounded-xl overflow-hidden shadow-sm bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-2xl">
+    {{ annonce.auteur.prenom|first|upper }}{{ annonce.auteur.nom|first|upper }}
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">{{ annonce.auteur.prenom }} {{ annonce.auteur.nom }}</h3>
+<p class="text-label-md font-label-md text-on-surface-variant">{{ annonce.get_type_demande_display }}</p>
+</div>
+</div>
+</div>
+<div class="flex flex-wrap gap-xs mb-md">
+<span class="bg-surface-container text-on-surface-variant px-sm py-xs rounded-full text-label-sm font-label-sm">{{ annonce.competence.nom }}</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-lg line-clamp-2">
+    {{ annonce.description }}
+</p>
+<div class="mt-auto pt-md border-t border-outline-variant flex items-center justify-between">
+<span class="text-label-sm text-on-surface-variant">{{ annonce.date_creation|date:"d M Y" }}</span>
+<a class="bg-primary text-on-primary px-lg py-xs rounded-lg font-label-md text-label-md hover:bg-primary-container transition-all" href="{% url 'offer_request_detail' annonce.id %}">Voir l'annonce</a>
+</div>
+</div>
+{% empty %}
+<div class="col-span-full py-xl text-center text-on-surface-variant">
+    Aucune annonce trouvée pour cette recherche.
+</div>
+{% endfor %}
+<!-- Bento Style Insight Card -->
+<div class="lg:col-span-2 xl:col-span-3 bg-primary-container text-on-primary-container rounded-xl p-xl flex flex-col md:flex-row items-center justify-between gap-xl shadow-lg relative overflow-hidden">
+<div class="relative z-10 flex-1">
+<h2 class="font-headline-lg text-headline-lg mb-sm">Not finding exactly what you need?</h2>
+<p class="font-body-lg text-body-lg opacity-90 max-w-2xl mb-lg">
+                            Notre algorithme de correspondance s'améliore à chaque interaction. Essayez d'élargir votre recherche ou de créer une demande personnalisée pour la communauté des mentors.
+                        </p>
+<div class="flex flex-wrap gap-md">
+<button class="bg-white text-primary px-xl py-md rounded-xl font-bold font-label-md text-label-md shadow-sm hover:shadow-md transition-all">Post a Mentorship Need</button>
+<button class="border border-white/40 hover:bg-white/10 px-xl py-md rounded-xl font-bold font-label-md text-label-md transition-all">Explore Communities</button>
+</div>
+</div>
+<div class="hidden md:block relative z-10 w-64 h-64">
+<div class="absolute inset-0 bg-white/10 rounded-full blur-3xl"></div>
+<span class="material-symbols-outlined text-[180px] opacity-20">psychology_alt</span>
+</div>
+<!-- Decorative background patterns -->
+<div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-on-primary-container/10 rounded-full blur-3xl"></div>
+</div>
+<!-- More Mentor Cards (Skeleton-like placeholders for visual density) -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm opacity-60">
+<div class="animate-pulse">
+<div class="flex gap-md mb-md">
+<div class="w-16 h-16 bg-surface-variant rounded-xl"></div>
+<div class="flex-1 space-y-3">
+<div class="h-4 bg-surface-variant rounded w-3/4"></div>
+<div class="h-3 bg-surface-variant rounded w-1/2"></div>
+</div>
+</div>
+<div class="h-24 bg-surface-variant rounded-lg mb-md"></div>
+<div class="h-10 bg-surface-variant rounded-lg"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm opacity-60">
+<div class="animate-pulse">
+<div class="flex gap-md mb-md">
+<div class="w-16 h-16 bg-surface-variant rounded-xl"></div>
+<div class="flex-1 space-y-3">
+<div class="h-4 bg-surface-variant rounded w-3/4"></div>
+<div class="h-3 bg-surface-variant rounded w-1/2"></div>
+</div>
+</div>
+<div class="h-24 bg-surface-variant rounded-lg mb-md"></div>
+<div class="h-10 bg-surface-variant rounded-lg"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm opacity-60">
+<div class="animate-pulse">
+<div class="flex gap-md mb-md">
+<div class="w-16 h-16 bg-surface-variant rounded-xl"></div>
+<div class="flex-1 space-y-3">
+<div class="h-4 bg-surface-variant rounded w-3/4"></div>
+<div class="h-3 bg-surface-variant rounded w-1/2"></div>
+</div>
+</div>
+<div class="h-24 bg-surface-variant rounded-lg mb-md"></div>
+<div class="h-10 bg-surface-variant rounded-lg"></div>
+</div>
+</div>
+</div>
+ Pagination 
+<div class="mt-xxl flex justify-center items-center gap-sm">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline text-on-surface-variant hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline text-on-surface-variant hover:bg-surface-container transition-all">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline text-on-surface-variant hover:bg-surface-container transition-all">3</button>
+<span class="text-on-surface-variant">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline text-on-surface-variant hover:bg-surface-container transition-all">12</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline text-on-surface-variant hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+        // Micro-interaction for filter chips
+        document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
+            if (icon.textContent === 'close') {
+                icon.parentElement.addEventListener('click', function() {
+                    this.classList.add('scale-90', 'opacity-0');
+                    setTimeout(() => this.remove(), 200);
+                });
+            }
+        });
+
+        // Simple smooth scroll behavior for "View Profile"
+        document.querySelectorAll('button').forEach(btn => {
+            if (btn.textContent === 'View Profile') {
+                btn.addEventListener('mouseenter', () => {
+                    btn.classList.add('shadow-lg');
+                });
+                btn.addEventListener('mouseleave', () => {
+                    btn.classList.remove('shadow-lg');
+                });
+            }
+        });
+    </script>
+</div>
+{% endblock %}

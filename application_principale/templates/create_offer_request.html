@@ -1,0 +1,191 @@
+{% extends 'base_dashboard.html' %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-container-max mx-auto space-y-lg">
+
+ Top Bar Component 
+<header class="flex justify-between items-center mb-xl">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Create New Listing</h2>
+<p class="text-on-surface-variant font-body-sm">Share your knowledge or find the guidance you need.</p>
+</div>
+<div class="flex gap-md">
+<button class="bg-surface-container-highest text-on-surface p-sm rounded-full hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+ Bento-style Grid Form Container 
+{% if messages %}
+<div class="mb-4">
+{% for message in messages %}
+<div class="p-4 mb-2 text-sm {% if message.tags == "error" %}text-error bg-error-container{% else %}text-green-700 bg-green-100{% endif %} rounded-lg">{{ message }}</div>
+{% endfor %}
+</div>
+{% endif %}
+<form method="POST" action="{% url 'create_offer_request' %}">
+{% csrf_token %}
+<div class="grid grid-cols-12 gap-lg">
+<!-- Primary Form Section -->
+<section class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl p-xl shadow-sm">
+<!-- Toggle Switch -->
+<div class="flex flex-col gap-sm mb-xl">
+<label class="font-label-md text-on-surface-variant">Listing Type</label>
+
+<div class="inline-flex p-1 bg-surface-container rounded-lg self-start">
+<input type="hidden" name="type_publication" id="type_publication" value="offre">
+<button type="button" class="px-xl py-base font-label-md rounded-lg transition-all bg-primary-container text-on-primary-container shadow-sm" id="toggleOffer" onclick="setMode('offre')">Je propose</button>
+<button type="button" class="px-xl py-base font-label-md rounded-lg transition-all text-on-surface-variant hover:text-on-surface" id="toggleRequest" onclick="setMode('demande')">Je recherche</button>
+</div>
+
+</div>
+<!-- Subject Selection (Multi-select Chips) -->
+<div class="flex flex-col gap-sm mb-xl">
+<label class="font-label-md text-on-surface-variant">Subjects &amp; Skills</label>
+
+<div class="flex flex-wrap gap-sm" id="subject-container">
+<input type="hidden" name="competence" id="competence_input" value="">
+{% for competence in competences %}
+<button type="button" class="px-md py-base border border-outline rounded-full font-label-sm hover:border-primary transition-colors flex items-center gap-xs competence-btn" onclick="selectCompetence(this, '{{ competence.id }}')">
+    {{ competence.nom }} <span class="material-symbols-outlined text-[16px]" data-icon="add">add</span>
+</button>
+{% empty %}
+<p class="text-sm text-outline">Aucune compétence disponible.</p>
+{% endfor %}
+</div>
+
+</div>
+<!-- Description -->
+<div class="flex flex-col gap-sm mb-xl">
+<label class="font-label-md text-on-surface-variant">Detailed Description (Optional)</label>
+<textarea name="description" class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none resize-none font-body-sm" placeholder="Describe what you are looking for or what you can teach in detail..." rows="4"></textarea>
+</div>
+<div class="flex justify-end gap-md pt-lg border-t border-outline-variant">
+<button type="button" class="px-xl py-sm border border-outline text-on-surface font-label-md rounded-lg hover:bg-surface-container-high transition-all">
+            Brouillon
+          </button>
+<button type="submit" class="px-xl py-sm bg-primary text-on-primary font-label-md rounded-lg hover:opacity-90 transition-all shadow-md">
+            Publier l'annonce
+          </button>
+</div>
+</section>
+<!-- Sidebar Configuration Sections -->
+<aside class="col-span-12 lg:col-span-4 flex flex-col gap-lg">
+<!-- Format Selector -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+<h3 class="font-headline-sm text-headline-sm mb-md flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-icon="groups">groups</span>
+            Format
+          </h3>
+<div class="grid grid-cols-1 gap-sm">
+<label class="flex items-center gap-md p-md rounded-lg border border-outline-variant cursor-pointer hover:bg-surface-container transition-all group">
+<input checked="" class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="format_seance" value="en_ligne" type="radio"/>
+<div class="flex-1">
+<p class="font-label-md">Online Remote</p>
+<p class="text-[12px] text-on-surface-variant">Zoom, Discord, or Teams</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="videocam">videocam</span>
+</label>
+<label class="flex items-center gap-md p-md rounded-lg border border-outline-variant cursor-pointer hover:bg-surface-container transition-all group">
+<input class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="format_seance" value="presentiel" type="radio"/>
+<div class="flex-1">
+<p class="font-label-md">Présentiel</p>
+<p class="text-[12px] text-on-surface-variant">Libraries, Cafés, or Labs</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="location_on">location_on</span>
+</label>
+<label class="flex items-center gap-md p-md rounded-lg border border-outline-variant cursor-pointer hover:bg-surface-container transition-all group">
+<input class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="format_seance" value="hybride" type="radio"/>
+<div class="flex-1">
+<p class="font-label-md">Hybride</p>
+<p class="text-[12px] text-on-surface-variant">Flexible mix of both</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="sync_alt">sync_alt</span>
+</label>
+</div>
+</div>
+<!-- Availability Picker -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+<h3 class="font-headline-sm text-headline-sm mb-md flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-icon="calendar_month">calendar_month</span>
+            Availability
+          </h3>
+
+<div class="mb-md">
+    <select name="jour" class="w-full bg-surface-container border border-outline-variant rounded-lg p-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none font-label-md">
+        <option value="">Sélectionnez un jour (Optionnel)</option>
+        {% for value, label in jours %}
+        <option value="{{ value }}">{{ label }}</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="flex gap-sm items-center mt-md">
+    <input type="time" name="heure_debut" class="flex-1 bg-surface-container border border-outline-variant rounded-lg p-sm focus:border-primary font-label-md outline-none text-on-surface text-center">
+    <span class="text-on-surface-variant font-label-sm">à</span>
+    <input type="time" name="heure_fin" class="flex-1 bg-surface-container border border-outline-variant rounded-lg p-sm focus:border-primary font-label-md outline-none text-on-surface text-center">
+</div>
+
+</div>
+</div>
+<!-- Tip Card -->
+<div class="bg-secondary-container text-on-secondary-container p-lg rounded-xl shadow-sm flex gap-md items-start">
+<span class="material-symbols-outlined text-on-secondary-container" data-icon="lightbulb">lightbulb</span>
+<div>
+<h4 class="font-label-md font-bold mb-xs">Pro Tip</h4>
+<p class="text-[12px] leading-relaxed">Offers with clear, concise descriptions and 3+ subject tags get matched 40% faster on IFRI_MentorLink.</p>
+</div>
+</div>
+</aside>
+</div>
+</form>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    
+    function setMode(mode) {
+      document.getElementById('type_publication').value = mode;
+      const offerBtn = document.getElementById('toggleOffer');
+      const requestBtn = document.getElementById('toggleRequest');
+      
+      if (mode === 'offre') {
+        offerBtn.className = 'px-xl py-base font-label-md rounded-lg transition-all bg-primary-container text-on-primary-container shadow-sm';
+        requestBtn.className = 'px-xl py-base font-label-md rounded-lg transition-all text-on-surface-variant hover:text-on-surface';
+      } else {
+        requestBtn.className = 'px-xl py-base font-label-md rounded-lg transition-all bg-primary-container text-on-primary-container shadow-sm';
+        offerBtn.className = 'px-xl py-base font-label-md rounded-lg transition-all text-on-surface-variant hover:text-on-surface';
+      }
+    }
+
+    
+    function selectCompetence(element, compId) {
+      document.getElementById('competence_input').value = compId;
+      document.querySelectorAll('.competence-btn').forEach(btn => {
+        btn.classList.remove('bg-primary-container', 'text-on-primary-container', 'border-primary');
+        btn.classList.add('border-outline');
+        btn.querySelector('.material-symbols-outlined').innerText = 'add';
+      });
+      element.classList.add('bg-primary-container', 'text-on-primary-container', 'border-primary');
+      element.classList.remove('border-outline');
+      element.querySelector('.material-symbols-outlined').innerText = 'check';
+    }
+
+    function toggleChip(element) {
+      const isSelected = element.classList.contains('bg-primary-container');
+      const icon = element.querySelector('.material-symbols-outlined');
+      
+      if (isSelected) {
+        element.classList.remove('bg-primary-container', 'text-on-primary-container', 'border-primary');
+        element.classList.add('border-outline');
+        icon.innerText = 'add';
+      } else {
+        element.classList.add('bg-primary-container', 'text-on-primary-container', 'border-primary');
+        element.classList.remove('border-outline');
+        icon.innerText = 'check';
+      }
+    }
+  </script>
+</div>
+{% endblock %}

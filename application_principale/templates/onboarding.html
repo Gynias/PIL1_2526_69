@@ -1,0 +1,117 @@
+{% extends 'base_dashboard.html' %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto space-y-lg mt-10">
+    <div class="text-center mb-xl">
+        <h1 class="font-headline-lg text-headline-lg text-on-surface">Bienvenue, {{ request.user.prenom }} ! 🎉</h1>
+        <p class="font-body-lg text-on-surface-variant mt-2">Avant de commencer, parlons un peu de vos compétences pour trouver les meilleurs mentors.</p>
+    </div>
+
+    <form method="POST" action="{% url 'onboarding' %}" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-xl shadow-sm space-y-xl">
+        {% csrf_token %}
+        
+        <!-- Points Forts -->
+        <div class="space-y-sm">
+            <h3 class="font-headline-sm text-on-surface flex items-center gap-xs">
+                <span class="material-symbols-outlined text-green-600">psychology</span>
+                Vos Points Forts (Ce que vous pouvez enseigner)
+            </h3>
+            <p class="font-body-sm text-on-surface-variant">Sélectionnez les matières où vous vous sentez à l'aise.</p>
+            
+            <div class="flex flex-wrap gap-sm mt-4">
+                {% for competence in competences %}
+                <button type="button" class="px-md py-base border border-outline rounded-full font-label-sm hover:border-green-600 transition-colors flex items-center gap-xs btn-force" onclick="toggleForce(this, '{{ competence.id }}')">
+                    {{ competence.nom }} <span class="material-symbols-outlined text-[16px]">add</span>
+                </button>
+                {% empty %}
+                <p class="text-sm text-outline">Aucune compétence disponible.</p>
+                {% endfor %}
+            </div>
+            <!-- Hidden container for force inputs -->
+            <div id="forces_inputs"></div>
+        </div>
+        {% endif %}
+
+        <hr class="border-outline-variant">
+
+        <!-- Lacunes -->
+        {% if utilisateur.role == 'mentore' or utilisateur.role == 'les_deux' %}
+        <div class="space-y-sm">
+            <h3 class="font-headline-sm text-on-surface flex items-center gap-xs">
+                <span class="material-symbols-outlined text-primary">school</span>
+                Vos Besoins (Ce que vous voulez apprendre)
+            </h3>
+            <p class="font-body-sm text-on-surface-variant">Sélectionnez les matières où vous avez besoin d'aide.</p>
+            
+            <div class="flex flex-wrap gap-sm mt-4">
+                {% for competence in competences %}
+                <button type="button" class="px-md py-base border border-outline rounded-full font-label-sm hover:border-primary transition-colors flex items-center gap-xs btn-lacune" onclick="toggleLacune(this, '{{ competence.id }}')">
+                    {{ competence.nom }} <span class="material-symbols-outlined text-[16px]">add</span>
+                </button>
+                {% endfor %}
+            </div>
+            <!-- Hidden container for lacune inputs -->
+            <div id="lacunes_inputs"></div>
+        </div>
+        {% endif %}
+
+        <div class="flex justify-end pt-lg">
+            <button type="submit" class="bg-primary text-on-primary px-xl py-md rounded-lg font-label-md hover:opacity-90 transition-opacity flex items-center gap-xs">
+                Terminer mon profil
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    function toggleForce(btn, id) {
+        let container = document.getElementById('forces_inputs');
+        let existing = document.getElementById('force_' + id);
+        
+        if (existing) {
+            existing.remove();
+            btn.classList.remove('bg-green-100', 'text-green-800', 'border-green-600');
+            btn.classList.add('border-outline');
+            btn.querySelector('span').innerText = 'add';
+        } else {
+            let input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'forces[]';
+            input.value = id;
+            input.id = 'force_' + id;
+            container.appendChild(input);
+            
+            btn.classList.remove('border-outline');
+            btn.classList.add('bg-green-100', 'text-green-800', 'border-green-600');
+            btn.querySelector('span').innerText = 'check';
+        }
+    }
+
+    function toggleLacune(btn, id) {
+        let container = document.getElementById('lacunes_inputs');
+        let existing = document.getElementById('lacune_' + id);
+        
+        if (existing) {
+            existing.remove();
+            btn.classList.remove('bg-primary-container', 'text-on-primary-container', 'border-primary');
+            btn.classList.add('border-outline');
+            btn.querySelector('span').innerText = 'add';
+        } else {
+            let input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'lacunes[]';
+            input.value = id;
+            input.id = 'lacune_' + id;
+            container.appendChild(input);
+            
+            btn.classList.remove('border-outline');
+            btn.classList.add('bg-primary-container', 'text-on-primary-container', 'border-primary');
+            btn.querySelector('span').innerText = 'check';
+        }
+    }
+</script>
+{% endblock %}

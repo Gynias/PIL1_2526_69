@@ -1,0 +1,163 @@
+{% extends 'base_dashboard.html' %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-container-max mx-auto space-y-lg">
+
+ Top Bar Component 
+<header class="flex justify-between items-center mb-xl">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Create New Listing</h2>
+<p class="text-on-surface-variant font-body-sm">Share your knowledge or find the guidance you need.</p>
+</div>
+<div class="flex gap-md">
+<button class="bg-surface-container-highest text-on-surface p-sm rounded-full hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</div>
+</header>
+ Bento-style Grid Form Container 
+<form action="{% url 'create_offer_request' %}" method="POST">
+  {% csrf_token %}
+  {% if messages %}
+    <div class="mb-4">
+      {% for message in messages %}
+        <div class="p-4 rounded {% if message.tags == 'error' %}bg-red-100 text-red-700{% else %}bg-green-100 text-green-700{% endif %}">
+          {{ message }}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+<div class="grid grid-cols-12 gap-lg">
+<!-- Primary Form Section -->
+<section class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl p-xl shadow-sm">
+<!-- Toggle Switch -->
+<div class="flex flex-col gap-sm mb-xl">
+<label class="font-label-md text-on-surface-variant">Listing Type</label>
+<div class="inline-flex p-1 bg-surface-container rounded-lg self-start">
+<input id="type_publication" name="type_publication" type="hidden" value="offre"/>
+<button class="px-xl py-base font-label-md rounded-lg transition-all bg-primary-container text-on-primary-container shadow-sm" id="toggleOffer" onclick="setMode('offre')" type="button">
+              Je propose
+            </button>
+<button class="px-xl py-base font-label-md rounded-lg transition-all text-on-surface-variant hover:text-on-surface" id="toggleRequest" onclick="setMode('demande')" type="button">
+              Je recherche
+            </button>
+</div>
+</div>
+<!-- Subject Selection (Multi-select Chips) -->
+<div class="flex flex-col gap-sm mb-xl">
+<label class="font-label-md text-on-surface-variant">Subjects &amp; Skills</label>
+<select class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none font-body-sm" name="competence" required="">
+<option value="">Select a subject...</option>
+  {% for comp in competences %}
+    <option value="{{ comp.id }}">{{ comp.nom }}</option>
+  {% endfor %}
+</select>
+</div>
+<!-- Description -->
+<div class="flex flex-col gap-sm mb-xl">
+<label class="font-label-md text-on-surface-variant">Detailed Description (Optional)</label>
+<textarea class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none resize-none font-body-sm" name="description" placeholder="Describe what you are looking for or what you can teach in detail..." rows="4"></textarea>
+</div>
+<div class="flex justify-end gap-md pt-lg border-t border-outline-variant">
+<button class="px-xl py-sm bg-primary text-on-primary font-label-md rounded-lg hover:opacity-90 transition-all shadow-md" type="submit">
+            Publier l'annonce
+          </button>
+</div>
+</section>
+<!-- Sidebar Configuration Sections -->
+<aside class="col-span-12 lg:col-span-4 flex flex-col gap-lg">
+<!-- Format Selector -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+<h3 class="font-headline-sm text-headline-sm mb-md flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-icon="groups">groups</span>
+            Format
+          </h3>
+<div class="grid grid-cols-1 gap-sm">
+<label class="flex items-center gap-md p-md rounded-lg border border-outline-variant cursor-pointer hover:bg-surface-container transition-all group">
+<input checked="" class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="format_seance" type="radio" value="en_ligne"/>
+<div class="flex-1">
+<p class="font-label-md">Online Remote</p>
+<p class="text-[12px] text-on-surface-variant">Zoom, Discord, or Teams</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="videocam">videocam</span>
+</label>
+<label class="flex items-center gap-md p-md rounded-lg border border-outline-variant cursor-pointer hover:bg-surface-container transition-all group">
+<input class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="format_seance" type="radio" value="presentiel"/>
+<div class="flex-1">
+<p class="font-label-md">Présentiel</p>
+<p class="text-[12px] text-on-surface-variant">Libraries, Cafés, or Labs</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="location_on">location_on</span>
+</label>
+<label class="flex items-center gap-md p-md rounded-lg border border-outline-variant cursor-pointer hover:bg-surface-container transition-all group">
+<input class="w-4 h-4 text-primary focus:ring-primary border-outline-variant" name="format_seance" type="radio" value="les_deux"/>
+<div class="flex-1">
+<p class="font-label-md">Hybride</p>
+<p class="text-[12px] text-on-surface-variant">Flexible mix of both</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" data-icon="sync_alt">sync_alt</span>
+</label>
+</div>
+</div>
+<!-- Availability Picker -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+<h3 class="font-headline-sm text-headline-sm mb-md flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary" data-icon="calendar_month">calendar_month</span>
+            Availability
+          </h3>
+<div class="space-y-sm">
+<label class="font-label-md text-on-surface-variant">Day of Week</label>
+<select class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md focus:border-primary focus:ring-1 transition-all outline-none font-body-sm" name="jour">
+<option value="">Select a day (optional)</option>
+  {% for key, val in jours %}
+    <option value="{{ key }}">{{ val }}</option>
+  {% endfor %}
+</select>
+<div class="flex gap-md mt-md">
+<div class="flex-1">
+<label class="font-label-md text-on-surface-variant">Start Time</label>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md focus:border-primary outline-none" name="heure_debut" type="time"/>
+</div>
+<div class="flex-1">
+<label class="font-label-md text-on-surface-variant">End Time</label>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg p-md focus:border-primary outline-none" name="heure_fin" type="time"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Tip Card -->
+<div class="bg-secondary-container text-on-secondary-container p-lg rounded-xl shadow-sm flex gap-md items-start">
+<span class="material-symbols-outlined text-on-secondary-container" data-icon="lightbulb">lightbulb</span>
+<div>
+<h4 class="font-label-md font-bold mb-xs">Pro Tip</h4>
+<p class="text-[12px] leading-relaxed">Offers with clear, concise descriptions and 3+ subject tags get matched 40% faster on IFRI_MentorLink.</p>
+</div>
+</div>
+</aside>
+</div>
+</form>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    function setMode(mode) {
+      const typeInput = document.getElementById('type_publication');
+      const offerBtn = document.getElementById('toggleOffer');
+      const requestBtn = document.getElementById('toggleRequest');
+      
+      typeInput.value = mode;
+      
+      if (mode === 'offre') {
+        offerBtn.className = 'px-xl py-base font-label-md rounded-lg transition-all bg-primary-container text-on-primary-container shadow-sm';
+        requestBtn.className = 'px-xl py-base font-label-md rounded-lg transition-all text-on-surface-variant hover:text-on-surface';
+      } else {
+        requestBtn.className = 'px-xl py-base font-label-md rounded-lg transition-all bg-primary-container text-on-primary-container shadow-sm';
+        offerBtn.className = 'px-xl py-base font-label-md rounded-lg transition-all text-on-surface-variant hover:text-on-surface';
+      }
+    }
+  </script>
+</div>
+{% endblock %}

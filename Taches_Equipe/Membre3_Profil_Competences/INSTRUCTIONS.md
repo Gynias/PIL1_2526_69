@@ -1,26 +1,9 @@
-# Fiche de Mission : Membre 3
+# Rapport de Réalisation : Membre 3
 ## Thème : Module Profil et Compétences (Full-Stack)
 
-Ton rôle est de permettre aux étudiants de gérer leur profil (Bio, Filière) et d'ajouter leurs points forts et lacunes.
+### Statut : Validé ✅
 
-### 🎨 Tes Maquettes (Dossier `maquettes/`)
-- `my_profile` (Voir son propre profil)
-- `edit_profile` (Modifier son profil)
-- `public_profile` (Voir le profil d'un autre étudiant)
-
-### 🛠️ Tes Missions :
-1. **Créer ta branche** : `git checkout -b feature/profil-etudiant`
-2. **Côté Frontend (HTML)** : Intégrer tes maquettes dans le dossier `application_principale/templates/`. Lier les formulaires à tes vues.
-3. **Côté Backend (Python)** :
-   - **Tes fonctions** : À ajouter à la fin de `application_principale/views.py`.
-   - **Tes routes** : À ajouter dans `application_principale/urls.py`.
-   - **Tes modèles** : À ajouter dans `application_principale/models.py`.
-   *(N'oublie pas de mettre un commentaire `# --- MODULE PROFIL ---` au-dessus de ton code pour le séparer de celui des autres !)*
-4. **Soumission** : Faire un `git add`, `git commit` et `git push` pour envoyer ton travail.
-
----
-## ⛔ INTERDICTIONS ABSOLUES ⛔
-1. **NE CRÉEZ AUCUNE NOUVELLE APPLICATION**. Tout votre code Python (vues, urls, modèles) doit aller EXCLUSIVEMENT dans le dossier `application_principale`.
-2. **NE MODIFIEZ JAMAIS `settings.py`**.
-3. **NE CODEZ QUE VOTRE MODULE**. Ne touchez pas aux pages ou fonctionnalités assignées aux autres membres. En cas de chevauchement, coordonnez-vous avec l'équipe !
----
+### Travaux accomplis :
+1. **Modèles de Compétences** : Création conjointe avec le chef de projet des modèles `Competence` et `CompetenceUtilisateur`.
+2. **Design du Profil** : Intégration de la maquette `my_profile` avec le Design System Pro Max.
+3. **Affichage Dynamique** : J'ai lié le backend au frontend pour que le profil affiche réellement les badges de compétences (verts pour les points forts, bleus pour les besoins) tirés de la base de données.

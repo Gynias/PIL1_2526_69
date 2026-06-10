@@ -1,232 +1,41 @@
-<!DOCTYPE html>
+{% extends 'base_dashboard.html' %}
+{% load static %}
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Messages - IFRI_MentorLink</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 10px;
-        }
-    </style>
-<script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "on-secondary-fixed": "#00201c",
-                      "tertiary": "#825100",
-                      "surface-tint": "#494bd6",
-                      "error-container": "#ffdad6",
-                      "tertiary-fixed-dim": "#ffb95f",
-                      "surface": "#f8f9ff",
-                      "on-primary-fixed": "#07006c",
-                      "surface-container-highest": "#d3e4fe",
-                      "secondary": "#006b5f",
-                      "on-primary-fixed-variant": "#2f2ebe",
-                      "on-error-container": "#93000a",
-                      "tertiary-fixed": "#ffddb8",
-                      "inverse-on-surface": "#eaf1ff",
-                      "primary-fixed-dim": "#c0c1ff",
-                      "tertiary-container": "#a36700",
-                      "on-surface-variant": "#464554",
-                      "outline-variant": "#c7c4d7",
-                      "on-tertiary-fixed": "#2a1700",
-                      "on-tertiary-container": "#fffbff",
-                      "primary": "#4648d4",
-                      "on-primary": "#ffffff",
-                      "primary-fixed": "#e1e0ff",
-                      "surface-container-high": "#dce9ff",
-                      "surface-container-low": "#eff4ff",
-                      "surface-container-lowest": "#ffffff",
-                      "surface-container": "#e5eeff",
-                      "inverse-primary": "#c0c1ff",
-                      "on-error": "#ffffff",
-                      "on-surface": "#0b1c30",
-                      "secondary-fixed-dim": "#4fdbc8",
-                      "on-background": "#0b1c30",
-                      "surface-variant": "#d3e4fe",
-                      "surface-bright": "#f8f9ff",
-                      "secondary-container": "#6df5e1",
-                      "surface-dim": "#cbdbf5",
-                      "secondary-fixed": "#71f8e4",
-                      "inverse-surface": "#213145",
-                      "on-secondary-container": "#006f64",
-                      "primary-container": "#6063ee",
-                      "on-tertiary": "#ffffff",
-                      "on-secondary": "#ffffff",
-                      "error": "#ba1a1a",
-                      "on-secondary-fixed-variant": "#005048",
-                      "on-tertiary-fixed-variant": "#653e00",
-                      "on-primary-container": "#fffbff",
-                      "background": "#f8f9ff",
-                      "outline": "#767586"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.25rem",
-                      "lg": "0.5rem",
-                      "xl": "0.75rem",
-                      "full": "9999px"
-              },
-              "spacing": {
-                      "md": "16px",
-                      "container-max": "1280px",
-                      "sm": "12px",
-                      "sidebar-width": "260px",
-                      "base": "8px",
-                      "navbar-height": "64px",
-                      "xxl": "48px",
-                      "lg": "24px",
-                      "xl": "32px",
-                      "xs": "4px"
-              },
-              "fontFamily": {
-                      "headline-md": ["Inter"],
-                      "label-sm": ["Inter"],
-                      "body-md": ["Inter"],
-                      "body-sm": ["Inter"],
-                      "label-md": ["Inter"],
-                      "body-lg": ["Inter"],
-                      "headline-lg": ["Inter"],
-                      "headline-sm": ["Inter"],
-                      "display": ["Inter"]
-              },
-              "fontSize": {
-                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                      "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
-                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
-                      "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
-                      "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
-              }
-            },
-          },
-        }
-    </script>
-</head>
-<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
-<!-- TopNavBar -->
-<header class="bg-surface-container-lowest dark:bg-surface-dim docked full-width top-0 z-50 border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none h-navbar-height sticky">
-<div class="flex justify-between items-center px-lg h-full w-full max-w-container-max mx-auto">
-<div class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">
-                IFRI_MentorLink
-            </div>
-<nav class="hidden md:flex items-center gap-xl">
-<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-label-md text-label-md" href="#">Home</a>
-<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-label-md text-label-md" href="#">Discover</a>
-<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-label-md text-label-md" href="#">Feed</a>
-<a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">Messages</a>
-</nav>
-<div class="flex items-center gap-md">
-<button class="p-xs text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all">
-<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
-</button>
-<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
-<img alt="User avatar" class="w-full h-full object-cover" data-alt="A professional close-up portrait of a young male university student with a friendly expression. The lighting is soft and natural, coming from a large window in a modern academic library background with blurred books and warm wooden textures. The style is clean and corporate, reflecting a supportive mentorship environment with a bright, light-mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOEn3VIodo1jjpRli3N0nyhVQKuaE2LD011dFp0vX_O8xIKBWYGGktxyP8eGQAP1iq5LnxvMkVhdcXNW3nvfBRL3au2kb2S1Y05rNicNAcP3Csxbhr3zflPNB8kqg_NEjU9mp0VhfVaIa3QNWZTtGaBe0WVKXLkOglQxm2QZg7xzYiD-RoSLdZLP0TsiZ8CvFmll88wsopBElqVS9opDnKfy6L3GT2twjWvRnWImJqGDkm8uQrn_r_sEsyqBcIqGECyqmG3LTR_jk"/>
-</div>
-</div>
-</div>
-</header>
-<main class="flex flex-1 w-full max-w-container-max mx-auto overflow-hidden">
-<!-- SideNavBar -->
-<aside class="hidden md:flex flex-col p-md border-r border-outline-variant dark:border-outline w-sidebar-width bg-surface-container-low dark:bg-inverse-surface shrink-0">
-<div class="mb-xl px-md">
-<h2 class="font-headline-sm text-headline-sm font-bold text-primary">Student Dashboard</h2>
-<p class="text-on-surface-variant text-label-sm font-label-sm">Manage your mentorships</p>
-</div>
-<nav class="flex flex-col gap-xs flex-1">
-<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-<span class="font-label-md text-label-md">Dashboard</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
-<span class="font-label-md text-label-md">My Offers</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
-<span class="font-label-md text-label-md">My Profile</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined" data-icon="settings">settings</span>
-<span class="font-label-md text-label-md">Settings</span>
-</a>
-</nav>
-<button class="mt-auto bg-primary text-on-primary font-label-md text-label-md py-sm px-md rounded-lg hover:bg-primary-container transition-all flex items-center justify-center gap-sm">
-<span class="material-symbols-outlined" data-icon="search">search</span>
-                Find a Mentor
-            </button>
-</aside>
-<!-- Message Interface Container -->
-<div class="flex flex-1 overflow-hidden bg-surface-container-lowest">
+{% block content %}
+<div class="flex flex-1 overflow-hidden h-full">
+
 <!-- Chat List Sidebar -->
 <div class="w-80 border-r border-outline-variant flex flex-col shrink-0">
 <div class="p-md">
 <div class="relative">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
-<input class="w-full bg-surface-container-low border-none rounded-xl pl-10 py-2 focus:ring-2 focus:ring-primary/20 text-body-sm font-body-sm" placeholder="Search messages..." type="text"/>
+<input class="w-full bg-surface-container-low border-none rounded-xl pl-10 py-2 focus:ring-2 focus:ring-primary/20 text-body-sm font-body-sm" placeholder="Rechercher des messages..." type="text"/>
 </div>
 </div>
 <div class="flex-1 overflow-y-auto custom-scrollbar">
-<!-- Active Chat Item -->
-<div class="flex items-center gap-md p-md bg-surface-container hover:bg-surface-container-high cursor-pointer transition-colors relative">
-<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
-<div class="w-12 h-12 rounded-full overflow-hidden shrink-0 border border-outline-variant">
-<img alt="Mentor avatar" class="w-full h-full object-cover" data-alt="A close-up portrait of a professional female mentor in her late 30s, wearing glasses and a smart blazer. She has a warm, encouraging smile. The background is a blurred high-end office environment with soft bokeh and clean corporate lines. The lighting is sophisticated and professional, emphasizing a supportive and knowledgeable persona in a high-contrast light mode style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9shFLW7wYR8ObtMvpb3VHg-mw4ufI8Zz6CRhZNZuqkYopt6sGQdx8kstwjIs52JOhYFqtmgLlPK3qseUiWzqG-lD4paotDgh6f43shDy8OGAVpgOhwph2adQKXrQPWbBErNIXCZHVVGe6NV29Xn1N_8LVZUbeOtoF44yMIFc0r72Umo0ckB4vGnjcTm5iT78aYAc3Qrw2uVLhxHPjDpyrktRYEPFgFRc-vKLT2xqviSn9uVnypFYzE_B7YCQCXb1oNRGgc3NID6I"/>
+{% for item in conversations %}
+<a href="{% url 'detail_conversation' item.conversation.id %}" class="block">
+<div class="flex items-center gap-md p-md hover:bg-surface-container transition-colors cursor-pointer border-b border-surface-container {% if item.conversation.id == conversation.id %}bg-surface-container-high{% endif %}">
+<div class="w-12 h-12 rounded-full overflow-hidden shrink-0 border border-outline-variant bg-primary-container text-on-primary-container flex items-center justify-center font-bold text-xl">
+    {{ item.autre_utilisateur.prenom|first|upper }}{{ item.autre_utilisateur.nom|first|upper }}
 </div>
 <div class="flex-1 min-w-0">
 <div class="flex justify-between items-baseline">
-<h4 class="font-label-md text-label-md text-on-surface truncate">Dr. Sarah Chen</h4>
-<span class="text-xs text-on-surface-variant">14:20</span>
+<h4 class="font-label-md text-label-md text-on-surface truncate">{{ item.autre_utilisateur.prenom }} {{ item.autre_utilisateur.nom }}</h4>
+<span class="text-xs text-on-surface-variant">{% if item.dernier_message %}{{ item.dernier_message.date_envoi|date:"H:i" }}{% endif %}</span>
 </div>
-<p class="text-body-sm font-body-sm text-on-surface-variant truncate">That sounds like a great plan for the project...</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant truncate">{% if item.dernier_message %}{{ item.dernier_message.contenu }}{% else %}Nouvelle conversation{% endif %}</p>
 </div>
+{% if item.non_lus > 0 and item.conversation.id != conversation.id %}
+<div class="w-5 h-5 bg-primary text-on-primary rounded-full shrink-0 flex items-center justify-center text-[10px] font-bold">{{ item.non_lus }}</div>
+{% endif %}
 </div>
-<!-- Inactive Chat Item 1 -->
-<div class="flex items-center gap-md p-md hover:bg-surface-container transition-colors cursor-pointer border-b border-surface-container">
-<div class="w-12 h-12 rounded-full overflow-hidden shrink-0 border border-outline-variant bg-surface-container-high flex items-center justify-center">
-<span class="material-symbols-outlined text-primary" data-icon="groups">groups</span>
+</a>
+{% empty %}
+<div class="p-md text-center text-on-surface-variant">
+    Aucune conversation.
 </div>
-<div class="flex-1 min-w-0">
-<div class="flex justify-between items-baseline">
-<h4 class="font-label-md text-label-md text-on-surface truncate">Senior Research Group</h4>
-<span class="text-xs text-on-surface-variant">Yesterday</span>
-</div>
-<p class="text-body-sm font-body-sm text-on-surface-variant truncate">Marcus: I've uploaded the new datasets.</p>
-</div>
-<div class="w-2 h-2 bg-primary rounded-full shrink-0"></div>
-</div>
-<!-- Inactive Chat Item 2 -->
-<div class="flex items-center gap-md p-md hover:bg-surface-container transition-colors cursor-pointer border-b border-surface-container">
-<div class="w-12 h-12 rounded-full overflow-hidden shrink-0 border border-outline-variant">
-<img alt="User avatar" class="w-full h-full object-cover" data-alt="A portrait of a male tech professional in a casual polo shirt, smiling confidently. The lighting is crisp and modern with a cool-toned background of a contemporary tech workspace. The aesthetic is clean and corporate, focusing on accessibility and supportive interaction in a high-quality light mode environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvEWNBkBpzYBmbPyJjSNX2S9H4t0Yex3SkMtlz1JjjDrSWLUwNDf6oAA7CGMgDwPaaFVOP_Ilkh8ZdT9EFkmDZJzwz3TMdCCU3TGc9Xc-UGIWJAJImdbe7x6DG71UYA5Za8tWzQpAMtgBzgip-wKw3jhagjEy8J0x0_szH651SyPLtDefFpga3d57qUH4cZgNXETByQmKEHZVOH04SK2rIAFIHEyU2Kl3nWZBkjvWT9raE9zQOXz0v5uzqM8yoi0Y9LpKUTc3Fuds"/>
-</div>
-<div class="flex-1 min-w-0">
-<div class="flex justify-between items-baseline">
-<h4 class="font-label-md text-label-md text-on-surface truncate">James Wilson</h4>
-<span class="text-xs text-on-surface-variant">Mon</span>
-</div>
-<p class="text-body-sm font-body-sm text-on-surface-variant truncate">Thanks for the feedback on my resume!</p>
-</div>
-</div>
+{% endfor %}
 </div>
 </div>
 <!-- Active Chat Canvas -->
@@ -234,15 +43,15 @@
 <!-- Chat Header -->
 <div class="h-navbar-height flex justify-between items-center px-lg bg-surface-container-lowest border-b border-outline-variant shrink-0">
 <div class="flex items-center gap-md">
-<div class="relative">
-<img alt="Mentor avatar" class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A professional close-up of a female mentor with a friendly and supportive expression. Soft studio lighting creates a clear and inviting portrait against a neutral, bright background. The look is corporate and modern, maintaining consistency with the overall platform aesthetic of knowledge and support." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdHnNii4k3VGxfgubFyXeS6pYMQaMyBaSWVtRO9B2x0JJOy8n-Ico5BGGmo8z36I9BuONfr-nSzIrTPMKeCzP4T-fMKp9K6pcwP9pkI7LCi6N0wvJYoeXeCt6PBj-h5KIm2DqXEFjR7ErZsPBsR55mOpo7WGth3LJt6svHWTh9z7hUtsZRsr6yoCfM3DXIatVAsQ8GoTNUgeFi6rV66J7yzrJHuem9LAmQ2rjFm-Sf8yifOKx7a98ffkRBgkkTOYoOGao0q1-4oXc"/>
+<div class="relative w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">
+    {{ autre_utilisateur.prenom|first|upper }}{{ autre_utilisateur.nom|first|upper }}
 <div class="absolute bottom-0 right-0 w-3 h-3 bg-secondary rounded-full border-2 border-surface-container-lowest"></div>
 </div>
 <div>
-<h3 class="font-headline-sm text-headline-sm leading-tight text-on-surface">Dr. Sarah Chen</h3>
+<h3 class="font-headline-sm text-headline-sm leading-tight text-on-surface">{{ autre_utilisateur.prenom }} {{ autre_utilisateur.nom }}</h3>
 <div class="flex items-center gap-xs">
 <span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
-<p class="text-label-sm font-label-sm text-secondary">Active now</p>
+<p class="text-label-sm font-label-sm text-secondary">Connecté</p>
 </div>
 </div>
 </div>
@@ -258,59 +67,47 @@
 </button>
 </div>
 </div>
-<!-- Messages Content -->
-<div class="flex-1 overflow-y-auto p-xl space-y-lg custom-scrollbar">
+<!-- Contenu des messages -->
+<div id="chat-container" class="flex-1 overflow-y-auto p-xl space-y-lg custom-scrollbar">
 <div class="flex justify-center">
-<span class="bg-surface-container-high text-on-surface-variant px-md py-1 rounded-full text-label-sm font-label-sm">Yesterday</span>
+<span class="bg-surface-container-high text-on-surface-variant px-md py-1 rounded-full text-label-sm font-label-sm">Hier</span>
 </div>
-<!-- Received Message -->
-<div class="flex gap-md max-w-[80%]">
-<img alt="Sarah avatar" class="w-8 h-8 rounded-full object-cover self-end mb-xs border border-outline-variant" data-alt="A small circular avatar of a professional female mentor with a warm smile, set against a clean, modern background. The image is bright and professional, fitting the knowledgeable and supportive brand identity of the platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUcftBwCtk51yLf6HtRoq4A-_8xA35i-Qx4xiBCcQf9a8cOJDXLoYljyYIsL7TQ10opSlMWzZe6oZb5p2icCA7BfxaUKHJ8NGSeqnauieQujhQU40I88vTRTUvY05zmqciXVUvZ5RHz5RsVE7LyEVvZcdYd5Ii7MvoOV5BsiG8zGB18XdIVomfo1w7NPCczrC6RMNWFHaBISB29ImplWs7b0RJm35fpep8FR8Z7M9maysWi4YIadn39DC2ys_wTuul0pkKp-zlcgQ"/>
-<div class="space-y-xs">
-<div class="bg-surface-container-highest text-on-surface p-md rounded-2xl rounded-bl-none shadow-sm">
-<p class="text-body-md font-body-md">Hello! I've had a chance to review your latest research draft. Your methodology for the data collection is quite robust.</p>
+{% for msg in messages %}
+    {% if msg.expediteur == request.user %}
+        <!-- Message envoyé -->
+        <div class="flex flex-row-reverse gap-md max-w-[80%] ml-auto" data-message-id="{{ msg.id }}">
+        <div class="space-y-xs text-right">
+        <div class="bg-primary text-on-primary p-md rounded-2xl rounded-br-none shadow-md">
+        <p class="text-body-md font-body-md">{{ msg.contenu }}</p>
+        </div>
+        <div class="flex items-center justify-end gap-xs">
+        <span class="text-[10px] text-on-surface-variant">{{ msg.date_envoi|date:"H:i" }}</span>
+        <span class="material-symbols-outlined text-[14px] {% if msg.lu %}text-primary{% else %}text-outline{% endif %}" data-icon="done_all">done_all</span>
+        </div>
+        </div>
+        </div>
+    {% else %}
+        <!-- Message reçu -->
+        <div class="flex gap-md max-w-[80%]" data-message-id="{{ msg.id }}">
+        <div class="w-8 h-8 rounded-full border border-outline-variant bg-primary-container text-on-primary-container flex items-center justify-center font-bold self-end mb-xs">
+            {{ msg.expediteur.prenom|first|upper }}{{ msg.expediteur.nom|first|upper }}
+        </div>
+        <div class="space-y-xs">
+        <div class="bg-surface-container-highest text-on-surface p-md rounded-2xl rounded-bl-none shadow-sm">
+        <p class="text-body-md font-body-md">{{ msg.contenu }}</p>
+        </div>
+        <span class="text-[10px] text-on-surface-variant ml-xs">{{ msg.date_envoi|date:"H:i" }}</span>
+        </div>
+        </div>
+    {% endif %}
+{% empty %}
+    <div class="text-center py-xl text-on-surface-variant font-label-md">Aucun message pour l'instant. Commencez la discussion !</div>
+{% endfor %}
 </div>
-<span class="text-[10px] text-on-surface-variant ml-xs">14:15</span>
-</div>
-</div>
-<!-- Sent Message -->
-<div class="flex flex-row-reverse gap-md max-w-[80%] ml-auto">
-<div class="space-y-xs text-right">
-<div class="bg-primary text-on-primary p-md rounded-2xl rounded-br-none shadow-md">
-<p class="text-body-md font-body-md">Thank you, Dr. Chen! I was a bit worried about the sample size. Do you think 500 respondents is sufficient for this scope?</p>
-</div>
-<div class="flex items-center justify-end gap-xs">
-<span class="text-[10px] text-on-surface-variant">14:18</span>
-<span class="material-symbols-outlined text-[14px] text-primary" data-icon="done_all">done_all</span>
-</div>
-</div>
-</div>
-<!-- Received Message with File/Image -->
-<div class="flex gap-md max-w-[80%]">
-<img alt="Sarah avatar" class="w-8 h-8 rounded-full object-cover self-end mb-xs border border-outline-variant" data-alt="A professional circular profile photo of a mentor. The image is clean and well-lit with high contrast, reflecting a modern and supportive educational brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4ff17OQhZh-z1RSlCmI3_uFBMGA_duGFFR0o0VGOifv38lCuQObM9b_NtV-IejHRwLO2SzcUEv7afG6RMvNidz4-a1-iNRZ84kArlxGEpGW9xeX3sN42IsflbbKIzxgX6uqJxoAkyeTujwKF9Gxi91aTyfcdN9AKn-fbd-kUgLxoVHmqoz3zlYuzrdQZ_lVoF86jdx5GzmCrHRVqmycWG1SUrUSuJ3C6Q9fkTvUNO81ee78NPfHSJ5MJBr8RL82iJ6OgS-h6OWpM"/>
-<div class="space-y-xs">
-<div class="bg-surface-container-highest text-on-surface p-md rounded-2xl rounded-bl-none shadow-sm">
-<p class="text-body-md font-body-md">For this particular study, 500 is excellent. Here's a comparative chart from a similar paper I mentioned during our last call.</p>
-<div class="mt-md rounded-xl overflow-hidden border border-outline-variant bg-white p-base">
-<img alt="Data chart" class="w-full h-auto rounded-lg" data-alt="A clean, minimalist data visualization chart featuring professional line and bar graphs in shades of primary indigo and teal. The chart is presented on a crisp white background with elegant typography, appearing as an informative resource shared within a professional mentorship chat. The lighting is high-key and the style is modern corporate." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKo_sB_vouwk9BYYR2cVTawta_hbcHOTbmB21WnR6W-04-72lOJPIfyRwQEafpjFodZqkkZsz6wPd_KURGb0G2-GUtlVY7Lu0qpZKyKrLlvVskn5PNUktcZXLLiQhD56CfrWfE6ZOrdN9EUF1res-KtHp97m_mrQ7hrOFpha617Yaw_jwmagmf1bivQneEaDn7EJ8o4xZ6F2WT26jRuCduBVB10NqpQ7zxfGP0_KOX4okIdRiDl5sKJJsSPuUzsk6Qa9igFyCka60"/>
-<div class="mt-sm flex items-center justify-between">
-<div class="flex items-center gap-sm">
-<span class="material-symbols-outlined text-primary" data-icon="insert_drive_file">insert_drive_file</span>
-<span class="text-label-sm font-label-sm">Methodology_Comparison.pdf</span>
-</div>
-<button class="text-primary hover:text-primary-container">
-<span class="material-symbols-outlined" data-icon="download">download</span>
-</button>
-</div>
-</div>
-</div>
-<span class="text-[10px] text-on-surface-variant ml-xs">14:20</span>
-</div>
-</div>
-</div>
-<!-- Message Input Area -->
+<!-- Zone de saisie de message -->
 <div class="p-lg bg-surface-container-lowest border-t border-outline-variant shrink-0">
-<div class="max-w-4xl mx-auto flex items-end gap-md bg-surface-container-low rounded-2xl p-sm border border-outline-variant focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all shadow-sm">
+<form id="message-form" class="max-w-4xl w-full mx-auto flex items-end gap-md bg-surface-container-low rounded-2xl p-sm border border-outline-variant focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all shadow-sm">
+                {% csrf_token %}
 <button class="p-sm text-on-surface-variant hover:text-primary transition-colors">
 <span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
 </button>
@@ -318,73 +115,132 @@
 <span class="material-symbols-outlined" data-icon="mood">mood</span>
 </button>
 <div class="flex-1 min-h-[44px] flex items-center">
-<textarea class="w-full bg-transparent border-none focus:ring-0 text-body-md font-body-md resize-none py-2 max-h-32 custom-scrollbar" placeholder="Write a message..." rows="1"></textarea>
+<textarea name="contenu" id="message-textarea" class="w-full bg-transparent border-none focus:ring-0 text-body-md font-body-md resize-none py-2 max-h-32 custom-scrollbar" placeholder="Écrivez un message..." rows="1"></textarea>
 </div>
 <button class="bg-primary text-on-primary w-11 h-11 rounded-xl flex items-center justify-center hover:bg-primary-container transition-all active:scale-95 shadow-lg shadow-primary/20">
 <span class="material-symbols-outlined" data-icon="send" style="font-variation-settings: 'FILL' 1;">send</span>
 </button>
 </div>
 <div class="mt-sm flex justify-center">
-<p class="text-[10px] text-on-surface-variant/60 font-label-sm">Your messages are private and secure within the IFRI_MentorLink ecosystem.</p>
+<p class="text-[10px] text-on-surface-variant/60 font-label-sm">Vos messages sont privés et sécurisés au sein de l'écosystème IFRI_MentorLink.</p>
 </div>
 </div>
 </section>
 <!-- Profile Info Sidebar (Collapsible in real app) -->
-<aside class="hidden xl:flex w-72 border-l border-outline-variant flex-col bg-surface-container-lowest">
-<div class="p-xl text-center flex flex-col items-center">
-<div class="w-24 h-24 rounded-2xl overflow-hidden mb-md shadow-lg border border-outline-variant">
-<img alt="Sarah Chen Large" class="w-full h-full object-cover" data-alt="A high-resolution professional headshot of Dr. Sarah Chen, showing her warm and intelligent personality. She is a mentor in a modern academic environment. The photo features soft, clean lighting and a minimalist background with a shallow depth of field. The corporate modern style is reinforced through the high contrast and light mode presentation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW_m8JAvt9qK5v1O-Y16GJVXirqVmFd7pSEn8V5FKLdJbtWB3VADude7Tgs9G3wCeOBIaQsgtPaz7kQE2YfgjpSPkIDytzvN3BqEZQ0jM5Gtsj0EbocGjdYLuMUgV0g6qem9uw3OV_cg2g9wWvwZB0Zu0FeAVHp7Wq_iWbelcin84bos1P6_2AdjYG64Ye6ynSN59DDuXsaYQqw-yYrIpVfV1b0PQWSkoAQEWgNf_5AxnW7ktnPqQUCZN6-mbGMJziqupWahap4v4"/>
-</div>
-<h4 class="font-headline-sm text-headline-sm text-on-surface">Dr. Sarah Chen</h4>
-<p class="text-label-md font-label-md text-on-surface-variant mt-1">Senior Research Fellow</p>
-<div class="flex gap-sm mt-lg">
-<span class="bg-primary-fixed text-on-primary-fixed px-sm py-1 rounded-full text-[10px] font-bold">ECONOMICS</span>
-<span class="bg-secondary-fixed text-on-secondary-fixed px-sm py-1 rounded-full text-[10px] font-bold">TOP MENTOR</span>
-</div>
-</div>
-<div class="px-xl py-md border-t border-surface-variant">
-<h5 class="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider mb-md">Shared Media</h5>
-<div class="grid grid-cols-3 gap-sm">
-<div class="aspect-square bg-surface-container-high rounded-lg overflow-hidden border border-outline-variant group cursor-pointer relative">
-<img alt="Shared 1" class="w-full h-full object-cover" data-alt="A blurred office desk with a laptop and documents, emphasizing professional research and collaboration. The lighting is soft and neutral, consistent with the light-mode UI aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbNgQcAVSxRqR3OXvZP2p1mXqgLgkZBeQgBCVlWQxz5mBL7oD2gypg3y3mXO6ECNpW0_6HjJqn2MnpN8CLP0SOHCc80dz6y8d0yCaxaxe9aAVMDAH6sMGC5jqlxMp0OUKf9JiwaBdB5cMMrpQ1xiY8Jq0JOU3xBx31sZEy_xnOp0Rj_z8oev-mvLMjCPMhcvOrc_u8SvtQO7MTkLEb4pT2cnlC6Tpk352BNuVLN056vQ62QiU8tPnMlc4Q-hoXdYuZeKKbhvUpjhI"/>
-</div>
-<div class="aspect-square bg-surface-container-high rounded-lg overflow-hidden border border-outline-variant group cursor-pointer">
-<img alt="Shared 2" class="w-full h-full object-cover" data-alt="A clean, colorful bar chart showing growth trends in a business context. The style is modern and minimalist with a bright, high-key light mode look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu0eTZTogkt2YLorYf9cVr-rPu4mJEHuI54hej_UjBYbbnRHEEskwxYQmnDAu0bVUdOJGEeT6uLvdahPiADtUWdrag4XG0xL6n_ytERNe-CTge_ZMyrr39r3XHfCAoW378PsdE_D_9nl2BIJMkKSRtF8jKgOVKMI6chDxkHm4a0jKpm6JnkGtCjEVNsjqWZS3z9v-zWnJO1Pa9S56CbV-36qJfqQFwzTqsps11_vVkg6AOdh-vd5VtnvGbh4R1oZLy7Fz1DzxXJNc"/>
-</div>
-<div class="aspect-square bg-surface-container-high rounded-lg flex items-center justify-center border border-outline-variant hover:bg-surface-variant cursor-pointer transition-colors">
-<span class="text-primary font-bold text-xs">+12</span>
-</div>
-</div>
-</div>
-<div class="mt-auto p-xl border-t border-surface-variant">
-<button class="w-full flex items-center justify-between text-on-surface-variant hover:text-error transition-colors font-label-md text-label-md mb-md">
-<span>Block Contact</span>
-<span class="material-symbols-outlined text-[20px]" data-icon="block">block</span>
-</button>
-<button class="w-full flex items-center justify-between text-on-surface-variant hover:text-error transition-colors font-label-md text-label-md">
-<span>Report Mentorship</span>
-<span class="material-symbols-outlined text-[20px]" data-icon="report">report</span>
-</button>
-</div>
-</aside>
+
 </div>
 </main>
-<script>
-        // Micro-interactions for the message input
-        const textarea = document.querySelector('textarea');
-        textarea.addEventListener('input', function() {
-            this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
-        });
 
-        // Simple mock send interaction
-        const sendBtn = document.querySelector('button .material-symbols-outlined[data-icon="send"]').parentElement;
-        sendBtn.addEventListener('click', () => {
-            if (textarea.value.trim() !== "") {
-                console.log("Message sent:", textarea.value);
-                textarea.value = "";
-                textarea.style.height = 'auto';
-            }
-        });
-    </script>
-</body></html>
+</div>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+        const form = document.getElementById('message-form');
+        const chatContainer = document.getElementById('chat-container');
+
+        // Polling des nouveaux messages
+        let lastMsgId = 0;
+        const msgElements = chatContainer.querySelectorAll('[data-message-id]');
+        if (msgElements.length > 0) {
+            lastMsgId = msgElements[msgElements.length - 1].getAttribute('data-message-id');
+        }
+
+        setInterval(() => {
+            fetch(`{% url 'nouveaux_messages' conversation.id %}?dernier_id=${lastMsgId}`, {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.messages && data.messages.length > 0) {
+                    let scrolledToBottom = chatContainer.scrollHeight - chatContainer.clientHeight <= chatContainer.scrollTop + 10;
+                    
+                    data.messages.forEach(msg => {
+                        if (document.querySelector(`[data-message-id="${msg.id}"]`)) return;
+                        
+                        const msgHTML = `
+                        <div class="flex flex-col items-start mb-md" data-message-id="${msg.id}">
+                            <div class="max-w-[85%] sm:max-w-[75%]">
+                                <div class="bg-surface-container-highest text-on-surface rounded-2xl rounded-bl-none p-md shadow-sm">
+                                    <p class="text-body-md font-body-md whitespace-pre-wrap">${msg.contenu.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>
+                                </div>
+                                <div class="flex items-center gap-1 mt-1">
+                                    <span class="text-[11px] text-on-surface-variant font-medium">${msg.date_envoi}</span>
+                                </div>
+                            </div>
+                        </div>`;
+                        chatContainer.insertAdjacentHTML('beforeend', msgHTML);
+                        lastMsgId = msg.id;
+                    });
+
+                    if (scrolledToBottom) {
+                        chatContainer.scrollTop = chatContainer.scrollHeight;
+                    }
+                }
+            })
+            .catch(err => console.error("Polling error", err));
+        }, 3000);
+        const textarea = document.getElementById('message-textarea');
+
+        if (textarea) {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+            
+            textarea.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    form.dispatchEvent(new Event('submit'));
+                }
+            });
+        }
+
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const contenu = textarea.value.trim();
+                if (contenu === "") return;
+
+                const formData = new FormData(form);
+                
+                fetch("{% url 'envoyer_message' conversation.id %}", {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.erreur) {
+                        alert(data.erreur);
+                    } else {
+                        const msgHTML = `
+                        <div class="flex flex-col items-end mb-md" data-message-id="${data.id}">
+                            <div class="max-w-[85%] sm:max-w-[75%]">
+                                <div class="bg-primary text-on-primary rounded-2xl rounded-br-none p-md shadow-sm">
+                                    <p class="text-body-md font-body-md whitespace-pre-wrap">${contenu.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>
+                                </div>
+                                <div class="flex items-center justify-end gap-1 mt-1">
+                                    <span class="text-[11px] text-on-surface-variant font-medium">${data.date_envoi}</span>
+                                    <span class="material-symbols-outlined text-[14px] text-outline" data-icon="done_all">done_all</span>
+                                </div>
+                            </div>
+                        </div>`;
+                        
+                        chatContainer.insertAdjacentHTML('beforeend', msgHTML);
+                        chatContainer.scrollTop = chatContainer.scrollHeight;
+                        
+                        textarea.value = '';
+                        textarea.style.height = 'auto';
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        }
+        
+        if(chatContainer) {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+</script>
+{% endblock %}

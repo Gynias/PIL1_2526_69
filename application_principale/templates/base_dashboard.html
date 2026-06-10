@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html class="light" lang="fr">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>{% block title %}IFRI MentorLink{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        /* Alpine.js for dropdowns if needed, or simple CSS hover */
+        .group:hover .dropdown-menu {
+            display: block;
+        }
+    
+        /* UI/UX Pro Max Global Interactions */
+        button, .btn-interactive {
+            transition: all 200ms ease-out;
+        }
+        button:active:not(:disabled), .btn-interactive:active:not(:disabled) {
+            transform: scale(0.97);
+        }
+        button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+            outline: 2px solid var(--color-primary, #4648d4);
+            outline-offset: 2px;
+            border-radius: inherit;
+        }
+        .card-interactive {
+            transition: all 300ms ease-out;
+        }
+        .card-interactive:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .nav-item-interactive {
+            transition: background-color 200ms ease-out, color 200ms ease-out;
+        }
+
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary": "#4648d4",
+                        "on-primary": "#ffffff",
+                        "primary-container": "#6063ee",
+                        "on-primary-container": "#fffbff",
+                        "secondary": "#006b5f",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#6df5e1",
+                        "on-secondary-container": "#006f64",
+                        "tertiary": "#825100",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#a36700",
+                        "on-tertiary-container": "#fffbff",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "background": "#f8f9ff",
+                        "on-background": "#0b1c30",
+                        "surface": "#f8f9ff",
+                        "on-surface": "#0b1c30",
+                        "surface-variant": "#d3e4fe",
+                        "on-surface-variant": "#464554",
+                        "outline": "#767586",
+                        "outline-variant": "#c7c4d7",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container-high": "#dce9ff",
+                        "surface-container": "#e5eeff",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "container-max": "1280px",
+                        "sm": "12px",
+                        "sidebar-width": "260px",
+                        "base": "8px",
+                        "navbar-height": "64px",
+                        "xxl": "48px",
+                        "lg": "24px",
+                        "xl": "32px",
+                        "xs": "4px"
+                    }
+                }
+            }
+        }
+    </script>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-background text-on-surface h-screen overflow-hidden flex flex-col">
+
+    
+    <nav class="shrink-0 w-full z-50 bg-surface-container-lowest border-b border-outline-variant shadow-sm flex justify-between items-center px-lg h-navbar-height">
+        <div class="flex items-center gap-md">
+            <span class="font-bold text-xl text-primary">IFRI_MentorLink</span>
+        </div>
+        
+        <div class="hidden md:flex items-center gap-xl">
+            <a class="font-medium text-sm {% if request.resolver_match.url_name == 'tableau_de_bord' %}text-primary border-b-2 border-primary pb-1 font-bold{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="{% url 'tableau_de_bord' %}">Accueil</a>
+            <a class="font-medium text-sm {% if request.resolver_match.url_name == 'discover_page' %}text-primary border-b-2 border-primary pb-1 font-bold{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="{% url 'discover_page' %}">Découvrir</a>
+            <a class="font-medium text-sm {% if request.resolver_match.url_name == 'offer_request_feed' %}text-primary border-b-2 border-primary pb-1 font-bold{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="{% url 'offer_request_feed' %}">Fil d'actualité</a>
+            <a class="font-medium text-sm {% if request.resolver_match.url_name == 'liste_conversations' or request.resolver_match.url_name == 'detail_conversation' %}text-primary border-b-2 border-primary pb-1 font-bold{% else %}text-on-surface-variant hover:text-primary transition-colors{% endif %}" href="{% url 'liste_conversations' %}">Messages</a>
+        </div>
+        
+        <div class="flex items-center gap-md">
+            
+        <div class="relative" id="notification-container">
+            <button id="notification-bell" onclick="toggleNotifications()" class="relative material-symbols-outlined text-on-surface-variant hover:text-primary transition-all">
+                notifications
+                <span id="notification-badge" class="hidden absolute -top-1 -right-1 bg-error text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">0</span>
+            </button>
+            <div id="notification-dropdown" class="hidden absolute right-0 mt-2 w-80 bg-surface-container-lowest rounded-xl shadow-xl border border-outline-variant py-2 z-50 overflow-hidden">
+                <div class="px-4 py-3 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+                    <span class="font-bold text-on-surface">Notifications</span>
+                    <button onclick="markNotificationsRead()" class="text-xs text-primary font-bold hover:underline">Marquer lu</button>
+                </div>
+                <div id="notification-list" class="max-h-72 overflow-y-auto bg-surface-container-lowest">
+                    <div class="px-4 py-6 text-center text-sm text-on-surface-variant">Aucune notification</div>
+                </div>
+            </div>
+        </div>
+
+            <div class="relative group">
+                <div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant cursor-pointer">
+                    {% if request.user.photo_profil %}<img alt="User avatar" src="{{ request.user.photo_profil.url }}" class="w-full h-full object-cover"/>{% else %}<span class="material-symbols-outlined w-full h-full flex items-center justify-center text-on-surface-variant bg-surface-container-high">person</span>{% endif %}
+                </div>
+                <!-- Dropdown Menu -->
+                <div class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-outline-variant py-1 z-50">
+                    <div class="px-4 py-2 border-b border-outline-variant">
+                        <p class="text-sm font-semibold text-on-surface">{{ request.user.prenom }} {{ request.user.nom }}</p>
+                        <p class="text-xs text-on-surface-variant truncate">{{ request.user.email }}</p>
+                    </div>
+                    <a href="{% url 'account_settings' %}" class="block px-4 py-2 text-sm text-on-surface hover:bg-surface-container-low transition-colors">Mon Profil</a>
+                    <a href="{% url 'account_settings' %}" class="block px-4 py-2 text-sm text-on-surface hover:bg-surface-container-low transition-colors">Paramètres</a>
+                    <div class="border-t border-outline-variant mt-1"></div>
+                    <!-- Assuming there's a logout view -->
+                    <a href="/" class="block px-4 py-2 text-sm text-error hover:bg-error-container transition-colors">Se déconnecter</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex flex-1 overflow-hidden">
+        <!-- SideNavBar -->
+        {% block sidebar %}
+        <aside class="w-sidebar-width shrink-0 h-full flex flex-col p-md bg-surface-container-low border-r border-outline-variant z-40 overflow-y-auto">
+            <nav class="flex flex-col gap-1 flex-grow">
+                <a class="flex items-center gap-md {% if request.resolver_match.url_name == 'tableau_de_bord' %}bg-primary-container text-on-primary-container font-bold{% else %}text-on-surface-variant hover:bg-surface-container-high{% endif %} rounded-lg px-md py-sm transition-all" href="{% url 'tableau_de_bord' %}">
+                    <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                    <span class="text-sm font-medium">Vue d'ensemble</span>
+                </a>
+                
+                <a class="flex items-center gap-md {% if request.resolver_match.url_name == 'offer_request_feed' %}bg-primary-container text-on-primary-container font-bold{% else %}text-on-surface-variant hover:bg-surface-container-high{% endif %} rounded-lg px-md py-sm transition-all" href="{% url 'offer_request_feed' %}">
+                    <span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+                    <span class="text-sm font-medium">Demandes</span>
+                </a>
+                
+                <a class="flex items-center gap-md {% if request.resolver_match.url_name == 'discover_page' %}bg-primary-container text-on-primary-container font-bold{% else %}text-on-surface-variant hover:bg-surface-container-high{% endif %} rounded-lg px-md py-sm transition-all" href="{% url 'discover_page' %}">
+                    <span class="material-symbols-outlined" data-icon="explore">explore</span>
+                    <span class="text-sm font-medium">Découvrir</span>
+                </a>
+
+                <a class="flex items-center gap-md {% if request.resolver_match.url_name == 'account_settings' %}bg-primary-container text-on-primary-container font-bold{% else %}text-on-surface-variant hover:bg-surface-container-high{% endif %} rounded-lg px-md py-sm transition-all mt-4" href="{% url 'account_settings' %}">
+                    <span class="material-symbols-outlined" data-icon="settings">settings</span>
+                    <span class="text-sm font-medium">Paramètres</span>
+                </a>
+            </nav>
+            
+            <a href="{% url 'create_offer_request' %}" class="mt-auto w-full bg-primary text-on-primary text-sm font-medium py-3 rounded-xl hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-md">
+                <span class="material-symbols-outlined text-sm">add</span>
+                Nouvelle Annonce
+            </a>
+        </aside>
+        {% endblock %}
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto bg-surface relative {% if request.resolver_match.url_name != 'liste_conversations' and request.resolver_match.url_name != 'detail_conversation' %}p-md lg:p-xl{% endif %}">
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
+
+    {% block extra_scripts %}{% endblock %}
+
+<script>
+    // --- Notification System ---
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    let notifDropdown = document.getElementById('notification-dropdown');
+    let notifBadge = document.getElementById('notification-badge');
+    let notifList = document.getElementById('notification-list');
+
+    function toggleNotifications() {
+        notifDropdown.classList.toggle('hidden');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(event) {
+        let container = document.getElementById('notification-container');
+        if (container && !container.contains(event.target)) {
+            notifDropdown.classList.add('hidden');
+        }
+    });
+
+    function fetchNotifications() {
+        fetch('/api/notifications/')
+        .then(res => res.json())
+        .then(data => {
+            if (data.count > 0) {
+                notifBadge.innerText = data.count;
+                notifBadge.classList.remove('hidden');
+                
+                let html = '';
+                data.notifications.forEach(n => {
+                    html += `
+                    <a href="${n.lien || '#'}" class="block px-4 py-3 hover:bg-surface-container transition-colors border-b border-outline-variant/50 last:border-0">
+                        <div class="flex items-start gap-3">
+                            <div class="w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-[18px]">
+                                    ${n.type_notif === 'message' ? 'forum' : 'notifications'}
+                                </span>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-on-surface">${n.titre}</h4>
+                                <p class="text-xs text-on-surface-variant mt-1 line-clamp-2">${n.message}</p>
+                                <span class="text-[10px] text-on-surface-variant mt-1 block">${n.date}</span>
+                            </div>
+                        </div>
+                    </a>
+                    `;
+                });
+                notifList.innerHTML = html;
+            } else {
+                notifBadge.classList.add('hidden');
+                notifList.innerHTML = '<div class="px-4 py-6 text-center text-sm text-on-surface-variant">Aucune nouvelle notification</div>';
+            }
+        })
+        .catch(err => console.error(err));
+    }
+
+    function markNotificationsRead() {
+        fetch('/api/notifications/marquer-lues/', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Content-Type': 'application/json'
+            }
+        }).then(() => {
+            fetchNotifications(); // Refresh
+        });
+    }
+
+    // Polling every 15 seconds
+    if (document.getElementById('notification-container')) {
+        fetchNotifications();
+        setInterval(fetchNotifications, 15000);
+    }
+</script>
+</body>
+
+</html>

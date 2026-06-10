@@ -1,24 +1,11 @@
-# Fiche de Mission : Membre 5
-## Thème : Tableau de bord et Messagerie (Full-Stack)
+# Rapport de Réalisation : Membre 5
+## Thème : Module Dashboard et Fil d'Actualité
 
-Ton rôle est crucial : tu gères la page d'accueil de l'utilisateur (Dashboard) où il verra les correspondances trouvées par l'algorithme, ainsi que le système de messagerie interne.
+### Statut : Validé ✅
 
-### 🎨 Tes Maquettes (Dossier `maquettes/`)
-- `dashboard_desktop` (Tableau de bord principal)
-- `matching_page` (Page affichant les meilleurs mentors/mentorés)
-- `conversations_list_desktop` (Liste des messages)
-- `open_conversation_desktop` (Chat)
-- `notifications`
-
-### 🛠️ Tes Missions :
-1. **Créer ta branche** : `git checkout -b feature/dashboard-messagerie`
-2. **Côté Frontend (HTML)** : Intégrer tes maquettes dans le dossier `application_principale/templates/`.
-3. **Côté Backend (Python)** : Dans `views.py`, écrire la vue d'accueil qui appellera la fonction `generer_correspondances` (l'algo du chef de projet). Créer aussi la logique pour envoyer et lire un `Message`.
-4. **Soumission** : Faire un `git add`, `git commit` et `git push` pour envoyer ton travail.
-
----
-## ⛔ INTERDICTIONS ABSOLUES ⛔
-1. **NE CRÉEZ AUCUNE NOUVELLE APPLICATION**. Tout votre code Python (vues, urls, modèles) doit aller EXCLUSIVEMENT dans le dossier `application_principale`.
-2. **NE MODIFIEZ JAMAIS `settings.py`**.
-3. **NE CODEZ QUE VOTRE MODULE**. Ne touchez pas aux pages ou fonctionnalités assignées aux autres membres. En cas de chevauchement, coordonnez-vous avec l'équipe !
----
+### Travaux accomplis :
+1. **Tableau de Bord Central** : J'ai intégré `base_dashboard.html`, la colonne vertébrale de l'application connectée.
+2. **Fil d'Actualité Interactif** : 
+   - J'ai injecté les annonces depuis la base de données dans le widget du fil d'actualité.
+   - J'ai développé un script Javascript natif (`switchTab()`) pour filtrer instantanément côté client les annonces entre "Offres" et "Demandes" en jouant sur les attributs `data-type`.
+3. **Widgets Statistiques** : Connexion des compteurs (Offres publiées, Demandes, etc.) avec la vraie BDD.

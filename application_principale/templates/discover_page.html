@@ -1,0 +1,164 @@
+{% extends 'base_dashboard.html' %}
+{% load static %}
+
+{% block content %}
+
+
+
+
+<div class="max-w-container-max mx-auto space-y-lg">
+<!-- Search & Filters Section -->
+<section class="mb-xl">
+<form method="GET" class="flex flex-col gap-lg bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm">
+<div class="flex items-center gap-md">
+<div class="flex-1 relative">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full pl-xl pr-md py-md bg-surface-container border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md text-body-md" placeholder="Recherche par nom, expertise ou domaine..." name="q" value="{{ request.GET.q }}" type="text"/>
+</div>
+<button class="bg-primary text-on-primary px-xl py-md rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity">
+                            Trouver
+                        </button>
+</div>
+<!-- Filter Chips -->
+<div class="flex flex-wrap items-center gap-md">
+<div class="flex items-center gap-sm">
+<span class="font-label-md text-label-md text-on-surface-variant">Sujet:</span>
+<select name="sujet" class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
+<option>Informatique</option>
+<option>Cybersécurité</option>
+<option>Data Science</option>
+<option>IA &amp; Robotique</option>
+</select>
+</div>
+<div class="flex items-center gap-sm">
+<span class="font-label-md text-label-md text-on-surface-variant">Disponibilité:</span>
+<select name="sujet" class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
+<option>Semaine</option>
+<option>Week-ends</option>
+<option>Soirée</option>
+</select>
+</div>
+<div class="flex items-center gap-sm">
+<span class="font-label-md text-label-md text-on-surface-variant">Niveau:</span>
+<select name="sujet" class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
+<option>Licence</option>
+<option>Master</option>
+<option>Doctorat</option>
+<option>Professionnel</option>
+</select>
+</div>
+<div class="flex items-center gap-sm">
+<span class="font-label-md text-label-md text-on-surface-variant">Format:</span>
+<select name="sujet" class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
+<option>Virtuel</option>
+<option>En personne</option>
+<option>Hybride</option>
+</select>
+</div>
+<div class="flex items-center gap-sm">
+<span class="font-label-md text-label-md text-on-surface-variant">Filière:</span>
+<select name="sujet" class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
+<option>GL</option>
+<option>ASRI</option>
+<option>IMTS</option>
+</select>
+</div>
+<a href="{% url 'discover_page' %}" class="ml-auto text-primary font-label-md text-label-md flex items-center gap-xs hover:underline">
+<span class="material-symbols-outlined text-[18px]" data-icon="restart_alt">restart_alt</span>
+                            Tout effacer
+                        </a>
+</div>
+</form>
+</section>
+<!-- Results Headline -->
+<div class="flex justify-between items-end mb-lg">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Découvrir des Mentors</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">{{ mentors.paginator.count }} mentors correspondant à vos critères trouvés</p>
+</div>
+<div class="flex items-center gap-sm bg-surface-container-low p-xs rounded-lg border border-outline-variant">
+<button class="p-xs bg-surface-container-lowest shadow-sm rounded flex items-center">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+</button>
+<button class="p-xs text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="list">list</span>
+</button>
+</div>
+</div>
+<!-- Mentor Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-lg">
+{% for mentor in mentors %}
+<!-- Mentor Card -->
+<article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden mentor-card-shadow flex flex-col">
+<div class="relative h-32 bg-primary-fixed">
+<div class="absolute top-md right-md px-md py-xs rounded-full bg-green-50 text-green-700 font-label-sm text-label-sm border border-green-200 flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]" data-icon="bolt">bolt</span>
+                            Actif
+                        </div>
+<div class="absolute -bottom-10 left-md w-20 h-20 rounded-xl border-4 border-surface-container-lowest bg-primary flex items-center justify-center text-white text-3xl font-bold">
+    {{ mentor.prenom|first|upper }}{{ mentor.nom|first|upper }}
+</div>
+</div>
+<div class="pt-12 px-md pb-md flex-1">
+<h3 class="font-headline-sm text-headline-sm mb-xs">{{ mentor.prenom }} {{ mentor.nom }}</h3>
+<p class="font-label-md text-label-md text-on-surface-variant mb-md">{{ mentor.filiere.nom|default:"Filière non précisée" }} • {{ mentor.get_niveau_display|default:"Niveau non précisé" }}</p>
+<div class="flex flex-wrap gap-xs mb-md">
+{% for force in mentor.competences.all %}
+  {% if force.type_competence == 'force' %}
+    <span class="px-sm py-xs bg-surface-container-high rounded font-label-sm text-label-sm">{{ force.competence.nom }}</span>
+  {% endif %}
+{% empty %}
+    <span class="px-sm py-xs bg-surface-container-high rounded font-label-sm text-label-sm text-on-surface-variant">Aucune compétence</span>
+{% endfor %}
+</div>
+<div class="mt-auto pt-md border-t border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-xs">
+<span class="material-symbols-outlined text-tertiary" data-icon="star" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="font-label-md text-label-md font-bold">N/A</span>
+</div>
+<button class="text-primary font-label-md text-label-md hover:underline">Voir Profil</button>
+</div>
+</div>
+</article>
+{% empty %}
+<div class="col-span-full text-center py-10">
+<p class="text-on-surface-variant">Aucun mentor trouvé pour le moment.</p>
+</div>
+{% endfor %}
+</div>
+<!-- Pagination -->
+{% if mentors.has_other_pages %}
+<div class="mt-xxl flex justify-center items-center gap-md">
+{% if mentors.has_previous %}
+<a href="?page={{ mentors.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</a>
+{% endif %}
+<div class="flex gap-sm">
+    <span class="w-10 h-10 rounded-full bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center">{{ mentors.number }}</span>
+    <span class="flex items-center px-xs text-on-surface-variant">sur {{ mentors.paginator.num_pages }}</span>
+</div>
+{% if mentors.has_next %}
+<a href="?page={{ mentors.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</a>
+{% endif %}
+</div>
+{% endif %}
+</div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+        // Micro-interactions for chips and hover effects
+        document.querySelectorAll('article').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                // Potential for JS-based shimmer or subtle elevation change beyond CSS
+            });
+        });
+
+        // Basic toggle for active nav if needed via JS (already handled by static classes per prompt requirements)
+        console.log("Discover page loaded successfully with active navigation state.");
+    </script>
+{% endblock %}

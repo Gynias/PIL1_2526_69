@@ -1,0 +1,114 @@
+{% extends 'base_dashboard.html' %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-container-max mx-auto space-y-lg">
+
+ En-tête de recherche et filtres 
+<section class="mb-xl">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-lg">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Résultats de recherche</h1>
+<p class="text-on-surface-variant font-body-md">{% if query %}Résultats pour "{{ query }}"{% else %}Toutes les annonces{% endif %} ({{ annonces|length }})</p>
+</div>
+<div class="flex items-center gap-sm">
+<span class="text-label-md font-label-md text-on-surface-variant">Sort by:</span>
+<select class="bg-surface border border-outline rounded-lg px-md py-xs text-label-md font-label-md focus:ring-2 focus:ring-primary outline-none transition-all">
+<option>Best Compatible</option>
+<option>Highest Rating</option>
+<option>Experience (Years)</option>
+<option>Compatibility Score</option>
+</select>
+</div>
+</div>
+<!-- Active Filter Tags -->
+<div class="flex flex-wrap items-center gap-sm py-sm">
+{% if query %}
+<div class="flex items-center gap-xs bg-primary-container text-on-primary-container px-sm py-xs rounded-full text-label-sm font-label-sm shadow-sm">
+    {{ query }} <a class="material-symbols-outlined text-[16px]" href="{% url 'search_results' %}">close</a>
+</div>
+<a class="text-primary font-label-sm text-label-sm hover:underline ml-xs" href="{% url 'search_results' %}">Effacer les filtres</a>
+{% endif %}
+</div>
+</section>
+ Results Grid 
+<div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-lg">
+{% for annonce in annonces %}
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm hover:shadow-md transition-all group flex flex-col h-full">
+<div class="flex justify-between items-start mb-md">
+<div class="flex gap-md">
+<div class="w-16 h-16 rounded-xl overflow-hidden shadow-sm">
+{% if annonce.auteur.photo_profil %}<img alt="Avatar" class="w-full h-full object-cover" src="{{ annonce.auteur.photo_profil.url }}"/>{% else %}<div class="w-full h-full bg-surface-container-high flex items-center justify-center"><span class="material-symbols-outlined text-4xl text-on-surface-variant">person</span></div>{% endif %}
+</div>
+<div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">{{ annonce.auteur.prenom }} {{ annonce.auteur.nom }}</h3>
+<p class="text-label-md font-label-md text-on-surface-variant">{{ annonce.competence.nom }}</p>
+</div>
+</div>
+<div class="{% if annonce.type_publication == 'offre' %}bg-green-500/10 text-green-700{% else %}bg-amber-500/10 text-amber-700{% endif %} px-sm py-xs rounded-lg flex flex-col items-center">
+<span class="text-[10px] uppercase font-bold">{{ annonce.get_type_publication_display }}</span>
+</div>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-lg line-clamp-2">
+    {{ annonce.description }}
+</p>
+<div class="mt-auto pt-md border-t border-outline-variant flex items-center justify-between">
+<div class="flex items-center gap-xs text-tertiary">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span class="font-label-md text-label-md">
+    {% if annonce.jour %}{{ annonce.get_jour_display }}{% else %}Tous les jours{% endif %}
+</span>
+</div>
+<a class="bg-primary text-on-primary px-lg py-xs rounded-lg font-label-md text-label-md hover:bg-primary-container transition-all" href="{% url 'offer_request_detail' annonce.id %}">Voir l'annonce</a>
+</div>
+</div>
+{% empty %}
+<div class="col-span-3 text-center py-10">
+<p class="text-on-surface-variant font-body-md">Aucune annonce trouvée pour cette recherche.</p>
+</div>
+{% endfor %}
+</div>
+ Pagination 
+<div class="mt-xxl flex justify-center items-center gap-sm">
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline text-on-surface-variant hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline text-on-surface-variant hover:bg-surface-container transition-all">2</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline text-on-surface-variant hover:bg-surface-container transition-all">3</button>
+<span class="text-on-surface-variant">...</span>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline text-on-surface-variant hover:bg-surface-container transition-all">12</button>
+<button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline text-on-surface-variant hover:bg-surface-container transition-all">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+        // Micro-interaction for filter chips
+        document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
+            if (icon.textContent === 'close') {
+                icon.parentElement.addEventListener('click', function() {
+                    this.classList.add('scale-90', 'opacity-0');
+                    setTimeout(() => this.remove(), 200);
+                });
+            }
+        });
+
+        // Simple smooth scroll behavior for "View Profile"
+        document.querySelectorAll('button').forEach(btn => {
+            if (btn.textContent === 'View Profile') {
+                btn.addEventListener('mouseenter', () => {
+                    btn.classList.add('shadow-lg');
+                });
+                btn.addEventListener('mouseleave', () => {
+                    btn.classList.remove('shadow-lg');
+                });
+            }
+        });
+    </script>
+</div>
+{% endblock %}
