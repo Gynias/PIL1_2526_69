@@ -1,195 +1,12 @@
-<!DOCTYPE html>
+{% extends 'base_dashboard.html' %}
+{% load static %}
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Discover Mentors | IFRI_MentorLink</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-secondary-fixed": "#00201c",
-                        "tertiary": "#825100",
-                        "surface-tint": "#494bd6",
-                        "error-container": "#ffdad6",
-                        "tertiary-fixed-dim": "#ffb95f",
-                        "surface": "#f8f9ff",
-                        "on-primary-fixed": "#07006c",
-                        "surface-container-highest": "#d3e4fe",
-                        "secondary": "#006b5f",
-                        "on-primary-fixed-variant": "#2f2ebe",
-                        "on-error-container": "#93000a",
-                        "tertiary-fixed": "#ffddb8",
-                        "inverse-on-surface": "#eaf1ff",
-                        "primary-fixed-dim": "#c0c1ff",
-                        "tertiary-container": "#a36700",
-                        "on-surface-variant": "#464554",
-                        "outline-variant": "#c7c4d7",
-                        "on-tertiary-fixed": "#2a1700",
-                        "on-tertiary-container": "#fffbff",
-                        "primary": "#4648d4",
-                        "on-primary": "#ffffff",
-                        "primary-fixed": "#e1e0ff",
-                        "surface-container-high": "#dce9ff",
-                        "surface-container-low": "#eff4ff",
-                        "surface-container-lowest": "#ffffff",
-                        "surface-container": "#e5eeff",
-                        "inverse-primary": "#c0c1ff",
-                        "on-error": "#ffffff",
-                        "on-surface": "#0b1c30",
-                        "secondary-fixed-dim": "#4fdbc8",
-                        "on-background": "#0b1c30",
-                        "surface-variant": "#d3e4fe",
-                        "surface-bright": "#f8f9ff",
-                        "secondary-container": "#6df5e1",
-                        "surface-dim": "#cbdbf5",
-                        "secondary-fixed": "#71f8e4",
-                        "inverse-surface": "#213145",
-                        "on-secondary-container": "#006f64",
-                        "primary-container": "#6063ee",
-                        "on-tertiary": "#ffffff",
-                        "on-secondary": "#ffffff",
-                        "error": "#ba1a1a",
-                        "on-secondary-fixed-variant": "#005048",
-                        "on-tertiary-fixed-variant": "#653e00",
-                        "on-primary-container": "#fffbff",
-                        "background": "#f8f9ff",
-                        "outline": "#767586"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "md": "16px",
-                        "container-max": "1280px",
-                        "sm": "12px",
-                        "sidebar-width": "260px",
-                        "base": "8px",
-                        "navbar-height": "64px",
-                        "xxl": "48px",
-                        "lg": "24px",
-                        "xl": "32px",
-                        "xs": "4px"
-                    },
-                    "fontFamily": {
-                        "headline-md": ["Inter"],
-                        "label-sm": ["Inter"],
-                        "body-md": ["Inter"],
-                        "body-sm": ["Inter"],
-                        "label-md": ["Inter"],
-                        "body-lg": ["Inter"],
-                        "headline-lg": ["Inter"],
-                        "headline-sm": ["Inter"],
-                        "display": ["Inter"]
-                    },
-                    "fontSize": {
-                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
-                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
-                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
-                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
-                    }
-                }
-            }
-        }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .mentor-card-shadow {
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .mentor-card-shadow:hover {
-            box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
-        }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(8px);
-        }
-    </style>
-</head>
-<body class="bg-surface font-body-md text-on-surface">
-<!-- TopNavBar -->
-<header class="bg-surface-container-lowest dark:bg-surface-dim docked full-width top-0 z-50 border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none h-navbar-height sticky">
-<div class="flex justify-between items-center px-lg h-navbar-height w-full max-w-container-max mx-auto">
-<div class="flex items-center gap-xl">
-<span class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">IFRI_MentorLink</span>
-<nav class="hidden md:flex items-center gap-lg">
-<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Home</a>
-<a class="font-label-md text-label-md text-primary dark:text-inverse-primary font-bold border-b-2 border-primary pb-1" href="#">Discover</a>
-<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Feed</a>
-<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Messages</a>
-</nav>
-</div>
-<div class="flex items-center gap-md">
-<button class="p-base rounded-full hover:bg-surface-container-high transition-colors">
-<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
-</button>
-<img alt="User avatar" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="A close-up professional portrait of a young adult student with a warm, friendly expression. The lighting is bright and clean, characteristic of a high-end corporate environment. The background is a soft-focus modern university library with hints of indigo and white, maintaining the supportive and knowledgeable brand identity of IFRI_MentorLink." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIicKD64u85HwtWDRX04iDNd50ScvVCCraM6hz7MV1KI5Vszq6YNqtD4tJNGZey6BbTVGaqLwU6WHUBpn0eRz90LGa0-6PsvPAe9l_QRj2QP7cyvGMZK8AwEoaHmRr4dBQ46XlM5RBjdfq9isWoglsMKCIPFKTO39b0ZHKOq-1dDGhgjmVCVPxw4mC8wfUA_omlMtvc0M1mczy02hOXufZPa5kwzgDcLlk6Fvi8F5g4W_XapkFZpsY3BXpNFxNvu2Xdp0wpuzbtFg"/>
-</div>
-</div>
-</header>
-<main class="max-w-container-max mx-auto px-lg py-xl flex gap-xl">
-<!-- Sidebar Navigation (Responsive Desktop only) -->
-<aside class="hidden lg:flex flex-col w-sidebar-width shrink-0 gap-xl">
-<div class="bg-surface-container-low dark:bg-inverse-surface rounded-xl p-md shadow-md">
-<div class="mb-lg">
-<h2 class="font-headline-sm text-headline-sm font-bold text-primary">Student Dashboard</h2>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Manage your mentorships</p>
-</div>
-<nav class="flex flex-col gap-xs">
-<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-<span class="font-label-md text-label-md">Dashboard</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
-<span class="font-label-md text-label-md">My Offers</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
-<span class="font-label-md text-label-md">My Profile</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined" data-icon="settings">settings</span>
-<span class="font-label-md text-label-md">Settings</span>
-</a>
-</nav>
-<button class="mt-xl w-full bg-primary-container text-on-primary-container font-label-md text-label-md py-md rounded-lg hover:opacity-90 transition-all flex items-center justify-center gap-sm">
-<span class="material-symbols-outlined" data-icon="search">search</span>
-                    Find a Mentor
-                </button>
-</div>
-<!-- Ad/Promo Card -->
-<div class="bg-primary text-on-primary rounded-xl p-md overflow-hidden relative">
-<div class="relative z-10">
-<h4 class="font-headline-sm text-headline-sm mb-xs">Level Up!</h4>
-<p class="font-body-sm text-body-sm opacity-90 mb-md">Get matched with top-tier industry mentors.</p>
-<button class="bg-on-primary text-primary font-label-md text-label-md px-md py-xs rounded-full">Upgrade Now</button>
-</div>
-<div class="absolute -right-4 -bottom-4 opacity-20 transform rotate-12">
-<span class="material-symbols-outlined text-[80px]" data-icon="school">school</span>
-</div>
-</div>
-</aside>
-<!-- Main Content Canvas -->
-<div class="flex-1">
+{% block content %}
+
+ Sidebar Navigation (Responsive Desktop only) 
+
+ Main Content Canvas 
+<div class="max-w-container-max mx-auto space-y-lg">
 <!-- Search & Filters Section -->
 <section class="mb-xl">
 <div class="flex flex-col gap-lg bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm">
@@ -199,7 +16,7 @@
 <input class="w-full pl-xl pr-md py-md bg-surface-container border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md text-body-md" placeholder="Search by name, expertise, or research area..." type="text"/>
 </div>
 <button class="bg-primary text-on-primary px-xl py-md rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity">
-                            Find Match
+                            Find Compatible
                         </button>
 </div>
 <!-- Filter Chips -->
@@ -235,7 +52,7 @@
 <select class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
 <option>Virtual</option>
 <option>In-person</option>
-<option>Hybrid</option>
+<option>Hybride</option>
 </select>
 </div>
 <div class="flex items-center gap-sm">
@@ -270,12 +87,12 @@
 </div>
 <!-- Mentor Grid -->
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-lg">
-<!-- Mentor Card 1 (High Match) -->
+<!-- Mentor Card 1 (High Compatible) -->
 <article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden mentor-card-shadow flex flex-col">
 <div class="relative h-32 bg-primary-fixed">
 <div class="absolute top-md right-md px-md py-xs rounded-full bg-green-50 text-green-700 font-label-sm text-label-sm border border-green-200 flex items-center gap-xs">
 <span class="material-symbols-outlined text-[14px]" data-icon="bolt">bolt</span>
-                            98% Match
+                            98% Compatible
                         </div>
 <img alt="Mentor" class="absolute -bottom-10 left-md w-20 h-20 rounded-xl border-4 border-surface-container-lowest object-cover" data-alt="A professional headshot of a female computer science professor in her late 30s. She is smiling confidently in a modern tech-integrated classroom. The aesthetic is clean and corporate, featuring a palette of soft whites and deep indigo. The lighting is bright and natural, reflecting a supportive and professional mentorship atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoy4AcP07Fqe_0SU1LBezGpqypabPLz8p7u9ADaUWup3oUSQpPWM5wcKvBJZPh_C3tARccgFjWc38zfWdbTbqD9OpAL0YUyjchp7PIGxSwPpauRf4QdgVCaIACa7G642jhvMXbyQ_059wevLYiT4vbGgEOWaZIXOMxQKuc6Qm_WrgBIWnHhLp6GhONP9uK3mfG9b2v_MCsiRhwISyB0wVrNUygaNDMln-GErzKUjVww3LNl5B4TNu4ydxO8oRlegZVyvRRvJ6r45I"/>
 </div>
@@ -297,12 +114,12 @@
 </div>
 </div>
 </article>
-<!-- Mentor Card 2 (Medium Match) -->
+<!-- Mentor Card 2 (Medium Compatible) -->
 <article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden mentor-card-shadow flex flex-col">
 <div class="relative h-32 bg-secondary-fixed">
 <div class="absolute top-md right-md px-md py-xs rounded-full bg-amber-50 text-amber-700 font-label-sm text-label-sm border border-amber-200 flex items-center gap-xs">
 <span class="material-symbols-outlined text-[14px]" data-icon="bolt">bolt</span>
-                            76% Match
+                            76% Compatible
                         </div>
 <img alt="Mentor" class="absolute -bottom-10 left-md w-20 h-20 rounded-xl border-4 border-surface-container-lowest object-cover" data-alt="A portrait of a male cybersecurity expert in a high-tech office environment. He looks supportive and professional, wearing a smart casual outfit. The room is filled with subtle ambient blue and white lights, maintaining a modern and corporate feel. The lighting is soft and focused, emphasizing a sense of reliable guidance and academic rigor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCYa0VAzGGi-Kt57nVHvnL1i0bV2039sHHYz9LbO27TY_hcYxz-XQ7ntRhLBG38im8gCa4Dnw3RllFNBFjIwfO5e-X_gIrWitXn8_YN4vYUd_jJhFY_13ZHt9uEg4nLU2e4ZNHaOFy-zukC3pOYQhvYeqwB62eeKDWhLSQZqErrW-Fl-QG-qsoYjHxuj20sfllkUs3lIkewWbKdx61IMc_OnjCRXg7jfSDMZSXUV2QLT8fxmOHiAkJdQxATf2PeqmJMrI7rAlyTY-c"/>
 </div>
@@ -323,12 +140,12 @@
 </div>
 </div>
 </article>
-<!-- Mentor Card 3 (High Match) -->
+<!-- Mentor Card 3 (High Compatible) -->
 <article class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden mentor-card-shadow flex flex-col">
 <div class="relative h-32 bg-tertiary-fixed">
 <div class="absolute top-md right-md px-md py-xs rounded-full bg-green-50 text-green-700 font-label-sm text-label-sm border border-green-200 flex items-center gap-xs">
 <span class="material-symbols-outlined text-[14px]" data-icon="bolt">bolt</span>
-                            92% Match
+                            92% Compatible
                         </div>
 <img alt="Mentor" class="absolute -bottom-10 left-md w-20 h-20 rounded-xl border-4 border-surface-container-lowest object-cover" data-alt="A bright, professional portrait of a female software engineer in a collaborative coworking space. She is smiling warmly at the camera. The atmosphere is energetic yet professional, with a focus on human connection. The color palette features light grays, whites, and vibrant indigo accents, consistent with the IFRI_MentorLink minimal yet modern design system." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQVqp1BcCkX0vM44nQnDckvrbLC4_ptg7BSlWiiii5wNcifJzm8WJU5dcsHy9CAYpq-rqrjc97nCJVypSYdWDSBLubmt4Ad_sC7v1M89dwtRdQiArzJPcU_LoY6Nw3V93Bs2u361BtWr7zt4RVV9q1pIZeXng_afSu4UWQKFacMAdYD7y4-JIx6kBPhXc5xsLDEsFFsaJ-TsOTRs--IP9qeRwTSq__g_CJky3n3WIHLTf__R78JbDc25KkX_0bxVv5xT8FkxagFh4"/>
 </div>
@@ -355,7 +172,7 @@
 <div class="relative h-32 bg-primary-fixed-dim">
 <div class="absolute top-md right-md px-md py-xs rounded-full bg-green-50 text-green-700 font-label-sm text-label-sm border border-green-200 flex items-center gap-xs">
 <span class="material-symbols-outlined text-[14px]" data-icon="bolt">bolt</span>
-                            85% Match
+                            85% Compatible
                         </div>
 <img alt="Mentor" class="absolute -bottom-10 left-md w-20 h-20 rounded-xl border-4 border-surface-container-lowest object-cover" data-alt="A dignified and professional portrait of a senior male data scientist in a corporate boardroom setting. The lighting is sophisticated and directional, creating a sense of expert knowledge and leadership. The background includes blurred architectural elements of a modern city, with a palette dominated by professional blues and clean whites." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQR5d5hX98gsUZAACEy-yEybeRNIxxQTba950riWmggTVevwJhSagqrG3aSfjnK7nJuYt4JAcaFCfKzd7VYfHTIAzZnDekOTnmGL6AtRNDp1bmpLqCYk04t4Yk_SoP60SjI6KZOdVfUX8aXSRlQSZWg0sdtpzMhvnKcRYGfXX-ES6Yhhd_vkctbl8-SHb1d2wU00OfKX2maxZxLEzF-D07g2rLjW_a1Pxm3VKnMG5Fggy49MMdt_sXf10A7uFM74LV33_rDRJDRns"/>
 </div>
@@ -381,7 +198,7 @@
 <div class="relative h-32 bg-secondary-fixed-dim">
 <div class="absolute top-md right-md px-md py-xs rounded-full bg-amber-50 text-amber-700 font-label-sm text-label-sm border border-amber-200 flex items-center gap-xs">
 <span class="material-symbols-outlined text-[14px]" data-icon="bolt">bolt</span>
-                            62% Match
+                            62% Compatible
                         </div>
 <img alt="Mentor" class="absolute -bottom-10 left-md w-20 h-20 rounded-xl border-4 border-surface-container-lowest object-cover" data-alt="A professional portrait of a female university lecturer in a modern academic setting. She is holding a tablet and appears ready to assist. The mood is supportive and educational. The background features bookshelves and a glass-walled office with a minimal corporate aesthetic in shades of cool white and deep indigo." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDU45AWsGtmk4SL2qIv7J6zxogFNoMmBm4AL-goRAjexMdlJhd9OG1_BV5uVEfkLVllWFvpjkiFizea5Mv2Hp_DrjE9mOGtdlSfZiKSyieAXXHT8kSh8-wMh56ISgEzjzRMwg8YpwlbIyw7K55GH0Or1RFw1vzKjHWwEjRkvQKhYdE6Lcq6ACuCYn62vYadbkv_j5NjjXaiRBOywaOGKGXjz2Lft5mYUdCkCdszrbjMrQV3vO3wFEkUTg58LUHuN-uiOjSR_jMpp_8"/>
 </div>
@@ -407,7 +224,7 @@
 <div class="relative h-32 bg-tertiary-fixed-dim">
 <div class="absolute top-md right-md px-md py-xs rounded-full bg-red-50 text-red-700 font-label-sm text-label-sm border border-red-200 flex items-center gap-xs">
 <span class="material-symbols-outlined text-[14px]" data-icon="bolt">bolt</span>
-                            58% Match
+                            58% Compatible
                         </div>
 <img alt="Mentor" class="absolute -bottom-10 left-md w-20 h-20 rounded-xl border-4 border-surface-container-lowest object-cover" data-alt="A portrait of a male tech entrepreneur in a creative workspace. He has a focused and visionary expression. The setting is a minimalist studio with clean lines and high-quality materials. The lighting is crisp and modern, featuring a palette of whites and professional indigo, maintaining the brand's knowledgeable and support identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzZlXAslDyZwoaQJujTMglZ_dmuyGfyFYswVZsNNQGORDQ4lQxSLGFjgWo_cgftMLVD8zsJFd-MrHUYKpOya1XE2n0cJUKXe8lDLC4e1vYOMmMllhsTdR1yWP-UegQ-kg0_W9j8u6NJwk_aPy9lZs5TpijfKq8wL3PyHRtBpGtbLrIlitL9RJRDi5V9zuRvrWCojkkMY_oobwFfUk5ekB1jxdcyUSrvvq3yaP0S-z69MQW_t5GkBKRMoIfS7wjZdt0Jla_K-cn0m0"/>
 </div>
@@ -446,11 +263,10 @@
 </button>
 </div>
 </div>
-</main>
-<!-- Floating Action Button (Only on Home/Dashboard/Discover) -->
-<button class="fixed bottom-xl right-xl bg-primary-container text-on-primary-container w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform z-50">
-<span class="material-symbols-outlined text-[32px]" data-icon="add_comment">add_comment</span>
-</button>
+
+{% endblock %}
+
+{% block extra_scripts %}
 <script>
         // Micro-interactions for chips and hover effects
         document.querySelectorAll('article').forEach(card => {
@@ -462,4 +278,4 @@
         // Basic toggle for active nav if needed via JS (already handled by static classes per prompt requirements)
         console.log("Discover page loaded successfully with active navigation state.");
     </script>
-</body></html>
+{% endblock %}

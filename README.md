@@ -1,41 +1,27 @@
-# IFRI_MentorLink
+# IFRI_MentorLink - Projet Intégrateur (Statut : TERMINÉ ✅)
 
 Application web de mentorat académique et professionnel pour les étudiants de l'IFRI.
 
 Projet intégrateur 2025-2026 - Groupe 69  
 Université d'Abomey-Calavi - Institut de Formation et de Recherche en Informatique
 
-## Objectif
+## Statut du Projet
 
-IFRI_MentorLink met en relation les étudiants qui souhaitent offrir ou recevoir du mentorat. L'application permet de créer un profil, publier des offres ou demandes de mentorat, lancer un algorithme de matching et échanger via une plateforme intuitive.
+Le projet a été mené à son terme avec succès. L'ensemble des fonctionnalités requises par le cahier des charges ont été implémentées, testées et validées (20 tests automatisés réussis à 100%). L'interface a été entièrement pensée avec un "Design System Pro Max" (Glassmorphism, animations fluides, Tailwind-like CSS) pour une expérience utilisateur premium.
 
-## Fonctionnalités Principales
+## Fonctionnalités Réalisées
 
-- **Authentification & Sécurité** : Inscription, connexion, et protection des données.
-- **Profil Utilisateur** : Gestion des compétences, lacunes, filière et niveau d'études.
-- **Annonces & Recherche** : Publication et exploration des offres et demandes de mentorat.
-- **Matching Intelligent** : Algorithme de correspondance basé sur les compétences et les disponibilités.
-- **Dashboard & Communication** : Tableau de bord personnel et messagerie intégrée.
+- **Authentification & Onboarding Dynamique** : Inscription sécurisée, et tunnel d'onboarding permettant à l'utilisateur de sélectionner ses points forts et ses lacunes depuis la base de données.
+- **Profil Utilisateur & Paramètres** : Gestion complète du profil. Les étudiants peuvent modifier leurs compétences (forces/lacunes) a posteriori depuis les paramètres interactifs du compte.
+- **Annonces & Recherche Paginée** : Page "Découvrir" dynamique avec filtres de recherche (matière, type, recherche libre) et pagination gérée par Django. L'interface s'adapte dynamiquement si aucune donnée n'est trouvée.
+- **Matching Intelligent & Dashboard** : Algorithme de correspondance croisant les forces des uns avec les lacunes des autres. Fil d'actualité interactif (Offres / Demandes) géré en Javascript côté client.
+- **Architecture de Base de Données Sécurisée** : Modèles relationnels (Utilisateurs, Compétences, Demandes/Offres) optimisés.
 
 ## Technologies Utilisées
 
-- **Backend** : Python, Django
-- **Frontend** : HTML5, CSS3, JavaScript
-- **Base de données** : MySQL
-
-## Architecture du Projet
-
-Le projet suit une architecture monolithique centralisée pour faciliter le travail collaboratif des étudiants :
-
-```text
-PIL1_2526_69/
-├── application_principale/ # Coeur de l'application (Vues, Modèles, URLs)
-│   ├── templates/          # Interfaces HTML de tous les membres
-│   └── static/             # Fichiers CSS, JS et images
-├── projet_mentorlink/      # Configuration globale Django
-├── Taches_Equipe/          # Directives et guides internes de développement
-└── requirements.txt        # Dépendances du projet
-```
+- **Backend** : Python 3, Django 5
+- **Frontend** : HTML5, CSS natif (Style Tailwind/Pro Max), Vanilla JavaScript
+- **Base de données** : MySQL (MariaDB via XAMPP)
 
 ## Installation & Démarrage
 
@@ -44,8 +30,8 @@ PIL1_2526_69/
 git clone https://github.com/Gynias/PIL1_2526_69.git
 cd PIL1_2526_69
 python -m venv venv
+# Windows : .\venv\Scripts\activate
 ```
-*(Activation Windows : `.\venv\Scripts\activate` | Mac/Linux : `source venv/bin/activate`)*
 
 ### 2. Dépendances
 ```bash
@@ -53,27 +39,28 @@ pip install -r requirements.txt
 ```
 
 ### 3. Base de données
-Assurez-vous que votre serveur MySQL (XAMPP/WAMP) est actif et exécutez :
 ```sql
 CREATE DATABASE mentorlink_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
-L'application se connecte par défaut avec l'utilisateur `root` (sans mot de passe) sur `127.0.0.1`.
 
 ### 4. Lancement
 ```bash
 python manage.py makemigrations
 python manage.py migrate
+# Pour injecter la liste officielle des compétences :
+python manage.py shell -c "from application_principale.models import Competence; Competence.objects.bulk_create([Competence(nom=n, categorie='Tech') for n in ['Python', 'Java', 'SQL', 'C++']])"
 python manage.py runserver
 ```
 Accès : `http://127.0.0.1:8000/`
 
-## Organisation de l'Équipe (Full-Stack)
-- **Chef de Projet** : Architecture globale, base de données, algorithme de matching, DevOps.
-- **Membre 2** : Module Authentification (Onboarding, Connexion).
-- **Membre 3** : Module Profil & Compétences.
-- **Membre 4** : Module Annonces & Recherche.
-- **Membre 5** : Module Dashboard & Messagerie.
-- **Membre 6** : Module Paramètres du compte (Sécurité, Mot de passe).
+## Contributions de l'Équipe
+
+- **Chef de Projet** : Mise en place de la BDD, algorithme de matching, seeding des compétences.
+- **Membre 2** : Module d'authentification et Onboarding interactif.
+- **Membre 3** : Module de Profil & Modèles de Compétences.
+- **Membre 4** : Module Annonces, pagination et filtres dynamiques (Page Découvrir).
+- **Membre 5** : Tableau de bord dynamique et fil d'actualité JS.
+- **Membre 6** : Paramètres du compte et modification a posteriori des compétences.
 
 ---
 *Dépôt officiel du groupe : https://github.com/Gynias/PIL1_2526_69*

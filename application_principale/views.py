@@ -22,20 +22,39 @@ def inscription_view(request):
         email = request.POST.get('email')
         telephone = request.POST.get('telephone')
         mot_de_passe = request.POST.get('mot_de_passe')
+        role = request.POST.get('role', 'les_deux')
         
+        # Mappons les valeurs du formulaire au modèle (Mentor/Mentee/Both -> mentor/mentore/les_deux)
+        if role == 'Mentor':
+            role = 'mentor'
+        elif role == 'Mentee':
+            role = 'mentore'
+        else:
+            role = 'les_deux'
+            
+        if not telephone:
+            messages.error(request, "Le numéro de téléphone est obligatoire.")
+            return render(request, 'register.html')
+            
         if Utilisateur.objects.filter(email=email).exists():
             messages.error(request, "Cet email est déjà utilisé.")
+        elif Utilisateur.objects.filter(telephone=telephone).exists():
+            messages.error(request, "Ce numéro de téléphone est déjà utilisé.")
         else:
-            utilisateur = Utilisateur.objects.create_user(
-                email=email,
-                mot_de_passe=mot_de_passe,
-                nom=nom,
-                prenom=prenom,
-                telephone=telephone
-            )
-            login(request, utilisateur)
-            messages.success(request, "Inscription réussie !")
-            return redirect('onboarding')
+            try:
+                utilisateur = Utilisateur.objects.create_user(
+                    email=email,
+                    mot_de_passe=mot_de_passe,
+                    nom=nom,
+                    prenom=prenom,
+                    telephone=telephone,
+                    role=role
+                )
+                login(request, utilisateur)
+                messages.success(request, "Inscription réussie !")
+                return redirect('onboarding')
+            except Exception as e:
+                messages.error(request, "Une erreur s'est produite lors de la création du compte.")
             
     return render(request, 'register.html')
 
@@ -96,9 +115,33 @@ def create_offer_request(request):
         'jours': jours,
     })
 
+from django.core.paginator import Paginator
+
+@login_required
 def discover_page(request):
-    mentors = Utilisateur.objects.filter(role__in=['mentor', 'les_deux'], is_active=True)
-    return render(request, 'discover_page.html', {'mentors': mentors})
+    mentors_list = Utilisateur.objects.filter(role__in=['mentor', 'les_deux'], is_active=True).prefetch_related('competences__competence', 'filiere').order_by('-id')
+    
+    q = request.GET.get('q', '')
+    sujet = request.GET.get('sujet', '')
+    niveau = request.GET.get('niveau', '')
+    filiere = request.GET.get('filiere', '')
+    
+    if q:
+        mentors_list = mentors_list.filter(Q(nom__icontains=q) | Q(prenom__icontains=q))
+    if niveau:
+        mentors_list = mentors_list.filter(niveau=niveau)
+    if filiere:
+        mentors_list = mentors_list.filter(filiere__nom__iexact=filiere)
+        
+    # Check competence sujet
+    if sujet:
+        mentors_list = mentors_list.filter(competences__competence__nom__iexact=sujet).distinct()
+
+    paginator = Paginator(mentors_list, 12)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    return render(request, 'discover_page.html', {'mentors': page_obj})
 
 @login_required
 def offer_request_detail(request, annonce_id):
@@ -362,6 +405,7 @@ def demarrer_conversation(request, user_id):
 
 
 @login_required
+@login_required
 @require_POST
 def envoyer_message(request, conv_id):
     conversation = get_object_or_404(
@@ -426,11 +470,42 @@ def account_settings(request):
         request.user.nom = request.POST.get('last_name', request.user.nom)
         request.user.email = request.POST.get('email', request.user.email)
         request.user.save()
+        
+        # Update competences
+        forces = request.POST.getlist('forces[]')
+        lacunes = request.POST.getlist('lacunes[]')
+        
+        # Clean existing competences
+        CompetenceUtilisateur.objects.filter(utilisateur=request.user).delete()
+        
+        # Add forces
+        for force_id in forces:
+            try:
+                comp = Competence.objects.get(id=force_id)
+                CompetenceUtilisateur.objects.create(utilisateur=request.user, competence=comp, type_competence='force')
+            except Competence.DoesNotExist:
+                pass
+
+        # Add lacunes
+        for lacune_id in lacunes:
+            try:
+                comp = Competence.objects.get(id=lacune_id)
+                CompetenceUtilisateur.objects.create(utilisateur=request.user, competence=comp, type_competence='lacune')
+            except Competence.DoesNotExist:
+                pass
+                
         messages.success(request, "Vos informations ont été mises à jour.")
         return redirect('account_settings')
     
+    competences = Competence.objects.all().order_by('nom')
+    user_forces = request.user.competences.filter(type_competence='force').values_list('competence_id', flat=True)
+    user_lacunes = request.user.competences.filter(type_competence='lacune').values_list('competence_id', flat=True)
+
     return render(request, 'account_settings.html', {
-        'utilisateur': request.user
+        'utilisateur': request.user,
+        'competences': competences,
+        'user_forces': list(user_forces),
+        'user_lacunes': list(user_lacunes),
     })
 
 @login_required
@@ -464,9 +539,34 @@ def security_settings(request):
 
 @login_required
 def onboarding_post_inscription(request):
-    # Logique d'affichage de la page d'accueil post-inscription
-    # Peut être redirigé vers le tableau de bord une fois complété
+    if request.method == 'POST':
+        forces = request.POST.getlist('forces[]')
+        lacunes = request.POST.getlist('lacunes[]')
+
+        # Clean existing competences to prevent duplicates on refresh
+        CompetenceUtilisateur.objects.filter(utilisateur=request.user).delete()
+
+        # Add forces
+        for force_id in forces:
+            try:
+                comp = Competence.objects.get(id=force_id)
+                CompetenceUtilisateur.objects.create(utilisateur=request.user, competence=comp, type_competence='force')
+            except Competence.DoesNotExist:
+                pass
+
+        # Add lacunes
+        for lacune_id in lacunes:
+            try:
+                comp = Competence.objects.get(id=lacune_id)
+                CompetenceUtilisateur.objects.create(utilisateur=request.user, competence=comp, type_competence='lacune')
+            except Competence.DoesNotExist:
+                pass
+
+        return redirect('tableau_de_bord')
+
+    competences = Competence.objects.all().order_by('nom')
     return render(request, 'onboarding.html', {
-        'utilisateur': request.user
+        'utilisateur': request.user,
+        'competences': competences
     })
 

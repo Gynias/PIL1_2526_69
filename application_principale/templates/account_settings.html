@@ -1,99 +1,12 @@
-<!DOCTYPE html>
-<html class="light" lang="fr">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Paramètres du Compte | IFRI_MentorLink</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-    </style>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "primary": "#4648d4",
-                        "on-primary": "#ffffff",
-                        "primary-container": "#6063ee",
-                        "on-primary-container": "#fffbff",
-                        "surface": "#f8f9ff",
-                        "on-surface": "#0b1c30",
-                        "surface-container": "#e5eeff",
-                        "surface-container-low": "#eff4ff",
-                        "surface-container-lowest": "#ffffff",
-                        "on-surface-variant": "#464554",
-                        "outline-variant": "#c7c4d7",
-                        "error": "#ba1a1a",
-                        "error-container": "#ffdad6",
-                        "on-error-container": "#93000a",
-                    },
-                    "spacing": {
-                        "xs": "4px", "sm": "12px", "md": "16px", "lg": "24px", "xl": "32px", "xxl": "48px",
-                        "navbar-height": "64px", "sidebar-width": "260px"
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body class="bg-surface text-on-surface">
-<!-- Navigation Latérale Desktop -->
-<aside class="fixed left-0 top-0 h-full flex flex-col p-md border-r border-outline-variant bg-surface-container-low w-sidebar-width z-40 hidden md:flex">
-<div class="mb-xl px-sm">
-<span class="font-bold text-primary" style="font-size: 20px;">IFRI_MentorLink</span>
-</div>
-<nav class="flex-1 flex flex-col gap-xs">
-<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-<span>Dashboard</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
-<span>Mes Offres</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
-<span>Mon Profil</span>
-</a>
-<a class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-lg px-md py-sm shadow-sm" href="#">
-<span class="material-symbols-outlined" data-icon="settings">settings</span>
-<span>Paramètres</span>
-</a>
-</nav>
-<div class="mt-auto border-t border-outline-variant pt-md px-sm">
-<div class="flex items-center gap-sm">
-<div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white">
-  <span class="material-symbols-outlined">person</span>
-</div>
-<div>
-<p class="text-on-surface font-bold">{{ user.first_name|default:user.username }} {{ user.last_name }}</p>
-<p class="text-xs text-on-surface-variant">Étudiant IFRI</p>
-</div>
-</div>
-</div>
-</aside>
+{% extends 'base_dashboard.html' %}
+{% load static %}
 
-<!-- Contenu Principal -->
-<main class="md:ml-[260px] min-h-screen">
-<!-- Top App Bar -->
-<header class="h-navbar-height flex justify-between items-center px-lg w-full bg-surface-container-lowest border-b border-outline-variant sticky top-0 z-30 shadow-sm">
-<h1 class="text-xl text-on-surface font-bold">Paramètres du Compte</h1>
-<div class="flex items-center gap-md">
-<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">notifications</button>
-</div>
-</header>
+{% block content %}
 
-<!-- Contenu du Formulaire -->
-<div class="max-w-4xl mx-auto py-xl px-lg">
+ Top App Bar 
+
+ Contenu du Formulaire 
+<div class="max-w-4xl mx-auto space-y-lg">
 <div class="grid grid-cols-1 md:grid-cols-12 gap-xl">
 <!-- Menu Paramètres -->
 <div class="md:col-span-4 flex flex-col gap-sm">
@@ -101,12 +14,11 @@
 <span class="material-symbols-outlined">person</span>
 <span>Informations Profil</span>
 </button>
-<a href="{% url 'security_settings' %}" class="flex items-center gap-sm px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all text-left">
+<a class="flex items-center gap-sm px-md py-sm rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-all text-left" href="{% url 'security_settings' %}">
 <span class="material-symbols-outlined">lock</span>
-<span>Mot de passe & Sécurité</span>
+<span>Mot de passe &amp; Sécurité</span>
 </a>
 </div>
-
 <!-- Formulaire Principal -->
 <div class="md:col-span-8">
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-xl shadow-sm">
@@ -114,14 +26,13 @@
 <h2 class="text-xl text-on-surface font-bold">Détails Personnels</h2>
 <p class="text-on-surface-variant text-sm mt-xs">Mettez à jour vos informations personnelles pour aider les mentors à vous contacter.</p>
 </div>
-
 <form class="space-y-lg" id="profileForm" method="POST">
 {% csrf_token %}
 <!-- Photo de Profil -->
 <div class="flex items-center gap-xl mb-xl">
 <div class="relative group">
 <div class="w-24 h-24 rounded-full border-4 border-surface-container shadow-md bg-primary flex items-center justify-center text-white text-3xl">
-  {{ user.first_name|default:user.username|make_list|first|upper }}
+  {{ utilisateur.prenom|default:utilisateur.email|make_list|first|upper }}
 </div>
 <button class="absolute bottom-0 right-0 bg-primary text-white p-2 rounded-full shadow-lg hover:bg-primary-container transition-colors border-2 border-surface-container-lowest" type="button">
 <span class="material-symbols-outlined text-[18px]">edit</span>
@@ -132,7 +43,6 @@
 <p class="text-xs text-on-surface-variant mt-1">PNG ou JPG, max 10MB.</p>
 </div>
 </div>
-
 <!-- Champs Nom/Prénom -->
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-md">
 <div class="flex flex-col gap-xs">
@@ -144,7 +54,6 @@
 <input class="w-full px-md py-sm rounded-lg border border-outline-variant focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none bg-surface" id="lastName" name="last_name" type="text" value="{{ user.last_name }}"/>
 </div>
 </div>
-
 <!-- Champ Email -->
 <div class="flex flex-col gap-xs">
 <label class="text-sm text-on-surface-variant font-bold" for="email">Adresse Email</label>
@@ -154,16 +63,117 @@
 </div>
 </div>
 
+<!-- Gestion des Compétences -->
+<div class="pt-xl border-t border-outline-variant mt-xl">
+    <div class="mb-md">
+        <h2 class="text-xl text-on-surface font-bold">Compétences & Besoins</h2>
+        <p class="text-on-surface-variant text-sm mt-xs">Modifiez les matières que vous maîtrisez ou celles où vous avez besoin d'aide.</p>
+    </div>
+
+    <!-- Points Forts -->
+    <div class="space-y-sm mb-lg">
+        <h3 class="font-headline-sm text-on-surface flex items-center gap-xs">
+            <span class="material-symbols-outlined text-green-600">psychology</span>
+            Vos Points Forts
+        </h3>
+        
+        <div class="flex flex-wrap gap-sm mt-2">
+            {% for competence in competences %}
+            <button type="button" class="px-md py-base border {% if competence.id in user_forces %}bg-green-100 text-green-800 border-green-600{% else %}border-outline{% endif %} rounded-full font-label-sm hover:border-green-600 transition-colors flex items-center gap-xs btn-force" onclick="toggleForce(this, '{{ competence.id }}')">
+                {{ competence.nom }} <span class="material-symbols-outlined text-[16px]">{% if competence.id in user_forces %}check{% else %}add{% endif %}</span>
+            </button>
+            {% endfor %}
+        </div>
+        <div id="forces_inputs">
+            {% for competence in competences %}
+                {% if competence.id in user_forces %}
+                <input type="hidden" name="forces[]" value="{{ competence.id }}" id="force_{{ competence.id }}">
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Lacunes -->
+    <div class="space-y-sm">
+        <h3 class="font-headline-sm text-on-surface flex items-center gap-xs">
+            <span class="material-symbols-outlined text-primary">school</span>
+            Vos Besoins
+        </h3>
+        
+        <div class="flex flex-wrap gap-sm mt-2">
+            {% for competence in competences %}
+            <button type="button" class="px-md py-base border {% if competence.id in user_lacunes %}bg-primary-container text-on-primary-container border-primary{% else %}border-outline{% endif %} rounded-full font-label-sm hover:border-primary transition-colors flex items-center gap-xs btn-lacune" onclick="toggleLacune(this, '{{ competence.id }}')">
+                {{ competence.nom }} <span class="material-symbols-outlined text-[16px]">{% if competence.id in user_lacunes %}check{% else %}add{% endif %}</span>
+            </button>
+            {% endfor %}
+        </div>
+        <div id="lacunes_inputs">
+            {% for competence in competences %}
+                {% if competence.id in user_lacunes %}
+                <input type="hidden" name="lacunes[]" value="{{ competence.id }}" id="lacune_{{ competence.id }}">
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
 <!-- Boutons -->
 <div class="pt-xl flex items-center justify-end gap-md border-t border-outline-variant">
 <button class="px-6 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all" type="button">Annuler</button>
 <button class="px-6 py-2 rounded-lg bg-primary text-white hover:shadow-lg transition-all" type="submit">Enregistrer</button>
 </div>
 </form>
+</div>
+</div>
+</div>
+</div>
 
-</div>
-</div>
-</div>
-</div>
-</main>
-</body></html>
+
+<script>
+    function toggleForce(btn, id) {
+        let container = document.getElementById('forces_inputs');
+        let existing = document.getElementById('force_' + id);
+        
+        if (existing) {
+            existing.remove();
+            btn.classList.remove('bg-green-100', 'text-green-800', 'border-green-600');
+            btn.classList.add('border-outline');
+            btn.querySelector('span').innerText = 'add';
+        } else {
+            let input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'forces[]';
+            input.value = id;
+            input.id = 'force_' + id;
+            container.appendChild(input);
+            
+            btn.classList.remove('border-outline');
+            btn.classList.add('bg-green-100', 'text-green-800', 'border-green-600');
+            btn.querySelector('span').innerText = 'check';
+        }
+    }
+
+    function toggleLacune(btn, id) {
+        let container = document.getElementById('lacunes_inputs');
+        let existing = document.getElementById('lacune_' + id);
+        
+        if (existing) {
+            existing.remove();
+            btn.classList.remove('bg-primary-container', 'text-on-primary-container', 'border-primary');
+            btn.classList.add('border-outline');
+            btn.querySelector('span').innerText = 'add';
+        } else {
+            let input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'lacunes[]';
+            input.value = id;
+            input.id = 'lacune_' + id;
+            container.appendChild(input);
+            
+            btn.classList.remove('border-outline');
+            btn.classList.add('bg-primary-container', 'text-on-primary-container', 'border-primary');
+            btn.querySelector('span').innerText = 'check';
+        }
+    }
+</script>
+{% endblock %}

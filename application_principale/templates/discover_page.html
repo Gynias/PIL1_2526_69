@@ -1,202 +1,19 @@
-<!DOCTYPE html>
+{% extends 'base_dashboard.html' %}
+{% load static %}
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Discover Mentors | IFRI_MentorLink</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-secondary-fixed": "#00201c",
-                        "tertiary": "#825100",
-                        "surface-tint": "#494bd6",
-                        "error-container": "#ffdad6",
-                        "tertiary-fixed-dim": "#ffb95f",
-                        "surface": "#f8f9ff",
-                        "on-primary-fixed": "#07006c",
-                        "surface-container-highest": "#d3e4fe",
-                        "secondary": "#006b5f",
-                        "on-primary-fixed-variant": "#2f2ebe",
-                        "on-error-container": "#93000a",
-                        "tertiary-fixed": "#ffddb8",
-                        "inverse-on-surface": "#eaf1ff",
-                        "primary-fixed-dim": "#c0c1ff",
-                        "tertiary-container": "#a36700",
-                        "on-surface-variant": "#464554",
-                        "outline-variant": "#c7c4d7",
-                        "on-tertiary-fixed": "#2a1700",
-                        "on-tertiary-container": "#fffbff",
-                        "primary": "#4648d4",
-                        "on-primary": "#ffffff",
-                        "primary-fixed": "#e1e0ff",
-                        "surface-container-high": "#dce9ff",
-                        "surface-container-low": "#eff4ff",
-                        "surface-container-lowest": "#ffffff",
-                        "surface-container": "#e5eeff",
-                        "inverse-primary": "#c0c1ff",
-                        "on-error": "#ffffff",
-                        "on-surface": "#0b1c30",
-                        "secondary-fixed-dim": "#4fdbc8",
-                        "on-background": "#0b1c30",
-                        "surface-variant": "#d3e4fe",
-                        "surface-bright": "#f8f9ff",
-                        "secondary-container": "#6df5e1",
-                        "surface-dim": "#cbdbf5",
-                        "secondary-fixed": "#71f8e4",
-                        "inverse-surface": "#213145",
-                        "on-secondary-container": "#006f64",
-                        "primary-container": "#6063ee",
-                        "on-tertiary": "#ffffff",
-                        "on-secondary": "#ffffff",
-                        "error": "#ba1a1a",
-                        "on-secondary-fixed-variant": "#005048",
-                        "on-tertiary-fixed-variant": "#653e00",
-                        "on-primary-container": "#fffbff",
-                        "background": "#f8f9ff",
-                        "outline": "#767586"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "md": "16px",
-                        "container-max": "1280px",
-                        "sm": "12px",
-                        "sidebar-width": "260px",
-                        "base": "8px",
-                        "navbar-height": "64px",
-                        "xxl": "48px",
-                        "lg": "24px",
-                        "xl": "32px",
-                        "xs": "4px"
-                    },
-                    "fontFamily": {
-                        "headline-md": ["Inter"],
-                        "label-sm": ["Inter"],
-                        "body-md": ["Inter"],
-                        "body-sm": ["Inter"],
-                        "label-md": ["Inter"],
-                        "body-lg": ["Inter"],
-                        "headline-lg": ["Inter"],
-                        "headline-sm": ["Inter"],
-                        "display": ["Inter"]
-                    },
-                    "fontSize": {
-                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
-                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
-                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
-                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
-                    }
-                }
-            }
-        }
-    </script>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .mentor-card-shadow {
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        .mentor-card-shadow:hover {
-            box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
-        }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(8px);
-        }
-    </style>
-</head>
-<body class="bg-surface font-body-md text-on-surface">
-<!-- TopNavBar -->
-<header class="bg-surface-container-lowest dark:bg-surface-dim docked full-width top-0 z-50 border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none h-navbar-height sticky">
-<div class="flex justify-between items-center px-lg h-navbar-height w-full max-w-container-max mx-auto">
-<div class="flex items-center gap-xl">
-<span class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">IFRI_MentorLink</span>
-<nav class="hidden md:flex items-center gap-lg">
-<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Accueil</a>
-<a class="font-label-md text-label-md text-primary dark:text-inverse-primary font-bold border-b-2 border-primary pb-1" href="#">Découvrir</a>
-<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Flux</a>
-<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors" href="#">Messages</a>
-</nav>
-</div>
-<div class="flex items-center gap-md">
-<button class="p-base rounded-full hover:bg-surface-container-high transition-colors">
-<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
-</button>
-<img alt="User avatar" class="w-8 h-8 rounded-full border border-outline-variant" data-alt="A close-up professional portrait of a young adult student with a warm, friendly expression. The lighting is bright and clean, characteristic of a high-end corporate environment. The background is a soft-focus modern university library with hints of indigo and white, maintaining the supportive and knowledgeable brand identity of IFRI_MentorLink." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIicKD64u85HwtWDRX04iDNd50ScvVCCraM6hz7MV1KI5Vszq6YNqtD4tJNGZey6BbTVGaqLwU6WHUBpn0eRz90LGa0-6PsvPAe9l_QRj2QP7cyvGMZK8AwEoaHmRr4dBQ46XlM5RBjdfq9isWoglsMKCIPFKTO39b0ZHKOq-1dDGhgjmVCVPxw4mC8wfUA_omlMtvc0M1mczy02hOXufZPa5kwzgDcLlk6Fvi8F5g4W_XapkFZpsY3BXpNFxNvu2Xdp0wpuzbtFg"/>
-</div>
-</div>
-</header>
-<main class="max-w-container-max mx-auto px-lg py-xl flex gap-xl">
-<!-- Sidebar Navigation (Responsive Desktop only) -->
-<aside class="hidden lg:flex flex-col w-sidebar-width shrink-0 gap-xl">
-<div class="bg-surface-container-low dark:bg-inverse-surface rounded-xl p-md shadow-md">
-<div class="mb-lg">
-<h2 class="font-headline-sm text-headline-sm font-bold text-primary">Tableau de Bord</h2>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Gérez vos mentorats</p>
-</div>
-<nav class="flex flex-col gap-xs">
-<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-<span class="font-label-md text-label-md">Vue d'ensemble</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
-<span class="font-label-md text-label-md">Mes Offres</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
-<span class="font-label-md text-label-md">Mon Profil</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="{% url 'account_settings' %}">
-<span class="material-symbols-outlined" data-icon="settings">settings</span>
-<span class="font-label-md text-label-md">Paramètres</span>
-</a>
-</nav>
-<button class="mt-xl w-full bg-primary-container text-on-primary-container font-label-md text-label-md py-md rounded-lg hover:opacity-90 transition-all flex items-center justify-center gap-sm">
-<span class="material-symbols-outlined" data-icon="search">search</span>
-                    Trouver un Mentor
-                </button>
-</div>
-<!-- Ad/Promo Card -->
-<div class="bg-primary text-on-primary rounded-xl p-md overflow-hidden relative">
-<div class="relative z-10">
-<h4 class="font-headline-sm text-headline-sm mb-xs">Level Up!</h4>
-<p class="font-body-sm text-body-sm opacity-90 mb-md">Get matched with top-tier industry mentors.</p>
-<button class="bg-on-primary text-primary font-label-md text-label-md px-md py-xs rounded-full">Upgrade Now</button>
-</div>
-<div class="absolute -right-4 -bottom-4 opacity-20 transform rotate-12">
-<span class="material-symbols-outlined text-[80px]" data-icon="school">school</span>
-</div>
-</div>
-</aside>
-<!-- Main Content Canvas -->
-<div class="flex-1">
+{% block content %}
+
+ Sidebar Navigation (Responsive Desktop only) 
+
+ Main Content Canvas 
+<div class="max-w-container-max mx-auto space-y-lg">
 <!-- Search & Filters Section -->
 <section class="mb-xl">
-<div class="flex flex-col gap-lg bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm">
+<form method="GET" class="flex flex-col gap-lg bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm">
 <div class="flex items-center gap-md">
 <div class="flex-1 relative">
 <span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
-<input class="w-full pl-xl pr-md py-md bg-surface-container border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md text-body-md" placeholder="Recherche par nom, expertise ou domaine..." type="text"/>
+<input class="w-full pl-xl pr-md py-md bg-surface-container border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-md text-body-md" placeholder="Recherche par nom, expertise ou domaine..." name="q" value="{{ request.GET.q }}" type="text"/>
 </div>
 <button class="bg-primary text-on-primary px-xl py-md rounded-lg font-label-md text-label-md hover:opacity-90 transition-opacity">
                             Trouver
@@ -206,7 +23,7 @@
 <div class="flex flex-wrap items-center gap-md">
 <div class="flex items-center gap-sm">
 <span class="font-label-md text-label-md text-on-surface-variant">Sujet:</span>
-<select class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
+<select name="sujet" class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
 <option>Informatique</option>
 <option>Cybersécurité</option>
 <option>Data Science</option>
@@ -215,7 +32,7 @@
 </div>
 <div class="flex items-center gap-sm">
 <span class="font-label-md text-label-md text-on-surface-variant">Disponibilité:</span>
-<select class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
+<select name="sujet" class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
 <option>Semaine</option>
 <option>Week-ends</option>
 <option>Soirée</option>
@@ -223,7 +40,7 @@
 </div>
 <div class="flex items-center gap-sm">
 <span class="font-label-md text-label-md text-on-surface-variant">Niveau:</span>
-<select class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
+<select name="sujet" class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
 <option>Licence</option>
 <option>Master</option>
 <option>Doctorat</option>
@@ -232,7 +49,7 @@
 </div>
 <div class="flex items-center gap-sm">
 <span class="font-label-md text-label-md text-on-surface-variant">Format:</span>
-<select class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
+<select name="sujet" class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
 <option>Virtuel</option>
 <option>En personne</option>
 <option>Hybride</option>
@@ -240,24 +57,24 @@
 </div>
 <div class="flex items-center gap-sm">
 <span class="font-label-md text-label-md text-on-surface-variant">Filière:</span>
-<select class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
+<select name="sujet" class="bg-surface text-on-surface-variant border border-outline-variant rounded-full px-md py-xs font-label-sm text-label-sm outline-none focus:border-primary">
 <option>GL</option>
 <option>ASRI</option>
 <option>IMTS</option>
 </select>
 </div>
-<button class="ml-auto text-primary font-label-md text-label-md flex items-center gap-xs hover:underline">
+<a href="{% url 'discover_page' %}" class="ml-auto text-primary font-label-md text-label-md flex items-center gap-xs hover:underline">
 <span class="material-symbols-outlined text-[18px]" data-icon="restart_alt">restart_alt</span>
                             Tout effacer
-                        </button>
+                        </a>
 </div>
-</div>
+</form>
 </section>
 <!-- Results Headline -->
 <div class="flex justify-between items-end mb-lg">
 <div>
 <h1 class="font-headline-lg text-headline-lg text-on-surface">Découvrir des Mentors</h1>
-<p class="font-body-md text-body-md text-on-surface-variant">128 mentors correspondant à vos critères trouvés</p>
+<p class="font-body-md text-body-md text-on-surface-variant">{{ mentors.paginator.count }} mentors correspondant à vos critères trouvés</p>
 </div>
 <div class="flex items-center gap-sm bg-surface-container-low p-xs rounded-lg border border-outline-variant">
 <button class="p-xs bg-surface-container-lowest shadow-sm rounded flex items-center">
@@ -305,32 +122,34 @@
 </article>
 {% empty %}
 <div class="col-span-full text-center py-10">
-    <p class="text-on-surface-variant">Aucun mentor trouvé pour le moment.</p>
+<p class="text-on-surface-variant">Aucun mentor trouvé pour le moment.</p>
 </div>
 {% endfor %}
 </div>
 <!-- Pagination -->
+{% if mentors.has_other_pages %}
 <div class="mt-xxl flex justify-center items-center gap-md">
-<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-container-high transition-colors">
+{% if mentors.has_previous %}
+<a href="?page={{ mentors.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-container-high transition-colors">
 <span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
-</button>
+</a>
+{% endif %}
 <div class="flex gap-sm">
-<button class="w-10 h-10 rounded-full bg-primary text-on-primary font-label-md text-label-md">1</button>
-<button class="w-10 h-10 rounded-full border border-outline-variant font-label-md text-label-md hover:bg-surface-container-high">2</button>
-<button class="w-10 h-10 rounded-full border border-outline-variant font-label-md text-label-md hover:bg-surface-container-high">3</button>
-<span class="flex items-center px-xs text-on-surface-variant">...</span>
-<button class="w-10 h-10 rounded-full border border-outline-variant font-label-md text-label-md hover:bg-surface-container-high">12</button>
+    <span class="w-10 h-10 rounded-full bg-primary text-on-primary font-label-md text-label-md flex items-center justify-center">{{ mentors.number }}</span>
+    <span class="flex items-center px-xs text-on-surface-variant">sur {{ mentors.paginator.num_pages }}</span>
 </div>
-<button class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-container-high transition-colors">
+{% if mentors.has_next %}
+<a href="?page={{ mentors.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="w-10 h-10 rounded-full border border-outline-variant flex items-center justify-center hover:bg-surface-container-high transition-colors">
 <span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
-</button>
+</a>
+{% endif %}
 </div>
+{% endif %}
 </div>
-</main>
-<!-- Floating Action Button (Only on Home/Dashboard/Discover) -->
-<button class="fixed bottom-xl right-xl bg-primary-container text-on-primary-container w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-105 active:scale-95 transition-transform z-50">
-<span class="material-symbols-outlined text-[32px]" data-icon="add_comment">add_comment</span>
-</button>
+
+{% endblock %}
+
+{% block extra_scripts %}
 <script>
         // Micro-interactions for chips and hover effects
         document.querySelectorAll('article').forEach(card => {
@@ -342,4 +161,4 @@
         // Basic toggle for active nav if needed via JS (already handled by static classes per prompt requirements)
         console.log("Discover page loaded successfully with active navigation state.");
     </script>
-</body></html>
+{% endblock %}

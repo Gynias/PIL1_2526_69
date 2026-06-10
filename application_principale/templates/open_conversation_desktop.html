@@ -1,182 +1,9 @@
-<!DOCTYPE html>
+{% extends 'base_dashboard.html' %}
+{% load static %}
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Messages - IFRI_MentorLink</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 10px;
-        }
-    </style>
-<script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "on-secondary-fixed": "#00201c",
-                      "tertiary": "#825100",
-                      "surface-tint": "#494bd6",
-                      "error-container": "#ffdad6",
-                      "tertiary-fixed-dim": "#ffb95f",
-                      "surface": "#f8f9ff",
-                      "on-primary-fixed": "#07006c",
-                      "surface-container-highest": "#d3e4fe",
-                      "secondary": "#006b5f",
-                      "on-primary-fixed-variant": "#2f2ebe",
-                      "on-error-container": "#93000a",
-                      "tertiary-fixed": "#ffddb8",
-                      "inverse-on-surface": "#eaf1ff",
-                      "primary-fixed-dim": "#c0c1ff",
-                      "tertiary-container": "#a36700",
-                      "on-surface-variant": "#464554",
-                      "outline-variant": "#c7c4d7",
-                      "on-tertiary-fixed": "#2a1700",
-                      "on-tertiary-container": "#fffbff",
-                      "primary": "#4648d4",
-                      "on-primary": "#ffffff",
-                      "primary-fixed": "#e1e0ff",
-                      "surface-container-high": "#dce9ff",
-                      "surface-container-low": "#eff4ff",
-                      "surface-container-lowest": "#ffffff",
-                      "surface-container": "#e5eeff",
-                      "inverse-primary": "#c0c1ff",
-                      "on-error": "#ffffff",
-                      "on-surface": "#0b1c30",
-                      "secondary-fixed-dim": "#4fdbc8",
-                      "on-background": "#0b1c30",
-                      "surface-variant": "#d3e4fe",
-                      "surface-bright": "#f8f9ff",
-                      "secondary-container": "#6df5e1",
-                      "surface-dim": "#cbdbf5",
-                      "secondary-fixed": "#71f8e4",
-                      "inverse-surface": "#213145",
-                      "on-secondary-container": "#006f64",
-                      "primary-container": "#6063ee",
-                      "on-tertiary": "#ffffff",
-                      "on-secondary": "#ffffff",
-                      "error": "#ba1a1a",
-                      "on-secondary-fixed-variant": "#005048",
-                      "on-tertiary-fixed-variant": "#653e00",
-                      "on-primary-container": "#fffbff",
-                      "background": "#f8f9ff",
-                      "outline": "#767586"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.25rem",
-                      "lg": "0.5rem",
-                      "xl": "0.75rem",
-                      "full": "9999px"
-              },
-              "spacing": {
-                      "md": "16px",
-                      "container-max": "1280px",
-                      "sm": "12px",
-                      "sidebar-width": "260px",
-                      "base": "8px",
-                      "navbar-height": "64px",
-                      "xxl": "48px",
-                      "lg": "24px",
-                      "xl": "32px",
-                      "xs": "4px"
-              },
-              "fontFamily": {
-                      "headline-md": ["Inter"],
-                      "label-sm": ["Inter"],
-                      "body-md": ["Inter"],
-                      "body-sm": ["Inter"],
-                      "label-md": ["Inter"],
-                      "body-lg": ["Inter"],
-                      "headline-lg": ["Inter"],
-                      "headline-sm": ["Inter"],
-                      "display": ["Inter"]
-              },
-              "fontSize": {
-                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                      "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
-                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
-                      "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
-                      "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
-              }
-            },
-          },
-        }
-    </script>
-</head>
-<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
-<!-- TopNavBar -->
-<header class="bg-surface-container-lowest dark:bg-surface-dim docked full-width top-0 z-50 border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none h-navbar-height sticky">
-<div class="flex justify-between items-center px-lg h-full w-full max-w-container-max mx-auto">
-<div class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">
-                IFRI_MentorLink
-            </div>
-<nav class="hidden md:flex items-center gap-xl">
-<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-label-md text-label-md" href="#">Accueil</a>
-<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-label-md text-label-md" href="#">Découvrir</a>
-<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-label-md text-label-md" href="#">Flux</a>
-<a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">Messages</a>
-</nav>
-<div class="flex items-center gap-md">
-<button class="p-xs text-on-surface-variant hover:bg-surface-container-high rounded-full transition-all">
-<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
-</button>
-<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
-<img alt="User avatar" class="w-full h-full object-cover" data-alt="A professional close-up portrait of a young male university student with a friendly expression. The lighting is soft and natural, coming from a large window in a modern academic library background with blurred books and warm wooden textures. The style is clean and corporate, reflecting a supportive mentorship environment with a bright, light-mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOEn3VIodo1jjpRli3N0nyhVQKuaE2LD011dFp0vX_O8xIKBWYGGktxyP8eGQAP1iq5LnxvMkVhdcXNW3nvfBRL3au2kb2S1Y05rNicNAcP3Csxbhr3zflPNB8kqg_NEjU9mp0VhfVaIa3QNWZTtGaBe0WVKXLkOglQxm2QZg7xzYiD-RoSLdZLP0TsiZ8CvFmll88wsopBElqVS9opDnKfy6L3GT2twjWvRnWImJqGDkm8uQrn_r_sEsyqBcIqGECyqmG3LTR_jk"/>
-</div>
-</div>
-</div>
-</header>
-<main class="flex flex-1 w-full max-w-container-max mx-auto overflow-hidden">
-<!-- SideNavBar -->
-<aside class="hidden md:flex flex-col p-md border-r border-outline-variant dark:border-outline w-sidebar-width bg-surface-container-low dark:bg-inverse-surface shrink-0">
-<div class="mb-xl px-md">
-<h2 class="font-headline-sm text-headline-sm font-bold text-primary">Tableau de Bord</h2>
-<p class="text-on-surface-variant text-label-sm font-label-sm">Gérez vos mentorats</p>
-</div>
-<nav class="flex flex-col gap-xs flex-1">
-<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-<span class="font-label-md text-label-md">Vue d'ensemble</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
-<span class="font-label-md text-label-md">Mes Offres</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
-<span class="font-label-md text-label-md">Mon Profil</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="{% url 'account_settings' %}">
-<span class="material-symbols-outlined" data-icon="settings">settings</span>
-<span class="font-label-md text-label-md">Paramètres</span>
-</a>
-</nav>
-<button class="mt-auto bg-primary text-on-primary font-label-md text-label-md py-sm px-md rounded-lg hover:bg-primary-container transition-all flex items-center justify-center gap-sm">
-<span class="material-symbols-outlined" data-icon="search">search</span>
-                Trouver un Mentor
-            </button>
-</aside>
-<!-- Message Interface Container -->
-<div class="flex flex-1 overflow-hidden bg-surface-container-lowest">
+{% block content %}
+<div class="flex flex-1 overflow-hidden h-full">
+
 <!-- Chat List Sidebar -->
 <div class="w-80 border-r border-outline-variant flex flex-col shrink-0">
 <div class="p-md">
@@ -240,14 +67,14 @@
 </button>
 </div>
 </div>
-<!-- Messages Content -->
+<!-- Contenu des messages -->
 <div class="flex-1 overflow-y-auto p-xl space-y-lg custom-scrollbar">
 <div class="flex justify-center">
 <span class="bg-surface-container-high text-on-surface-variant px-md py-1 rounded-full text-label-sm font-label-sm">Hier</span>
 </div>
 {% for msg in messages %}
     {% if msg.expediteur == request.user %}
-        <!-- Sent Message -->
+        <!-- Message envoyé -->
         <div class="flex flex-row-reverse gap-md max-w-[80%] ml-auto">
         <div class="space-y-xs text-right">
         <div class="bg-primary text-on-primary p-md rounded-2xl rounded-br-none shadow-md">
@@ -260,7 +87,7 @@
         </div>
         </div>
     {% else %}
-        <!-- Received Message -->
+        <!-- Message reçu -->
         <div class="flex gap-md max-w-[80%]">
         <div class="w-8 h-8 rounded-full border border-outline-variant bg-primary-container text-on-primary-container flex items-center justify-center font-bold self-end mb-xs">
             {{ msg.expediteur.prenom|first|upper }}{{ msg.expediteur.nom|first|upper }}
@@ -277,9 +104,10 @@
     <div class="text-center py-xl text-on-surface-variant font-label-md">Aucun message pour l'instant. Commencez la discussion !</div>
 {% endfor %}
 </div>
-<!-- Message Input Area -->
+<!-- Zone de saisie de message -->
 <div class="p-lg bg-surface-container-lowest border-t border-outline-variant shrink-0">
-<div class="max-w-4xl mx-auto flex items-end gap-md bg-surface-container-low rounded-2xl p-sm border border-outline-variant focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all shadow-sm">
+<form id="message-form" class="max-w-4xl w-full mx-auto flex items-end gap-md bg-surface-container-low rounded-2xl p-sm border border-outline-variant focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all shadow-sm">
+                {% csrf_token %}
 <button class="p-sm text-on-surface-variant hover:text-primary transition-colors">
 <span class="material-symbols-outlined" data-icon="add_circle">add_circle</span>
 </button>
@@ -287,7 +115,7 @@
 <span class="material-symbols-outlined" data-icon="mood">mood</span>
 </button>
 <div class="flex-1 min-h-[44px] flex items-center">
-<textarea class="w-full bg-transparent border-none focus:ring-0 text-body-md font-body-md resize-none py-2 max-h-32 custom-scrollbar" placeholder="Écrivez un message..." rows="1"></textarea>
+<textarea name="contenu" id="message-textarea" class="w-full bg-transparent border-none focus:ring-0 text-body-md font-body-md resize-none py-2 max-h-32 custom-scrollbar" placeholder="Écrivez un message..." rows="1"></textarea>
 </div>
 <button class="bg-primary text-on-primary w-11 h-11 rounded-xl flex items-center justify-center hover:bg-primary-container transition-all active:scale-95 shadow-lg shadow-primary/20">
 <span class="material-symbols-outlined" data-icon="send" style="font-variation-settings: 'FILL' 1;">send</span>
@@ -299,61 +127,78 @@
 </div>
 </section>
 <!-- Profile Info Sidebar (Collapsible in real app) -->
-<aside class="hidden xl:flex w-72 border-l border-outline-variant flex-col bg-surface-container-lowest">
-<div class="p-xl text-center flex flex-col items-center">
-<div class="w-24 h-24 rounded-2xl overflow-hidden mb-md shadow-lg border border-outline-variant">
-<img alt="Sarah Chen Large" class="w-full h-full object-cover" data-alt="A high-resolution professional headshot of Dr. Sarah Chen, showing her warm and intelligent personality. She is a mentor in a modern academic environment. The photo features soft, clean lighting and a minimalist background with a shallow depth of field. The corporate modern style is reinforced through the high contrast and light mode presentation." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW_m8JAvt9qK5v1O-Y16GJVXirqVmFd7pSEn8V5FKLdJbtWB3VADude7Tgs9G3wCeOBIaQsgtPaz7kQE2YfgjpSPkIDytzvN3BqEZQ0jM5Gtsj0EbocGjdYLuMUgV0g6qem9uw3OV_cg2g9wWvwZB0Zu0FeAVHp7Wq_iWbelcin84bos1P6_2AdjYG64Ye6ynSN59DDuXsaYQqw-yYrIpVfV1b0PQWSkoAQEWgNf_5AxnW7ktnPqQUCZN6-mbGMJziqupWahap4v4"/>
-</div>
-<h4 class="font-headline-sm text-headline-sm text-on-surface">Dr. Sarah Chen</h4>
-<p class="text-label-md font-label-md text-on-surface-variant mt-1">Chercheuse Senior</p>
-<div class="flex gap-sm mt-lg">
-<span class="bg-primary-fixed text-on-primary-fixed px-sm py-1 rounded-full text-[10px] font-bold">ÉCONOMIE</span>
-<span class="bg-secondary-fixed text-on-secondary-fixed px-sm py-1 rounded-full text-[10px] font-bold">TOP MENTOR</span>
-</div>
-</div>
-<div class="px-xl py-md border-t border-surface-variant">
-<h5 class="text-label-sm font-bold text-on-surface-variant uppercase tracking-wider mb-md">Médias Partagés</h5>
-<div class="grid grid-cols-3 gap-sm">
-<div class="aspect-square bg-surface-container-high rounded-lg overflow-hidden border border-outline-variant group cursor-pointer relative">
-<img alt="Shared 1" class="w-full h-full object-cover" data-alt="A blurred office desk with a laptop and documents, emphasizing professional research and collaboration. The lighting is soft and neutral, consistent with the light-mode UI aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbNgQcAVSxRqR3OXvZP2p1mXqgLgkZBeQgBCVlWQxz5mBL7oD2gypg3y3mXO6ECNpW0_6HjJqn2MnpN8CLP0SOHCc80dz6y8d0yCaxaxe9aAVMDAH6sMGC5jqlxMp0OUKf9JiwaBdB5cMMrpQ1xiY8Jq0JOU3xBx31sZEy_xnOp0Rj_z8oev-mvLMjCPMhcvOrc_u8SvtQO7MTkLEb4pT2cnlC6Tpk352BNuVLN056vQ62QiU8tPnMlc4Q-hoXdYuZeKKbhvUpjhI"/>
-</div>
-<div class="aspect-square bg-surface-container-high rounded-lg overflow-hidden border border-outline-variant group cursor-pointer">
-<img alt="Shared 2" class="w-full h-full object-cover" data-alt="A clean, colorful bar chart showing growth trends in a business context. The style is modern and minimalist with a bright, high-key light mode look." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAu0eTZTogkt2YLorYf9cVr-rPu4mJEHuI54hej_UjBYbbnRHEEskwxYQmnDAu0bVUdOJGEeT6uLvdahPiADtUWdrag4XG0xL6n_ytERNe-CTge_ZMyrr39r3XHfCAoW378PsdE_D_9nl2BIJMkKSRtF8jKgOVKMI6chDxkHm4a0jKpm6JnkGtCjEVNsjqWZS3z9v-zWnJO1Pa9S56CbV-36qJfqQFwzTqsps11_vVkg6AOdh-vd5VtnvGbh4R1oZLy7Fz1DzxXJNc"/>
-</div>
-<div class="aspect-square bg-surface-container-high rounded-lg flex items-center justify-center border border-outline-variant hover:bg-surface-variant cursor-pointer transition-colors">
-<span class="text-primary font-bold text-xs">+12</span>
-</div>
-</div>
-</div>
-<div class="mt-auto p-xl border-t border-surface-variant">
-<button class="w-full flex items-center justify-between text-on-surface-variant hover:text-error transition-colors font-label-md text-label-md mb-md">
-<span>Bloquer le contact</span>
-<span class="material-symbols-outlined text-[20px]" data-icon="block">block</span>
-</button>
-<button class="w-full flex items-center justify-between text-on-surface-variant hover:text-error transition-colors font-label-md text-label-md">
-<span>Signaler le mentorat</span>
-<span class="material-symbols-outlined text-[20px]" data-icon="report">report</span>
-</button>
-</div>
-</aside>
+
 </div>
 </main>
-<script>
-        // Micro-interactions for the message input
-        const textarea = document.querySelector('textarea');
-        textarea.addEventListener('input', function() {
-            this.style.height = 'auto';
-            this.style.height = (this.scrollHeight) + 'px';
-        });
 
-        // Simple mock send interaction
-        const sendBtn = document.querySelector('button .material-symbols-outlined[data-icon="send"]').parentElement;
-        sendBtn.addEventListener('click', () => {
-            if (textarea.value.trim() !== "") {
-                console.log("Message sent:", textarea.value);
-                textarea.value = "";
-                textarea.style.height = 'auto';
-            }
-        });
-    </script>
-</body></html>
+</div>
+{% endblock %}
+{% block extra_scripts %}
+<script>
+        const form = document.getElementById('message-form');
+        const textarea = document.getElementById('message-textarea');
+        const chatContainer = document.getElementById('chat-container');
+
+        if (textarea) {
+            textarea.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+            
+            textarea.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    form.dispatchEvent(new Event('submit'));
+                }
+            });
+        }
+
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const contenu = textarea.value.trim();
+                if (contenu === "") return;
+
+                const formData = new FormData(form);
+                
+                fetch("{% url 'envoyer_message' conversation.id %}", {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.erreur) {
+                        alert(data.erreur);
+                    } else {
+                        const msgHTML = `
+                        <div class="flex flex-col items-end mb-md">
+                            <div class="max-w-[85%] sm:max-w-[75%]">
+                                <div class="bg-primary text-on-primary rounded-2xl rounded-br-none p-md shadow-sm">
+                                    <p class="text-body-md font-body-md whitespace-pre-wrap">${contenu.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</p>
+                                </div>
+                                <div class="flex items-center justify-end gap-1 mt-1">
+                                    <span class="text-[11px] text-on-surface-variant font-medium">À l'instant</span>
+                                    <span class="material-symbols-outlined text-[14px] text-outline" data-icon="done_all">done_all</span>
+                                </div>
+                            </div>
+                        </div>`;
+                        
+                        chatContainer.insertAdjacentHTML('beforeend', msgHTML);
+                        chatContainer.scrollTop = chatContainer.scrollHeight;
+                        
+                        textarea.value = '';
+                        textarea.style.height = 'auto';
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            });
+        }
+        
+        if(chatContainer) {
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+</script>
+{% endblock %}

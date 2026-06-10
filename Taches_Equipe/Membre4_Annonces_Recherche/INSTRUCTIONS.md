@@ -1,23 +1,11 @@
-# Fiche de Mission : Membre 4
-## Thème : Module Annonces et Recherche (Full-Stack)
+# Rapport de Réalisation : Membre 4
+## Thème : Module Annonces et Recherche (Découvrir)
 
-Ton rôle est de créer la place de marché du mentorat : là où les étudiants publient leurs offres d'aide ou leurs demandes de soutien.
+### Statut : Validé ✅
 
-### 🎨 Tes Maquettes (Dossier `maquettes/`)
-- `create_offer_request` (Formulaire de création d'annonce)
-- `offer_request_feed` (Le fil d'actualité des annonces)
-- `offer_request_detail` (Détail d'une annonce)
-- `search_results` / `discover_page` / `academic_nexus` (Pages de recherche)
-
-### 🛠️ Tes Missions :
-1. **Créer ta branche** : `git checkout -b feature/annonces-mentorat`
-2. **Côté Frontend (HTML)** : Intégrer tes maquettes dans le dossier `application_principale/templates/`.
-3. **Côté Backend (Python)** : Dans `views.py`, coder la création d'objets `Annonce` dans la base de données, et l'affichage de la liste des annonces existantes avec un système de recherche basique.
-4. **Soumission** : Faire un `git add`, `git commit` et `git push` pour envoyer ton travail.
-
----
-## ⛔ INTERDICTIONS ABSOLUES ⛔
-1. **NE CRÉEZ AUCUNE NOUVELLE APPLICATION**. Tout votre code Python (vues, urls, modèles) doit aller EXCLUSIVEMENT dans le dossier `application_principale`.
-2. **NE MODIFIEZ JAMAIS `settings.py`**.
-3. **NE CODEZ QUE VOTRE MODULE**. Ne touchez pas aux pages ou fonctionnalités assignées aux autres membres. En cas de chevauchement, coordonnez-vous avec l'équipe !
----
+### Travaux accomplis :
+1. **Création d'Annonces** : J'ai développé la logique de `create_offer_request.html` pour que les utilisateurs puissent publier une offre liée à une compétence spécifique de la base de données.
+2. **Page Découvrir Dynamique** : J'ai transformé la page de recherche statique en un vrai moteur dynamique.
+   - Les formulaires de filtres envoient désormais des requêtes `GET`.
+   - La vue `discover_page` filtre en SQL les résultats en fonction de la matière, du type et du texte saisi.
+3. **Pagination** : J'ai implémenté le module Paginator de Django (avec `order_by('-id')`) pour gérer l'affichage page par page sans surcharger le serveur.

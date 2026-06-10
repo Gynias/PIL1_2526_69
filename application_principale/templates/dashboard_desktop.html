@@ -1,197 +1,17 @@
-<!DOCTYPE html>
+{% extends 'base_dashboard.html' %}
+{% load static %}
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>IFRI_MentorLink - Dashboard</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(8px);
-        }
-        /* Custom scrollbar for activity feed */
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #E2E8F0;
-            border-radius: 10px;
-        }
-    </style>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-secondary-fixed": "#00201c",
-                        "tertiary": "#825100",
-                        "surface-tint": "#494bd6",
-                        "error-container": "#ffdad6",
-                        "tertiary-fixed-dim": "#ffb95f",
-                        "surface": "#f8f9ff",
-                        "on-primary-fixed": "#07006c",
-                        "surface-container-highest": "#d3e4fe",
-                        "secondary": "#006b5f",
-                        "on-primary-fixed-variant": "#2f2ebe",
-                        "on-error-container": "#93000a",
-                        "tertiary-fixed": "#ffddb8",
-                        "inverse-on-surface": "#eaf1ff",
-                        "primary-fixed-dim": "#c0c1ff",
-                        "tertiary-container": "#a36700",
-                        "on-surface-variant": "#464554",
-                        "outline-variant": "#c7c4d7",
-                        "on-tertiary-fixed": "#2a1700",
-                        "on-tertiary-container": "#fffbff",
-                        "primary": "#4648d4",
-                        "on-primary": "#ffffff",
-                        "primary-fixed": "#e1e0ff",
-                        "surface-container-high": "#dce9ff",
-                        "surface-container-low": "#eff4ff",
-                        "surface-container-lowest": "#ffffff",
-                        "surface-container": "#e5eeff",
-                        "inverse-primary": "#c0c1ff",
-                        "on-error": "#ffffff",
-                        "on-surface": "#0b1c30",
-                        "secondary-fixed-dim": "#4fdbc8",
-                        "on-background": "#0b1c30",
-                        "surface-variant": "#d3e4fe",
-                        "surface-bright": "#f8f9ff",
-                        "secondary-container": "#6df5e1",
-                        "surface-dim": "#cbdbf5",
-                        "secondary-fixed": "#71f8e4",
-                        "inverse-surface": "#213145",
-                        "on-secondary-container": "#006f64",
-                        "primary-container": "#6063ee",
-                        "on-tertiary": "#ffffff",
-                        "on-secondary": "#ffffff",
-                        "error": "#ba1a1a",
-                        "on-secondary-fixed-variant": "#005048",
-                        "on-tertiary-fixed-variant": "#653e00",
-                        "on-primary-container": "#fffbff",
-                        "background": "#f8f9ff",
-                        "outline": "#767586"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "md": "16px",
-                        "container-max": "1280px",
-                        "sm": "12px",
-                        "sidebar-width": "260px",
-                        "base": "8px",
-                        "navbar-height": "64px",
-                        "xxl": "48px",
-                        "lg": "24px",
-                        "xl": "32px",
-                        "xs": "4px"
-                    },
-                    "fontFamily": {
-                        "headline-md": ["Inter"],
-                        "label-sm": ["Inter"],
-                        "body-md": ["Inter"],
-                        "body-sm": ["Inter"],
-                        "label-md": ["Inter"],
-                        "body-lg": ["Inter"],
-                        "headline-lg": ["Inter"],
-                        "headline-sm": ["Inter"],
-                        "headline-lg-mobile": ["Inter"],
-                        "display": ["Inter"]
-                    },
-                    "fontSize": {
-                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
-                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
-                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
-                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
-                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
-                    }
-                },
-            },
-        }
-    </script>
-</head>
-<body class="bg-background text-on-surface">
-<!-- TopNavBar -->
-<nav class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest border-b border-outline-variant shadow-sm flex justify-between items-center px-lg h-navbar-height">
-<div class="flex items-center gap-md">
-<span class="font-headline-md text-headline-md font-bold text-primary">IFRI_MentorLink</span>
-</div>
-<div class="hidden md:flex items-center gap-xl">
-<a class="text-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">Accueil</a>
-<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Découvrir</a>
-<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Fil d'actualité</a>
-<a class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="#">Messages</a>
-</div>
-<div class="flex items-center gap-md">
-<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-all">notifications</button>
-<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
-<img alt="User avatar" data-alt="A professional and friendly portrait of a university student with a warm smile, wearing a modern navy blue blazer. The background is a brightly lit, soft-focus campus library interior, emphasizing an academic yet accessible atmosphere. The lighting is clean and high-key, aligning with a professional light-mode UI design." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSrrapqkrysejmLHRv88S19P9eYugQAoUswvmUduyLJcEozmUCBprHKQmqt2PCOshZBxzQuUFKx0DfYrcYaCSsm7f8_LciWDrvwHdsZt8AEXr8cUHqUY4_BOlHU6XRXgU_N4wjqZzcz15GchdgWKd6ftj9rHFGDpFOJvk2S2cIVk1U57Y8LFduZlokrB9L8Iw2CXF74g3TwGPZmiMPD4F_3btk8XVivUOWWFj7b3e8TRneqF6AiX51I6ztO2vL4jH8cbe0dx6A5cY"/>
-</div>
-</div>
-</nav>
-<div class="flex pt-[64px]">
-<!-- SideNavBar -->
-<aside class="fixed left-0 top-0 h-full w-sidebar-width flex flex-col p-md bg-surface-container-low border-r border-outline-variant z-40 pt-[80px]">
-<div class="mb-xl">
-<h2 class="font-headline-sm text-headline-sm font-bold text-primary">Tableau de Bord</h2>
-<p class="font-label-md text-label-md text-on-surface-variant">Gérez vos mentorats</p>
-</div>
-<nav class="flex flex-col gap-xs flex-grow">
-<a class="flex items-center gap-md bg-primary-container text-on-primary-container rounded-lg px-md py-sm scale-[0.98] duration-200" href="#">
-<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
-<span class="font-label-md text-label-md">Vue d'ensemble</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined" data-icon="handshake">handshake</span>
-<span class="font-label-md text-label-md">Mes Offres</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
-<span class="font-label-md text-label-md">Mon Profil</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant hover:bg-surface-container-high rounded-lg px-md py-sm transition-all" href="{% url 'account_settings' %}">
-<span class="material-symbols-outlined" data-icon="settings">settings</span>
-<span class="font-label-md text-label-md">Paramètres</span>
-</a>
-</nav>
-<button class="mt-auto w-full bg-primary text-on-primary font-label-md text-label-md py-md rounded-xl hover:opacity-90 transition-all flex items-center justify-center gap-sm shadow-md">
-<span class="material-symbols-outlined" data-icon="person_search">person_search</span>
-    Trouver un Mentor
-</button>
-</aside>
-<!-- Main Content Canvas -->
-<main class="ml-sidebar-width w-full min-h-screen p-xl">
+{% block content %}
+
 <div class="max-w-container-max mx-auto space-y-xl">
 <!-- Welcome Banner (Asymmetric Layout) -->
 <header class="relative overflow-hidden rounded-xxl bg-primary p-xxl text-on-primary flex flex-col md:flex-row items-center gap-xl shadow-lg">
 <div class="relative z-10 flex-1 space-y-md">
-<h1 class="font-display text-display leading-tight">Heureux de vous revoir, {{ utilisateur.prenom|default:utilisateur.username }} !</h1>
+<h1 class="font-display text-display leading-tight">Heureux de vous revoir, {{ utilisateur.prenom|default:utilisateur.email }} !</h1>
 <p class="font-body-lg text-body-lg opacity-90 max-w-xl">Vous avez {{ matchings|length }} mentorats actifs. Explorez les dernières annonces ou ajustez vos paramètres.</p>
 <div class="flex gap-md pt-md">
-<a href="{% url 'lancer_matching' %}" class="bg-on-primary text-primary px-xl py-sm rounded-lg font-label-md text-label-md hover:scale-105 transition-transform inline-block">Voir les Matchings</a>
-<a href="{% url 'account_settings' %}" class="border border-on-primary text-on-primary px-xl py-sm rounded-lg font-label-md text-label-md hover:bg-white/10 transition-colors inline-block">Compléter le profil</a>
+<a class="bg-on-primary text-primary px-xl py-sm rounded-lg font-label-md text-label-md hover:scale-105 transition-transform inline-block" href="{% url 'lancer_matching' %}">Voir les Compatibleings</a>
+<a class="border border-on-primary text-on-primary px-xl py-sm rounded-lg font-label-md text-label-md hover:bg-white/10 transition-colors inline-block" href="{% url 'account_settings' %}">Compléter le profil</a>
 </div>
 </div>
 <div class="relative w-full md:w-1/3 aspect-square rounded-full overflow-hidden border-8 border-white/10 shrink-0">
@@ -227,7 +47,7 @@
 </div>
 <span class="text-primary font-label-sm text-label-sm bg-primary-fixed/20 px-sm py-xs rounded-full">Nouveau !</span>
 </div>
-<h3 class="font-label-md text-label-md text-on-surface-variant">Matchs Totaux</h3>
+<h3 class="font-label-md text-label-md text-on-surface-variant">Compatibles Totaux</h3>
 <p class="font-headline-lg text-headline-lg text-on-surface mt-xs">{{ matchings|length }}</p>
 </div>
 </section>
@@ -236,18 +56,18 @@
 <section class="lg:col-span-2 space-y-lg">
 <div class="flex justify-between items-end">
 <div>
-<h2 class="font-headline-md text-headline-md text-on-surface">Vos Matchings</h2>
+<h2 class="font-headline-md text-headline-md text-on-surface">Vos Compatibleings</h2>
 <p class="font-body-sm text-body-sm text-on-surface-variant">Mentors et mentorés associés</p>
 </div>
-<a href="{% url 'lancer_matching' %}" class="text-primary font-label-md text-label-md hover:underline">Voir tout</a>
+<a class="text-primary font-label-md text-label-md hover:underline" href="{% url 'lancer_matching' %}">Voir tout</a>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-lg">
 {% for matching in matchings %}
 <div class="bg-surface-container-lowest border border-outline-variant p-md rounded-xl shadow-sm hover:shadow-lg transition-all transform hover:-translate-y-1">
 <div class="relative mb-md">
-<img alt="Mentor Avatar" class="w-full aspect-square object-cover rounded-lg" src="https://ui-avatars.com/api/?name={{ matching.mentor.prenom|urlencode }}+{{ matching.mentor.nom|urlencode }}&background=random" />
+<img alt="Mentor Avatar" class="w-full aspect-square object-cover rounded-lg" src="https://ui-avatars.com/api/?name={{ matching.mentor.prenom|urlencode }}+{{ matching.mentor.nom|urlencode }}&amp;background=random"/>
 <div class="absolute top-sm right-sm bg-white/90 backdrop-blur-md px-sm py-xs rounded-full shadow-sm">
-<span class="text-[#15803d] font-bold text-label-sm font-label-sm">{{ matching.score_global }}% Match</span>
+<span class="text-[#15803d] font-bold text-label-sm font-label-sm">{{ matching.score_global }}% Compatible</span>
 </div>
 </div>
 <h4 class="font-headline-sm text-headline-sm text-on-surface">{% if matching.mentor == utilisateur %}{{ matching.mentore.prenom }} {{ matching.mentore.nom }}{% else %}{{ matching.mentor.prenom }} {{ matching.mentor.nom }}{% endif %}</h4>
@@ -255,7 +75,13 @@
 <button class="w-full mt-lg border border-primary text-primary py-sm rounded-lg font-label-md text-label-md hover:bg-primary/5 transition-colors">Contacter</button>
 </div>
 {% empty %}
-<p class="text-on-surface-variant">Aucun matching disponible pour le moment.</p>
+<div class="col-span-1 md:col-span-2 xl:col-span-3 flex flex-col items-center justify-center py-12 bg-surface-container-lowest rounded-xl border border-dashed border-outline-variant">
+    <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-sm text-primary">
+        <span class="material-symbols-outlined" data-icon="handshake">handshake</span>
+    </div>
+    <h4 class="font-headline-sm text-headline-sm text-on-surface mb-xs">Pas encore de match</h4>
+    <p class="text-on-surface-variant font-body-sm text-center max-w-sm">Lancez l'algorithme de matching pour découvrir les profils qui correspondent le mieux à vos besoins et compétences.</p>
+</div>
 {% endfor %}
 </div>
 </section>
@@ -280,23 +106,30 @@
 <div class="pb-md">
 <p class="font-body-sm text-body-sm text-on-surface"><span class="font-bold">{{ pub.competence.nom }}</span> - {{ pub.get_type_publication_display }}</p>
 <p class="font-label-sm text-label-sm text-on-surface-variant mt-1">Publié le {{ pub.date_creation|date:"d M Y" }}</p>
-<a href="{% url 'offer_request_detail' pub.id %}" class="text-xs text-primary hover:underline">Voir les détails</a>
+<a class="text-xs text-primary hover:underline" href="{% url 'offer_request_detail' pub.id %}">Voir les détails</a>
 </div>
 </div>
 {% empty %}
-<p class="text-on-surface-variant text-sm">Vous n'avez pas encore publié d'annonce.</p>
+<div class="flex flex-col items-center justify-center py-8 px-4 text-center h-full">
+    <div class="w-12 h-12 bg-tertiary/10 rounded-full flex items-center justify-center mb-sm text-tertiary">
+        <span class="material-symbols-outlined" data-icon="campaign">campaign</span>
+    </div>
+    <p class="text-on-surface font-label-md mb-xs">Aucune annonce</p>
+    <p class="text-on-surface-variant text-xs mb-md">Vous n'avez pas encore publié d'offre ou de demande de mentorat.</p>
+    <a href="{% url 'create_offer_request' %}" class="btn-interactive px-md py-xs bg-surface-container-high text-on-surface rounded-lg font-label-sm text-label-sm hover:bg-surface-container-highest transition-colors">Créer maintenant</a>
+</div>
 {% endfor %}
 </div>
 <div class="p-md border-t border-outline-variant text-center">
-<a href="{% url 'create_offer_request' %}" class="font-label-md text-label-md text-primary hover:underline">Publier une annonce</a>
+<a class="font-label-md text-label-md text-primary hover:underline" href="{% url 'create_offer_request' %}">Publier une annonce</a>
 </div>
 </div>
 </section>
 </div>
 </div>
-</main>
-</div>
-<!-- Micro-interaction Scripts -->
+
+{% endblock %}
+{% block extra_scripts %}
 <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Simple hover effect for mentor cards
@@ -316,4 +149,4 @@
             }
         });
     </script>
-</body></html>
+{% endblock %}

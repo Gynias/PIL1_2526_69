@@ -1,177 +1,10 @@
-<!DOCTYPE html>
+{% extends 'base_dashboard.html' %}
+{% load static %}
 
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Search Results | IFRI_MentorLink</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-        }
-    </style>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-secondary-fixed": "#00201c",
-                        "tertiary": "#825100",
-                        "surface-tint": "#494bd6",
-                        "error-container": "#ffdad6",
-                        "tertiary-fixed-dim": "#ffb95f",
-                        "surface": "#f8f9ff",
-                        "on-primary-fixed": "#07006c",
-                        "surface-container-highest": "#d3e4fe",
-                        "secondary": "#006b5f",
-                        "on-primary-fixed-variant": "#2f2ebe",
-                        "on-error-container": "#93000a",
-                        "tertiary-fixed": "#ffddb8",
-                        "inverse-on-surface": "#eaf1ff",
-                        "primary-fixed-dim": "#c0c1ff",
-                        "tertiary-container": "#a36700",
-                        "on-surface-variant": "#464554",
-                        "outline-variant": "#c7c4d7",
-                        "on-tertiary-fixed": "#2a1700",
-                        "on-tertiary-container": "#fffbff",
-                        "primary": "#4648d4",
-                        "on-primary": "#ffffff",
-                        "primary-fixed": "#e1e0ff",
-                        "surface-container-high": "#dce9ff",
-                        "surface-container-low": "#eff4ff",
-                        "surface-container-lowest": "#ffffff",
-                        "surface-container": "#e5eeff",
-                        "inverse-primary": "#c0c1ff",
-                        "on-error": "#ffffff",
-                        "on-surface": "#0b1c30",
-                        "secondary-fixed-dim": "#4fdbc8",
-                        "on-background": "#0b1c30",
-                        "surface-variant": "#d3e4fe",
-                        "surface-bright": "#f8f9ff",
-                        "secondary-container": "#6df5e1",
-                        "surface-dim": "#cbdbf5",
-                        "secondary-fixed": "#71f8e4",
-                        "inverse-surface": "#213145",
-                        "on-secondary-container": "#006f64",
-                        "primary-container": "#6063ee",
-                        "on-tertiary": "#ffffff",
-                        "on-secondary": "#ffffff",
-                        "error": "#ba1a1a",
-                        "on-secondary-fixed-variant": "#005048",
-                        "on-tertiary-fixed-variant": "#653e00",
-                        "on-primary-container": "#fffbff",
-                        "background": "#f8f9ff",
-                        "outline": "#767586"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "md": "16px",
-                        "container-max": "1280px",
-                        "sm": "12px",
-                        "sidebar-width": "260px",
-                        "base": "8px",
-                        "navbar-height": "64px",
-                        "xxl": "48px",
-                        "lg": "24px",
-                        "xl": "32px",
-                        "xs": "4px"
-                    },
-                    "fontFamily": {
-                        "headline-md": ["Inter"],
-                        "label-sm": ["Inter"],
-                        "body-md": ["Inter"],
-                        "body-sm": ["Inter"],
-                        "label-md": ["Inter"],
-                        "body-lg": ["Inter"],
-                        "headline-lg": ["Inter"],
-                        "headline-sm": ["Inter"],
-                        "headline-lg-mobile": ["Inter"],
-                        "display": ["Inter"]
-                    },
-                    "fontSize": {
-                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
-                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
-                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
-                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
-                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
-                        "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
-                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
-                        "display": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
-                    }
-                },
-            },
-        }
-    </script>
-</head>
-<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
-<!-- TopNavBar -->
-<header class="bg-surface-container-lowest dark:bg-surface-dim border-b border-outline-variant dark:border-outline shadow-sm dark:shadow-none fixed top-0 z-50 w-full">
-<nav class="flex justify-between items-center px-lg h-navbar-height w-full max-w-container-max mx-auto">
-<div class="flex items-center gap-xl">
-<span class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary">IFRI_MentorLink</span>
-<div class="hidden md:flex items-center gap-lg">
-<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-label-md text-label-md" href="#">Home</a>
-<a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary pb-1 font-label-md text-label-md" href="#">Discover</a>
-<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-label-md text-label-md" href="#">Feed</a>
-<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-inverse-primary transition-colors font-label-md text-label-md" href="#">Messages</a>
-</div>
-</div>
-<div class="flex items-center gap-md">
-<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-high p-xs rounded-full transition-all">notifications</button>
-<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
-<img alt="User avatar" data-alt="A professional headshot of a young adult with a friendly expression, set against a blurred office background with warm, natural sunlight. The aesthetic is clean and modern, consistent with a high-end corporate mentorship platform using soft indigo and white tones. The lighting is bright and even, highlighting a supportive and professional persona." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrma9fMu1q7qKuXsNr76xPebOIR7D_MqbJOsxj7Q9gidpfOTEQrwtAHbCBvpbWeCY507WZvxt1pJHU_DbdKlUDyG-0V9IbN5ZtHEUozDDfoP7q9mEyvP4cl9Ujse1QvLOuvyxlFV3ennPC-xGJ2TUq9LOPI4-Nt4wia0ioEvitOST28uGlm-swz5cS0m46hZJXm1c0BIfRsmg6W6h0B8i0jaXAV8NcQT6Hu2zBbPjmzeBTnXPzw0pwYVoyY4XmFb8BUyppn0cbuAE"/>
-</div>
-</div>
-</nav>
-</header>
-<div class="flex min-h-screen pt-navbar-height">
-<!-- SideNavBar (Hidden on Mobile, Fixed on Desktop) -->
-<aside class="hidden md:flex fixed left-0 top-0 h-full flex-col p-md border-r border-outline-variant dark:border-outline bg-surface-container-low dark:bg-inverse-surface w-sidebar-width pt-[80px]">
-<div class="mb-xl">
-<h2 class="font-headline-sm text-headline-sm font-bold text-primary">Student Dashboard</h2>
-<p class="font-label-md text-label-md text-on-surface-variant">Manage your mentorships</p>
-</div>
-<nav class="flex flex-col gap-xs flex-1">
-<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined">dashboard</span>
-<span class="font-label-md text-label-md">Dashboard</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined">handshake</span>
-<span class="font-label-md text-label-md">My Offers</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined">account_circle</span>
-<span class="font-label-md text-label-md">My Profile</span>
-</a>
-<a class="flex items-center gap-md text-on-surface-variant dark:text-surface-variant hover:bg-surface-container-high dark:hover:bg-surface-variant rounded-lg px-md py-sm transition-all" href="#">
-<span class="material-symbols-outlined">settings</span>
-<span class="font-label-md text-label-md">Settings</span>
-</a>
-</nav>
-<button class="mt-auto bg-primary text-on-primary rounded-xl px-lg py-md font-label-md text-label-md flex items-center justify-center gap-sm hover:opacity-90 active:scale-[0.98] transition-all">
-<span class="material-symbols-outlined">search</span>
-                Find a Mentor
-            </button>
-</aside>
-<!-- Main Content Area -->
-<main class="flex-1 md:ml-sidebar-width p-lg max-w-container-max mx-auto w-full">
-<!-- Search Header & Filters -->
+{% block content %}
+<div class="max-w-container-max mx-auto space-y-lg">
+
+ En-tête de recherche et filtres 
 <section class="mb-xl">
 <div class="flex flex-col md:flex-row md:items-end justify-between gap-md mb-lg">
 <div>
@@ -181,7 +14,7 @@
 <div class="flex items-center gap-sm">
 <span class="text-label-md font-label-md text-on-surface-variant">Sort by:</span>
 <select class="bg-surface border border-outline rounded-lg px-md py-xs text-label-md font-label-md focus:ring-2 focus:ring-primary outline-none transition-all">
-<option>Best Match</option>
+<option>Best Compatible</option>
 <option>Highest Rating</option>
 <option>Experience (Years)</option>
 <option>Compatibility Score</option>
@@ -192,20 +25,20 @@
 <div class="flex flex-wrap items-center gap-sm py-sm">
 {% if query %}
 <div class="flex items-center gap-xs bg-primary-container text-on-primary-container px-sm py-xs rounded-full text-label-sm font-label-sm shadow-sm">
-    {{ query }} <a href="{% url 'search_results' %}" class="material-symbols-outlined text-[16px]">close</a>
+    {{ query }} <a class="material-symbols-outlined text-[16px]" href="{% url 'search_results' %}">close</a>
 </div>
-<a href="{% url 'search_results' %}" class="text-primary font-label-sm text-label-sm hover:underline ml-xs">Effacer les filtres</a>
+<a class="text-primary font-label-sm text-label-sm hover:underline ml-xs" href="{% url 'search_results' %}">Effacer les filtres</a>
 {% endif %}
 </div>
 </section>
-<!-- Results Grid -->
+ Results Grid 
 <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-lg">
 {% for annonce in annonces %}
 <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md shadow-sm hover:shadow-md transition-all group flex flex-col h-full">
 <div class="flex justify-between items-start mb-md">
 <div class="flex gap-md">
 <div class="w-16 h-16 rounded-xl overflow-hidden shadow-sm">
-<img alt="Avatar" src="https://ui-avatars.com/api/?name={{ annonce.auteur.nom|urlencode }}+{{ annonce.auteur.prenom|urlencode }}&background=random"/>
+<img alt="Avatar" src="https://ui-avatars.com/api/?name={{ annonce.auteur.nom|urlencode }}+{{ annonce.auteur.prenom|urlencode }}&amp;background=random"/>
 </div>
 <div>
 <h3 class="font-headline-sm text-headline-sm text-on-surface">{{ annonce.auteur.prenom }} {{ annonce.auteur.nom }}</h3>
@@ -226,16 +59,16 @@
     {% if annonce.jour %}{{ annonce.get_jour_display }}{% else %}Tous les jours{% endif %}
 </span>
 </div>
-<a href="{% url 'offer_request_detail' annonce.id %}" class="bg-primary text-on-primary px-lg py-xs rounded-lg font-label-md text-label-md hover:bg-primary-container transition-all">Voir l'annonce</a>
+<a class="bg-primary text-on-primary px-lg py-xs rounded-lg font-label-md text-label-md hover:bg-primary-container transition-all" href="{% url 'offer_request_detail' annonce.id %}">Voir l'annonce</a>
 </div>
 </div>
 {% empty %}
 <div class="col-span-3 text-center py-10">
-  <p class="text-on-surface-variant font-body-md">Aucune annonce trouvée pour cette recherche.</p>
+<p class="text-on-surface-variant font-body-md">Aucune annonce trouvée pour cette recherche.</p>
 </div>
 {% endfor %}
 </div>
-<!-- Pagination -->
+ Pagination 
 <div class="mt-xxl flex justify-center items-center gap-sm">
 <button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline text-on-surface-variant hover:bg-surface-container transition-all">
 <span class="material-symbols-outlined">chevron_left</span>
@@ -249,12 +82,11 @@
 <span class="material-symbols-outlined">chevron_right</span>
 </button>
 </div>
-</main>
+
 </div>
-<!-- Floating Action Button - Mobile Only -->
-<button class="md:hidden fixed bottom-xl right-lg bg-primary text-on-primary w-14 h-14 rounded-full shadow-lg flex items-center justify-center z-40 active:scale-95 transition-all">
-<span class="material-symbols-outlined text-[28px]">filter_list</span>
-</button>
+{% endblock %}
+
+{% block extra_scripts %}
 <script>
         // Micro-interaction for filter chips
         document.querySelectorAll('.material-symbols-outlined').forEach(icon => {
@@ -278,4 +110,5 @@
             }
         });
     </script>
-</body></html>
+</div>
+{% endblock %}

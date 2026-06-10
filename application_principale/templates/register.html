@@ -172,30 +172,41 @@
 <section class="p-xl md:p-xxl flex flex-col justify-center overflow-y-auto">
 <div class="max-w-md mx-auto w-full">
 <header class="mb-xl">
-<h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Create Account</h2>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Créer un compte</h2>
 <p class="font-body-md text-body-md text-on-surface-variant">Step into the future of mentorship today.</p>
 </header>
-<form action="#" class="space-y-lg" method="POST" onsubmit="return false;">
+
+    {% if messages %}
+    <div class="mb-4">
+        {% for message in messages %}
+        <div class="p-4 mb-2 text-sm text-error bg-error-container rounded-lg">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <form action="{% url 'inscription' %}" class="space-y-lg" method="POST">
+{% csrf_token %}
 <!-- Role Selector (Bento Style Cards) -->
 <div class="space-y-sm">
 <label class="font-label-md text-label-md text-on-surface">Select your role</label>
 <div class="grid grid-cols-3 gap-sm">
 <label class="role-card cursor-pointer">
-<input checked="" class="hidden" name="role" type="radio" value="Mentor"/>
+<input checked="" class="hidden" name="role" type="radio" value="mentor"/>
 <div class="flex flex-col items-center justify-center p-sm border border-outline-variant rounded-xl transition-all hover:bg-surface-container-low text-center h-full">
 <span class="material-symbols-outlined text-primary mb-xs">psychology</span>
 <span class="font-label-sm text-label-sm">Mentor</span>
 </div>
 </label>
 <label class="role-card cursor-pointer">
-<input class="hidden" name="role" type="radio" value="Mentee"/>
+<input class="hidden" name="role" type="radio" value="mentore"/>
 <div class="flex flex-col items-center justify-center p-sm border border-outline-variant rounded-xl transition-all hover:bg-surface-container-low text-center h-full">
 <span class="material-symbols-outlined text-primary mb-xs">school</span>
 <span class="font-label-sm text-label-sm">Mentee</span>
 </div>
 </label>
 <label class="role-card cursor-pointer">
-<input class="hidden" name="role" type="radio" value="Both"/>
+<input class="hidden" name="role" type="radio" value="les_deux"/>
 <div class="flex flex-col items-center justify-center p-sm border border-outline-variant rounded-xl transition-all hover:bg-surface-container-low text-center h-full">
 <span class="material-symbols-outlined text-primary mb-xs">diversity_3</span>
 <span class="font-label-sm text-label-sm">Both</span>
@@ -206,11 +217,11 @@
 <!-- Name Fields -->
 <div class="grid grid-cols-2 gap-md">
 <div class="space-y-xs">
-<label class="font-label-md text-label-md text-on-surface" for="name">First Name</label>
+<label class="font-label-md text-label-md text-on-surface" for="name">Prénom</label>
 <input class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-sm text-body-sm" id="name" name="name" placeholder="John" required="" type="text"/>
 </div>
 <div class="space-y-xs">
-<label class="font-label-md text-label-md text-on-surface" for="surname">Last Name</label>
+<label class="font-label-md text-label-md text-on-surface" for="surname">Nom</label>
 <input class="w-full px-md py-sm rounded-lg border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-sm text-body-sm" id="surname" name="surname" placeholder="Doe" required="" type="text"/>
 </div>
 </div>
@@ -223,15 +234,15 @@
 </div>
 </div>
 <div class="space-y-xs">
-<label class="font-label-md text-label-md text-on-surface" for="phone">Phone Number</label>
+<label class="font-label-md text-label-md text-on-surface" for="phone">Numéro de téléphone</label>
 <div class="relative">
 <span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">call</span>
-<input class="w-full pl-xl pr-md py-sm rounded-lg border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-sm text-body-sm" id="phone" name="phone" placeholder="+1 (555) 000-0000" type="tel"/>
+<input class="w-full pl-xl pr-md py-sm rounded-lg border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-sm text-body-sm" id="phone" name="phone" name="telephone" placeholder="60000000" type="text" required/>
 </div>
 </div>
-<!-- Password Field -->
+<!-- Champ mot de passe -->
 <div class="space-y-xs">
-<label class="font-label-md text-label-md text-on-surface" for="password">Password</label>
+<label class="font-label-md text-label-md text-on-surface" for="password">Mot de passe</label>
 <div class="relative">
 <span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">lock</span>
 <input class="w-full pl-xl pr-md py-sm rounded-lg border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-body-sm text-body-sm" id="password" name="password" placeholder="••••••••" required="" type="password"/>
@@ -245,7 +256,7 @@
 <div class="flex items-start gap-sm">
 <input class="mt-1 w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary transition-all" id="terms" required="" type="checkbox"/>
 <label class="font-body-sm text-body-sm text-on-surface-variant" for="terms">
-                            I agree to the <a class="text-primary font-semibold hover:underline" href="#">Terms of Service</a> and <a class="text-primary font-semibold hover:underline" href="#">Privacy Policy</a>.
+                            I agree to the <a class="text-primary font-semibold hover:underline" href="javascript:void(0);">Terms of Service</a> and <a class="text-primary font-semibold hover:underline" href="javascript:void(0);">Privacy Policy</a>.
                         </label>
 </div>
 <!-- CTA Button -->
@@ -257,14 +268,14 @@
 <footer class="mt-xl text-center">
 <p class="font-body-sm text-body-sm text-on-surface-variant">
                         Already have an account? 
-                        <a class="text-primary font-semibold hover:underline" href="#">Log in</a>
+                        <a class="text-primary font-semibold hover:underline" href="javascript:void(0);">Log in</a>
 </p>
 </footer>
 </div>
 </section>
 </main>
 <script>
-        // Simple password visibility toggle
+        // Bouton de visibilité du mot de passe
         document.querySelector('button[type="button"]').addEventListener('click', function() {
             const input = document.getElementById('password');
             const icon = this.querySelector('span');

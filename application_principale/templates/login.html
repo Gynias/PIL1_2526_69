@@ -169,25 +169,36 @@
 </div>
 </div>
 <div class="mb-xl">
-<h2 class="font-headline-md text-headline-md text-on-surface mb-xs">Welcome back</h2>
-<p class="font-body-md text-body-md text-on-surface-variant">Please enter your details to sign in.</p>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-xs">Heureux de vous revoir</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Veuillez entrer vos identifiants pour vous connecter.</p>
 </div>
-<form class="space-y-lg">
+
+    {% if messages %}
+    <div class="mb-4">
+        {% for message in messages %}
+        <div class="p-4 mb-2 text-sm text-error bg-error-container rounded-lg">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    <form class="space-y-lg" method="POST" action="{% url 'connexion' %}">
+{% csrf_token %}
 <div class="space-y-xs">
 <label class="font-label-md text-label-md text-on-surface-variant" for="identifier">Email or Phone Number</label>
 <div class="relative group">
 <span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">person</span>
-<input class="w-full pl-[48px] pr-md py-[14px] bg-surface rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none font-body-md text-body-md" id="identifier" placeholder="Enter your email or phone" type="text"/>
+<input class="w-full pl-[48px] pr-md py-[14px] bg-surface rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none font-body-md text-body-md" id="identifier" name="email" placeholder="Enter your email or phone" type="email" required/>
 </div>
 </div>
 <div class="space-y-xs">
 <div class="flex justify-between items-center">
-<label class="font-label-md text-label-md text-on-surface-variant" for="password">Password</label>
-<a class="font-label-md text-label-md text-primary hover:underline transition-all" href="#">Forgot password?</a>
+<label class="font-label-md text-label-md text-on-surface-variant" for="password">Mot de passe</label>
+<a class="font-label-md text-label-md text-primary hover:underline transition-all" href="javascript:void(0);">Mot de passe oublié ?</a>
 </div>
 <div class="relative group">
 <span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors">lock</span>
-<input class="w-full pl-[48px] pr-[48px] py-[14px] bg-surface rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none font-body-md text-body-md" id="password" placeholder="••••••••" type="password"/>
+<input class="w-full pl-[48px] pr-[48px] py-[14px] bg-surface rounded-lg border border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary transition-all outline-none font-body-md text-body-md" id="password" name="mot_de_passe" placeholder="••••••••" type="password" required/>
 <button class="absolute right-md top-1/2 -translate-y-1/2 text-outline hover:text-on-surface transition-colors" onclick="togglePasswordVisibility()" type="button">
 <span class="material-symbols-outlined" id="eye-icon">visibility</span>
 </button>
@@ -227,7 +238,7 @@
 </div>
 <p class="text-center font-body-sm text-body-sm text-on-surface-variant">
                         Don't have an account? 
-                        <a class="text-primary font-label-md hover:underline" href="#">Sign up for free</a>
+                        <a class="text-primary font-label-md hover:underline" href="javascript:void(0);">Sign up for free</a>
 </p>
 </div>
 </div>
@@ -238,9 +249,9 @@
 <div class="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-md text-outline font-label-sm text-label-sm">
 <p>© 2024 IFRI_MentorLink. All rights reserved.</p>
 <div class="flex gap-xl">
-<a class="hover:text-primary transition-colors" href="#">Privacy Policy</a>
-<a class="hover:text-primary transition-colors" href="#">Terms of Service</a>
-<a class="hover:text-primary transition-colors" href="#">Help Center</a>
+<a class="hover:text-primary transition-colors" href="javascript:void(0);">Privacy Policy</a>
+<a class="hover:text-primary transition-colors" href="javascript:void(0);">Terms of Service</a>
+<a class="hover:text-primary transition-colors" href="javascript:void(0);">Centre d'aide</a>
 </div>
 </div>
 </footer>
