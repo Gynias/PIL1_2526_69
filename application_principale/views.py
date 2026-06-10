@@ -393,7 +393,10 @@ def detail_conversation(request, conv_id):
             'dernier_message': dernier_msg,
             'non_lus': non_lus,
         })
-    conv_enrichies.sort(key=lambda c: c['dernier_message'].date_envoi if c['dernier_message'] else datetime.min, reverse=True)
+    
+    from django.utils import timezone
+    from datetime import timedelta
+    conv_enrichies.sort(key=lambda c: c['dernier_message'].date_envoi if c['dernier_message'] else (timezone.now() - timedelta(days=3650)), reverse=True)
 
     return render(request, 'open_conversation_desktop.html', {
         'conversation': conversation,
