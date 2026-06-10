@@ -15,8 +15,16 @@
 <div class="lg:col-span-1 flex flex-col gap-lg">
 <section class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm text-center">
 <div class="relative inline-block mb-md">
-<img alt="Mentor Profile" class="w-32 h-32 rounded-full border-4 border-primary-fixed p-1 object-cover" data-alt="A professional portrait of a senior mentor with a background in computer science, wearing a smart casual outfit. The image has a clean, high-key lighting setup with a soft bokeh background representing a modern office or laboratory. The color scheme is consistent with the IFRI_MentorLink brand, featuring crisp whites and calming indigo highlights that emphasize expertise and approachability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBpSwINaAb9bwxJiJm1a0jNYrDb9P_uy7ovdZDDrjzsodzzr7YU0l7yHfhFTk0Z03fMnVRaSYd11Aa7Zd_7rdzu2jupC9HQg4cqyyFPNx62aBSXSVBNAhlPV6MbcwCahY2JLfnZu_mZG-yidXk2z4Uj0jLnr9L9fTsA1HxeYOCV1Oy1PAbs8CIxi0S6Jm4DDLnrhrX7NbXCwaImQ8GqPxRP4xisERALVn_WaPfnNUspYsY3fgTT0bKciZ9ko1hqxzd6XIhYfxKz_GA"/>
-<div class="absolute bottom-1 right-1 bg-secondary text-on-secondary px-sm py-xs rounded-full text-xs font-bold border-2 border-white">TOP MENTOR</div>
+{% if annonce.auteur.photo_profil %}
+    <img alt="Mentor Profile" class="w-32 h-32 rounded-full border-4 border-primary-fixed p-1 object-cover" src="{{ annonce.auteur.photo_profil.url }}"/>
+{% else %}
+    <div class="w-32 h-32 rounded-full border-4 border-primary-fixed p-1 bg-surface-container flex items-center justify-center mx-auto text-4xl text-primary font-bold uppercase">
+        {{ annonce.auteur.prenom|first }}{{ annonce.auteur.nom|first }}
+    </div>
+{% endif %}
+<div class="absolute bottom-1 right-1 bg-secondary text-on-secondary px-sm py-xs rounded-full text-xs font-bold border-2 border-white">
+    {% if annonce.auteur.role == 'mentor' %}MENTOR{% elif annonce.auteur.role == 'mentore' %}MENTORÉ{% else %}TOP MENTOR{% endif %}
+</div>
 </div>
 <h1 class="font-headline-sm text-headline-sm text-on-surface">{{ annonce.auteur.prenom }} {{ annonce.auteur.nom }}</h1>
 <p class="font-body-md text-body-md text-on-surface-variant mb-md">Membre IFRI MentorLink</p>
@@ -27,7 +35,7 @@
 </div>
 </section>
 <section class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm space-y-md">
-<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Session Details</h3>
+<h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">Détails de l'Annonce</h3>
 <div class="space-y-sm">
 <div class="flex items-center gap-sm">
 <div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
@@ -65,31 +73,26 @@
 <!-- Right Column: Bio, Subjects & Response -->
 <div class="lg:col-span-2 flex flex-col gap-lg">
 <section class="bg-surface-container-lowest p-xl rounded-xl border border-outline-variant shadow-sm">
+<!-- Header (Type, Title, Share) -->
 <div class="flex justify-between items-start mb-lg">
-<div>
-<div>
-<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest block mb-xs">{{ annonce.get_type_publication_display }}</span>
-<h2 class="font-headline-md text-headline-md text-on-surface">{{ annonce.competence.nom }}</h2>
+    <div>
+        <span class="font-label-sm text-label-sm text-primary uppercase tracking-widest block mb-xs">{{ annonce.get_type_publication_display }}</span>
+        <h2 class="font-headline-md text-headline-md text-on-surface">{{ annonce.competence.nom }}</h2>
+    </div>
+    <div class="p-sm bg-surface-container flex items-center justify-center rounded-xl cursor-pointer hover:bg-surface-container-high transition-colors">
+        <span class="material-symbols-outlined text-primary" data-icon="share">share</span>
+    </div>
 </div>
-<div class="p-sm bg-surface-container flex items-center justify-center rounded-xl">
-<span class="material-symbols-outlined text-primary" data-icon="share">share</span>
+
+<!-- Description -->
+<div class="mb-xl">
+    <h3 class="font-headline-sm text-headline-sm mb-sm">Description</h3>
+    <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
+        {{ annonce.description|linebreaksbr }}
+    </p>
 </div>
-</div>
-<div class="mb-lg">
-<h3 class="font-headline-sm text-headline-sm mb-sm">Description</h3>
-<p class="font-body-md text-body-md text-on-surface-variant leading-relaxed">
-    {{ annonce.description|linebreaksbr }}
-</p>
-</div>
-<div class="p-lg bg-primary-fixed text-on-primary-fixed rounded-xl mb-xl border border-primary-container/30">
-<div class="flex items-start gap-md">
-<span class="material-symbols-outlined mt-1" data-icon="info">info</span>
-<div>
-<p class="font-label-md text-label-md font-bold mb-1">Mentor's Note</p>
-<p class="font-body-sm text-body-sm opacity-90">"I am currently looking for students who are specifically interested in generative AI and ethical data practices. If you have a passion for these areas, let's connect!"</p>
-</div>
-</div>
-</div>
+
+<!-- Actions -->
 <div class="flex items-center gap-md">
 <button class="flex-grow bg-primary text-on-primary font-headline-sm text-headline-sm py-md rounded-xl hover:bg-primary-container transition-all flex items-center justify-center gap-md shadow-lg shadow-primary/20">
                                     {% if annonce.type_publication == 'offre' %}Répondre à l'offre{% else %}Proposer mon aide{% endif %}
@@ -99,7 +102,7 @@
 <span class="material-symbols-outlined" data-icon="bookmark">bookmark</span>
 </button>
 </div>
-</div></section>
+</section>
 <!-- Additional Context / Bento Style Small Cards -->
 <div class="grid grid-cols-2 gap-lg">
 <div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm">
